@@ -50,12 +50,12 @@ export default function Router() {
           ],
         },
         {
-          path: '/dashboard/spotContent',
+          path: '/dashboard/spot-content',
         children: [
-            { element: <Navigate to="/dashboard/spotContent/list" replace />, index: true },
-            { path: '/dashboard/spotContent/list', element: <SpotContentList /> },
-            { path: '/dashboard/spotContent/add', element: <AddSpotContent /> },
-            { path: '/dashboard/spotContent/edit/:spotContentId', element: <EditSpotContent /> },
+            { element: <Navigate to="/dashboard/spot-content/list" replace />, index: true },
+            { path: '/dashboard/spot-content/list', element: <SpotContentList /> },
+            { path: '/dashboard/spot-content/add', element: <AddSpotContent /> },
+            { path: '/dashboard/spot-content/edit/:spotContentId', element: <EditSpotContent /> },
           ],
         },
       ],

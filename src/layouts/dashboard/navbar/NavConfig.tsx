@@ -52,11 +52,11 @@ const navConfig = [
       },
       {
         title: 'spotContent',
-        path: '/dashboard/spotContent',
+        path: '/dashboard/spot-content',
         icon: ICONS.user,
         children: [
-          { title: 'Spot Content List', path: '/dashboard/spotContent/list' },
-          { title: 'Add Spot Content', path: '/dashboard/spotContent/add' },
+          { title: 'Spot Content List', path: '/dashboard/spot-content/list' },
+          { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
         ],
       },
     ],

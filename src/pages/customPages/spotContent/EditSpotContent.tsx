@@ -1,21 +1,55 @@
-import SpotContentForm
-    from '../../../components/customComponents/spotContentComponent/SpotContentForm';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSpotContentQuery, useUpdateSpotContentMutation } from 'src/services/SpotContentApi';
+import SpotContentForm from '../../../components/customComponents/spotContentComponent/SpotContentForm';
+import Error from '../shared/Error';
+import Loading from '../shared/Loading';
 
 const EditSpotContent = () => {
+  const params = useParams();
+  const paramsId: any = params.spotContentId;
+  var defaultValues: any = {};
 
-  //Default Values Of Spot
-  const defaultValues = { 
-    "name": "Spot Content Name",
-    "contentUrl": "www.spotContentUrl.com"
-  }
+  //Get Spot Content By Id
+  const { data: spotContentData, error, isLoading } = useSpotContentQuery(paramsId);
 
-  const onSubmit = ( data: any ) => {
+ // Update the data 
+ const [updateSpotContent, result] = useUpdateSpotContentMutation();
+
+ //Check the status
+ const response: any = result
+ useEffect(() => {
+   if (response.isSuccess) {
+    //  toast.success(response.data.status)
+   }
+   if (response.isError) {
+    //  toast.error(response.error.data.error)
+   }
+ }, [response]);
+
+  //Loading State
+  if (isLoading) return <Loading />;
+
+  // Return an error if there is an error
+  if (error) return <Error />;
+
+  //Assign the data to a variable
+  defaultValues = spotContentData;
+
+  const onSubmit = (data: any) => {
     console.log(data);
-  }
+    updateSpotContent(data);
+  };
 
   return (
-    <div><SpotContentForm formTitle={"Edit Spot Content"} defaultValues={defaultValues} onFormSubmit={onSubmit}/></div>
-  )
-}
+    <div>
+      <SpotContentForm
+        formTitle={'Edit Spot Content'}
+        defaultValues={defaultValues}
+        onFormSubmit={onSubmit}
+      />
+    </div>
+  );
+};
 
-export default EditSpotContent
+export default EditSpotContent;
