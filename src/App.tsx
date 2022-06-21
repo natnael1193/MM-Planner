@@ -10,21 +10,30 @@ import { ProgressBarStyle } from './components/ProgressBar';
 import ThemeColorPresets from './components/ThemeColorPresets';
 import MotionLazyContainer from './components/animate/MotionLazyContainer';
 
+
+
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // ----------------------------------------------------------------------
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ThemeColorPresets>
-        <RtlLayout>
-          <MotionLazyContainer>
-            <ProgressBarStyle />
-            <Settings />
-            <ScrollToTop />
-            <Router />
-          </MotionLazyContainer>
-        </RtlLayout>
-      </ThemeColorPresets>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <ThemeColorPresets>
+          <RtlLayout>
+            <MotionLazyContainer>
+              <ProgressBarStyle />
+              <Settings />
+              <ScrollToTop />
+              <Router />
+            </MotionLazyContainer>
+          </RtlLayout>
+        </ThemeColorPresets>
+      </ThemeProvider>
+    </Provider>
   );
 }

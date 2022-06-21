@@ -41,6 +41,24 @@ const navConfig = [
           { title: 'Six', path: '/dashboard/user/six' },
         ],
       },
+      {
+        title: 'spot',
+        path: '/dashboard/spot',
+        icon: ICONS.user,
+        children: [
+          { title: 'Spot List', path: '/dashboard/spot/list' },
+          { title: 'Add Spot', path: '/dashboard/spot/add' },
+        ],
+      },
+      {
+        title: 'spotContent',
+        path: '/dashboard/spotContent',
+        icon: ICONS.user,
+        children: [
+          { title: 'Spot Content List', path: '/dashboard/spotContent/list' },
+          { title: 'Add Spot Content', path: '/dashboard/spotContent/add' },
+        ],
+      },
     ],
   },
 ];

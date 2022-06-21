@@ -6,6 +6,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
+
 // ----------------------------------------------------------------------
 
 const Loadable = (Component: ElementType) => (props: any) => {
@@ -39,6 +40,24 @@ export default function Router() {
             { path: '/dashboard/user/six', element: <PageSix /> },
           ],
         },
+        {
+          path: '/dashboard/spot',
+        children: [
+            { element: <Navigate to="/dashboard/spot/list" replace />, index: true },
+            { path: '/dashboard/spot/list', element: <SpotList /> },
+            { path: '/dashboard/spot/add', element: <AddSpot /> },
+            { path: '/dashboard/spot/edit/:spotId', element: <EditSpot /> },
+          ],
+        },
+        {
+          path: '/dashboard/spotContent',
+        children: [
+            { element: <Navigate to="/dashboard/spotContent/list" replace />, index: true },
+            { path: '/dashboard/spotContent/list', element: <SpotContentList /> },
+            { path: '/dashboard/spotContent/add', element: <AddSpotContent /> },
+            { path: '/dashboard/spotContent/edit/:spotContentId', element: <EditSpotContent /> },
+          ],
+        },
       ],
     },
     {
@@ -61,3 +80,15 @@ const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
 const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
 const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+
+
+//Spot Content
+const SpotContentList = Loadable(lazy(() => import('../pages/customPages/spotContent/SpotContentList')));
+const AddSpotContent = Loadable(lazy(() => import('../pages/customPages/spotContent/AddSpotContent')));
+const EditSpotContent = Loadable(lazy(() => import('../pages/customPages/spotContent/EditSpotContent')));
+
+//Spot
+const SpotList = Loadable(lazy(() => import('../pages/customPages/spot/SpotList')));
+const AddSpot = Loadable(lazy(() => import('../pages/customPages/spot/AddSpot')));
+const EditSpot = Loadable(lazy(() => import('../pages/customPages/spot/EditSpot')));
+
