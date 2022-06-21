@@ -1,11 +1,11 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDeleteSpotContentMutation } from 'src/services/SpotContentApi';
 
-const SpotContentListComponent = ({ spotContentData }: any) => {
+const SpotContentListComponent = ({ spotContentData, dataGridTitle }: any) => {
 
   //Delete Spot Content
   const [ deleteSpotContent ] = useDeleteSpotContentMutation();
@@ -46,6 +46,7 @@ const SpotContentListComponent = ({ spotContentData }: any) => {
   ];
   return (
     <div>
+      <Typography variant="h3" sx={{ mb: 3 }}>{dataGridTitle}</Typography>
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
           rows={spotContentData}

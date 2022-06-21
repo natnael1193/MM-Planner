@@ -7,6 +7,7 @@ import Error from '../shared/Error';
 // import BreadCrumb from '../../breadCrumb/BreadCrumb';
 import SpotContentListComponent
     from '../../../components/customComponents/spotContentComponent/SpotContentListComponent';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 
 const SpotContentList = () => {
@@ -27,7 +28,14 @@ const SpotContentList = () => {
     <Error/>
   )
   return (
-    <div><SpotContentListComponent spotContentData={spotContentData}/></div>
+    <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Spot Content'}
+        child={'List'}
+        parentLink={'/dashboard/spot-content/list'}
+      />
+      <SpotContentListComponent spotContentData={spotContentData} dataGridTitle={"Spot Content List"}/></div>
   )
 }
 

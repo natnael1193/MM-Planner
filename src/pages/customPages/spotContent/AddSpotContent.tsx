@@ -2,6 +2,7 @@ import SpotContentForm from '../../../components/customComponents/spotContentCom
 import { useNavigate } from 'react-router-dom';
 import { useAddSpotContentMutation } from 'src/services/SpotContentApi';
 import { useEffect } from 'react';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 // import { toast } from 'react-toastify';
 
 const AddSpotContent = () => {
@@ -37,6 +38,12 @@ const AddSpotContent = () => {
 
   return (
     <div>
+            <BreadCrumb
+        main={'Dashboard'}
+        parent={'Spot Content'}
+        child={'Add'}
+        parentLink={'/dashboard/spot-content/list'}
+      />
       <SpotContentForm
         formTitle={'Add Spot Content'}
         defaultValues={InitialValues}

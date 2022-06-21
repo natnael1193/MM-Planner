@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSpotContentQuery, useUpdateSpotContentMutation } from 'src/services/SpotContentApi';
 import SpotContentForm from '../../../components/customComponents/spotContentComponent/SpotContentForm';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 import Error from '../shared/Error';
 import Loading from '../shared/Loading';
 
@@ -43,6 +44,12 @@ const EditSpotContent = () => {
 
   return (
     <div>
+            <BreadCrumb
+        main={'Dashboard'}
+        parent={'Spot Content'}
+        child={'Edit'}
+        parentLink={'/dashboard/spot-content/list'}
+      />
       <SpotContentForm
         formTitle={'Edit Spot Content'}
         defaultValues={defaultValues}
