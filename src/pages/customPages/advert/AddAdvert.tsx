@@ -1,9 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useAddAdvertMutation } from 'src/services/AdvertApi';
+import AdvertForm from '../../../components/customComponents/advert/AdvertForm';
+import { useNavigate } from 'react-router-dom';
 
 const AddAdvert = () => {
-  return (
-    <div>AddAdvert</div>
-  )
-}
+  const navigate = useNavigate();
+  //Initial Values
+  const initialValues: any = {
+    name: '',
+    adevertType: '',
+    advertDetailId: '',
+  };
 
-export default AddAdvert
+  const [addAdvert, result] = useAddAdvertMutation();
+
+  //Check the status
+  const response: any = result;
+  useEffect(() => {
+    if (response.isSuccess) {
+      console.log(response);
+      navigate('/dashboard/advert/list');
+    }
+    if (response.isError) {
+      console.log(response);
+    }
+  }, [response, navigate]);
+
+  const onSubmit = (data: any) => {
+    // alert(JSON.stringify(data));
+    addAdvert(data);
+  };
+  return (
+    <div>
+      <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} onFormSubmit={onSubmit} />
+    </div>
+  );
+};
+
+export default AddAdvert;

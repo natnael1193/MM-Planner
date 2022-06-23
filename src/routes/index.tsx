@@ -134,5 +134,5 @@ const AddAdvert = Loadable(
   lazy(() => import('../pages/customPages/advert/AddAdvert'))
 );
 const EditAdvert = Loadable(
-  lazy(() => import('../pages/customPages/advertDetail/EditAdvertDetail'))
+  lazy(() => import('../pages/customPages/advert/EditAdvert'))
 );

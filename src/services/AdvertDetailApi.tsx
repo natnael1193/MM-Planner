@@ -3,7 +3,7 @@ import { AdvertDetail } from '../interfaces/AdvertDetail.interface';
 const baseURL = `http://localhost:4000`;
 
 export const advertDetailApi = createApi({
-  reducerPath: 'adDetailApi',
+  reducerPath: 'advertDetailApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseURL}`,
   }),

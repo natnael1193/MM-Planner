@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
-import AdvertDetailListComponent
-    from '../../../components/customComponents/advertDetailComponent/AdvertDetailListComponent';
+import AdvertDetailListComponent from '../../../components/customComponents/advertDetailComponent/AdvertDetailListComponent';
 
 const AdvertDetailList = () => {
   let advertDetailData: any = [];
@@ -18,10 +17,15 @@ const AdvertDetailList = () => {
 
   if (error) return <Error />;
 
-  console.log(advertDetailData)
+  console.log(advertDetailData);
   return (
-    <div><AdvertDetailListComponent advertDetailData={advertDetailData} dataGridTitle={"Advert Detail List"}/></div>
-  )
-}
+    <div>
+      <AdvertDetailListComponent
+        advertDetailData={advertDetailData}
+        dataGridTitle={'Advert Detail List'}
+      />
+    </div>
+  );
+};
 
-export default AdvertDetailList
+export default AdvertDetailList;
