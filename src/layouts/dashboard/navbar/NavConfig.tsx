@@ -42,6 +42,24 @@ const navConfig = [
         ],
       },
       {
+        title: 'Advert',
+        path: '/dashboard/detail',
+        icon: ICONS.user,
+        children: [
+          { title: 'Advert List', path: '/dashboard/advert/list' },
+          { title: 'Add Advert', path: '/dashboard/advert/add' },
+        ],
+      },
+      {
+        title: 'Advert Detail',
+        path: '/dashboard/advert-detail',
+        icon: ICONS.user,
+        children: [
+          { title: 'Advert Detail List', path: '/dashboard/advert-detail/list' },
+          { title: 'Add Advert Detail', path: '/dashboard/advert-detail/add' },
+        ],
+      },
+      {
         title: 'spot',
         path: '/dashboard/spot',
         icon: ICONS.user,

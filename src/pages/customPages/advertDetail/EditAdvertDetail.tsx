@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import SpotForm from 'src/components/customComponents/spotComponent/SpotForm';
-import { useSpotQuery, useUpdateSpotMutation } from 'src/services/SpotApi';
+import { useAdvertDetailQuery, useUpdateAdvertDetailMutation } from 'src/services/AdvertDetailApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import AdvertDetailForm from '../../../components/customComponents/advertDetailComponent/AdvertDetailForm';
 
-const EditSpot = () => {
+const EditAdvertDetail = () => {
   const params = useParams();
-  const paramsId: any = params.spotId;
+  const paramsId: any = params.advertDetailId;
   var defaultValues: any = {};
 
-  //Get Spot Content By Id
-  const { data: spotData, error, isLoading } = useSpotQuery(paramsId);
+  //Get Advert Detail By Id
+  const { data: advertDetailData, error, isLoading } = useAdvertDetailQuery(paramsId);
 
-  // Update the data
-  const [updateSpot, result] = useUpdateSpotMutation();
+  //Update the data
+  const [updateAdvertDetail, result] = useUpdateAdvertDetailMutation();
 
   //Check the status
   const response: any = result;
@@ -34,24 +34,21 @@ const EditSpot = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  //Assign the data to a variable
-  defaultValues = spotData;
-
+  defaultValues = advertDetailData;
   const onSubmit = (data: any) => {
     console.log(data);
-    updateSpot(data);
+    updateAdvertDetail(data);
   };
+
   return (
     <div>
-      <BreadCrumb
-        main={'Dashboard'}
-        parent={'Spot'}
-        child={'Edit'}
-        parentLink={'/dashboard/spot/list'}
+      <AdvertDetailForm
+        formTitle={'Edit Advert Detail'}
+        defaultValues={defaultValues}
+        onFormSubmit={onSubmit}
       />
-      <SpotForm formTitle={'Edit Spot'} defaultValues={defaultValues} onFormSubmit={onSubmit} />
     </div>
   );
 };
 
-export default EditSpot;
+export default EditAdvertDetail;

@@ -1,5 +1,5 @@
 export interface SpotContent {
-  "id": any;
-  "name": string;
-  "contentUrl": string;
+  id: any;
+  name: string;
+  contentUrl: string;
 }

@@ -1,28 +1,28 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAddSpotMutation } from 'src/services/SpotApi';
-import SpotForm from '../../../components/customComponents/spotComponent/SpotForm';
-import BreadCrumb from '../breadCrumb/BreadCrumb';
+import { useAddAdvertDetailMutation } from 'src/services/AdvertDetailApi';
+import AdvertDetailForm from '../../../components/customComponents/advertDetailComponent/AdvertDetailForm';
 
-const AddSpot = () => {
+const AddAdvertDetail = () => {
   const navigate = useNavigate();
 
   //Initial Values Of Spot
   const initialValues = {
+    quantity: '',
     contentType: '',
     contentLength: '',
     spotContentIds: [],
   };
 
   //Add New Data
-  const [addSpot, result] = useAddSpotMutation();
+  const [addAdvertDetail, result] = useAddAdvertDetailMutation();
 
   //Check the status
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
       console.log(response);
-      navigate('/dashboard/spot/list');
+      navigate('/dashboard/advert-detail/list');
     }
     if (response.isError) {
       console.log(response);
@@ -31,20 +31,18 @@ const AddSpot = () => {
 
   const onSubmit = (data: any) => {
     console.log(data);
-    addSpot(data);
+    addAdvertDetail(data);
   };
 
   return (
     <div>
-      <BreadCrumb
-        main={'Dashboard'}
-        parent={'Spot'}
-        child={'Add'}
-        parentLink={'/dashboard/spot/list'}
+      <AdvertDetailForm
+        formTitle={'Add Advert Detail'}
+        defaultValues={initialValues}
+        onFormSubmit={onSubmit}
       />
-      <SpotForm formTitle={'Add Spot'} defaultValues={initialValues} onFormSubmit={onSubmit} />
     </div>
   );
 };
 
-export default AddSpot;
+export default AddAdvertDetail;

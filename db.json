@@ -26,6 +26,94 @@
       "name": "Abraham Mays",
       "contentUrl": "Deserunt consectetur",
       "id": 2
+    },
+    {
+      "name": "Raphael Kidd",
+      "contentUrl": "Illum dolor nisi es",
+      "id": 3
+    },
+    {
+      "name": "Amber Stanley",
+      "contentUrl": "Occaecat nulla place",
+      "id": 4
+    },
+    {
+      "name": "Myra Gates",
+      "contentUrl": "Libero ab perferendi",
+      "id": 5
+    }
+  ],
+  "spot": [
+    {
+      "contentType": "Sed qui proident au",
+      "contentLength": "Esse aliquam sunt cu",
+      "spotContentIds": "5,9",
+      "id": 3
+    },
+    {
+      "contentType": "VIDEO",
+      "contentLength": "449",
+      "spotContentIds": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "id": 5
+    },
+    {
+      "contentType": "AUDIO",
+      "contentLength": "32",
+      "spotContentIds": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "id": 6
+    },
+    {
+      "contentType": "VIDEO",
+      "contentLength": "449",
+      "spotContentIds": [
+        1,
+        2,
+        3
+      ],
+      "id": 8
+    }
+  ],
+  "advertDetail": [
+    {
+      "quantity": "484",
+      "contentType": "VIDEO",
+      "contentLength": "Consectetur aliquip ",
+      "spotContentIds": [
+        1,
+        2
+      ],
+      "id": 2
+    },
+    {
+      "quantity": "23",
+      "contentType": "VIDEO",
+      "contentLength": "449",
+      "spotContentIds": [
+        2,
+        3,
+        4
+      ],
+      "id": 3
+    },
+    {
+      "quantity": "22",
+      "contentType": "AUDIO",
+      "contentLength": "33",
+      "spotContentIds": [
+        1,
+        5
+      ],
+      "id": 4
     }
   ]
 }

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAddSpotContentMutation } from 'src/services/SpotContentApi';
 import { useEffect } from 'react';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
-// import { toast } from 'react-toastify';
 
 const AddSpotContent = () => {
   const navigate = useNavigate();
@@ -21,13 +20,11 @@ const AddSpotContent = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      // toast.success('Success');
-      console.log(response)
+      console.log(response);
       navigate('/dashboard/spot-content/list');
     }
     if (response.isError) {
-      console.log(response)
-      // toast.error(response.error.data.error);
+      console.log(response);
     }
   }, [response, navigate]);
 
@@ -37,8 +34,8 @@ const AddSpotContent = () => {
   };
 
   return (
-    <div>
-            <BreadCrumb
+    <>
+      <BreadCrumb
         main={'Dashboard'}
         parent={'Spot Content'}
         child={'Add'}
@@ -49,7 +46,7 @@ const AddSpotContent = () => {
         defaultValues={InitialValues}
         onFormSubmit={onSubmit}
       />
-    </div>
+    </>
   );
 };
 

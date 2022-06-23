@@ -14,19 +14,19 @@ const EditSpotContent = () => {
   //Get Spot Content By Id
   const { data: spotContentData, error, isLoading } = useSpotContentQuery(paramsId);
 
- // Update the data 
- const [updateSpotContent, result] = useUpdateSpotContentMutation();
+  // Update the data
+  const [updateSpotContent, result] = useUpdateSpotContentMutation();
 
- //Check the status
- const response: any = result
- useEffect(() => {
-   if (response.isSuccess) {
-    //  toast.success(response.data.status)
-   }
-   if (response.isError) {
-    //  toast.error(response.error.data.error)
-   }
- }, [response]);
+  //Check the status
+  const response: any = result;
+  useEffect(() => {
+    if (response.isSuccess) {
+      //  toast.success(response.data.status)
+    }
+    if (response.isError) {
+      //  toast.error(response.error.data.error)
+    }
+  }, [response]);
 
   //Loading State
   if (isLoading) return <Loading />;
@@ -43,8 +43,8 @@ const EditSpotContent = () => {
   };
 
   return (
-    <div>
-            <BreadCrumb
+    <>
+      <BreadCrumb
         main={'Dashboard'}
         parent={'Spot Content'}
         child={'Edit'}
@@ -55,7 +55,7 @@ const EditSpotContent = () => {
         defaultValues={defaultValues}
         onFormSubmit={onSubmit}
       />
-    </div>
+    </>
   );
 };
 

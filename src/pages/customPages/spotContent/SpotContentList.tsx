@@ -1,14 +1,11 @@
-import { Grid, CircularProgress, Typography, Button } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Grid, CircularProgress, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useSpotContentsQuery } from 'src/services/SpotContentApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
-// import BreadCrumb from '../../breadCrumb/BreadCrumb';
-import SpotContentListComponent
-    from '../../../components/customComponents/spotContentComponent/SpotContentListComponent';
+import SpotContentListComponent from '../../../components/customComponents/spotContentComponent/SpotContentListComponent';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
-
 
 const SpotContentList = () => {
   let spotContentData: any = [];
@@ -16,27 +13,27 @@ const SpotContentList = () => {
   //Get All Spot Contents
   const { data, error, isLoading, isSuccess, isFetching } = useSpotContentsQuery();
 
-  if(isLoading || isFetching) return(
-    <Loading/>
-  )
+  if (isLoading || isFetching) return <Loading />;
 
   if (isSuccess) {
     spotContentData = data;
   }
 
-  if(error) return(
-    <Error/>
-  )
+  if (error) return <Error />;
   return (
-    <div>
+    <>
       <BreadCrumb
         main={'Dashboard'}
         parent={'Spot Content'}
         child={'List'}
         parentLink={'/dashboard/spot-content/list'}
       />
-      <SpotContentListComponent spotContentData={spotContentData} dataGridTitle={"Spot Content List"}/></div>
-  )
-}
+      <SpotContentListComponent
+        spotContentData={spotContentData}
+        dataGridTitle={'Spot Content List'}
+      />
+    </>
+  );
+};
 
-export default SpotContentList
+export default SpotContentList;

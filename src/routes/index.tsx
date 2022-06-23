@@ -6,7 +6,6 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
-
 // ----------------------------------------------------------------------
 
 const Loadable = (Component: ElementType) => (props: any) => {
@@ -41,8 +40,26 @@ export default function Router() {
           ],
         },
         {
+          path: '/dashboard/advert',
+          children: [
+            { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
+            { path: '/dashboard/advert/list', element: <AdvertList /> },
+            { path: '/dashboard/advert/add', element: <AddAdvert /> },
+            { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
+          ],
+        },
+        {
+          path: '/dashboard/advert-detail',
+          children: [
+            { element: <Navigate to="/dashboard/advert-detail/list" replace />, index: true },
+            { path: '/dashboard/advert-detail/list', element: <AdvertDetailList /> },
+            { path: '/dashboard/advert-detail/add', element: <AddAdvertDetail /> },
+            { path: '/dashboard/advert-detail/edit/:advertDetailId', element: <EditAdvertDetail /> },
+          ],
+        },
+        {
           path: '/dashboard/spot',
-        children: [
+          children: [
             { element: <Navigate to="/dashboard/spot/list" replace />, index: true },
             { path: '/dashboard/spot/list', element: <SpotList /> },
             { path: '/dashboard/spot/add', element: <AddSpot /> },
@@ -51,7 +68,7 @@ export default function Router() {
         },
         {
           path: '/dashboard/spot-content',
-        children: [
+          children: [
             { element: <Navigate to="/dashboard/spot-content/list" replace />, index: true },
             { path: '/dashboard/spot-content/list', element: <SpotContentList /> },
             { path: '/dashboard/spot-content/add', element: <AddSpotContent /> },
@@ -81,14 +98,41 @@ const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
 const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 
-
 //Spot Content
-const SpotContentList = Loadable(lazy(() => import('../pages/customPages/spotContent/SpotContentList')));
-const AddSpotContent = Loadable(lazy(() => import('../pages/customPages/spotContent/AddSpotContent')));
-const EditSpotContent = Loadable(lazy(() => import('../pages/customPages/spotContent/EditSpotContent')));
+const SpotContentList = Loadable(
+  lazy(() => import('../pages/customPages/spotContent/SpotContentList'))
+);
+const AddSpotContent = Loadable(
+  lazy(() => import('../pages/customPages/spotContent/AddSpotContent'))
+);
+const EditSpotContent = Loadable(
+  lazy(() => import('../pages/customPages/spotContent/EditSpotContent'))
+);
 
 //Spot
 const SpotList = Loadable(lazy(() => import('../pages/customPages/spot/SpotList')));
 const AddSpot = Loadable(lazy(() => import('../pages/customPages/spot/AddSpot')));
 const EditSpot = Loadable(lazy(() => import('../pages/customPages/spot/EditSpot')));
 
+//Advert Detail
+const AdvertDetailList = Loadable(
+  lazy(() => import('../pages/customPages/advertDetail/AdvertDetailList'))
+);
+const AddAdvertDetail = Loadable(
+  lazy(() => import('../pages/customPages/advertDetail/AddAdvertDetail'))
+);
+const EditAdvertDetail = Loadable(
+  lazy(() => import('../pages/customPages/advertDetail/EditAdvertDetail'))
+);
+
+
+//Advert
+const AdvertList = Loadable(
+  lazy(() => import('../pages/customPages/advert/AdvertList'))
+);
+const AddAdvert = Loadable(
+  lazy(() => import('../pages/customPages/advert/AddAdvert'))
+);
+const EditAdvert = Loadable(
+  lazy(() => import('../pages/customPages/advertDetail/EditAdvertDetail'))
+);
