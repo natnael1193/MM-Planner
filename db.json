@@ -6,6 +6,38 @@
       "author": "typicode"
     }
   ],
+  "campaign": [
+    {
+      "name": "Dawn Ball",
+      "startDate": "2011-10-05",
+      "endDate": "2010-03-20",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Chase Walker",
+      "startDate": "2004-12-10",
+      "endDate": "1987-12-17"
+    },
+    {
+      "id": 3,
+      "name": "Simone Campos",
+      "startDate": "1984-12-26",
+      "endDate": "2013-10-15"
+    },
+    {
+      "id": 5,
+      "name": "Murphy Craft",
+      "startDate": "2014-06-22",
+      "endDate": "1999-07-07"
+    },
+    {
+      "name": "Lysandra Acosta",
+      "startDate": "1974-02-25",
+      "endDate": "1992-09-12",
+      "id": 6
+    }
+  ],
   "comments": [
     {
       "id": 1,
@@ -73,19 +105,31 @@
       "id": 6
     },
     {
-      "contentType": "VIDEO",
+      "contentType": "Sapiente sunt omnis ",
+      "contentLength": "Perspiciatis exerci",
+      "spotContentIds": [
+        2,
+        3,
+        4
+      ],
+      "id": 7
+    },
+    {
+      "contentType": "AUDIO",
       "contentLength": "449",
       "spotContentIds": [
         1,
         2,
-        3
+        3,
+        4,
+        5
       ],
       "id": 8
     }
   ],
   "advertDetail": [
     {
-      "quantity": "484",
+      "quantity": "00",
       "contentType": "VIDEO",
       "contentLength": "Consectetur aliquip ",
       "spotContentIds": [
@@ -104,18 +148,6 @@
         4
       ],
       "id": 3
-    },
-    {
-      "quantity": "22",
-      "contentType": "AUDIO",
-      "contentLength": "33",
-      "spotContentIds": [
-        1,
-        5,
-        2,
-        3
-      ],
-      "id": 4
     }
   ],
   "advert": [
@@ -138,6 +170,152 @@
       "advertDetailId": 3,
       "advertType": "Molestiae aliquip mo",
       "id": 3
+    }
+  ],
+  "externalPrograms": [
+    {
+      "id": 1,
+      "name": "Ebs",
+      "programs": [
+        {
+          "id": 1,
+          "name": "Ebs Program 1",
+          "startDate": "2022-04-04",
+          "endDate": "2022-05-04",
+          "schedules": [
+            {
+              "id": 1,
+              "day": "monday",
+              "startTime": "2022-04-04T09:06:00",
+              "endTime": "2022-04-04T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 2,
+              "day": "tuesday",
+              "startTime": "2022-04-05T09:06:00",
+              "endTime": "2022-04-05T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Ebs Program 2",
+          "startDate": "2022-04-04",
+          "endDate": "2022-05-04",
+          "schedules": [
+            {
+              "id": 3,
+              "day": "monday",
+              "startTime": "2022-04-04T10:06:00",
+              "endTime": "2022-04-04T11:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 4,
+              "day": "tuesday",
+              "startTime": "2022-04-05T09:06:00",
+              "endTime": "2022-04-05T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 5,
+              "day": "wednesday",
+              "startTime": "2022-04-06T09:06:00",
+              "endTime": "2022-04-06T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Fana",
+      "programs": [
+        {
+          "id": 3,
+          "name": "Fana Program 3",
+          "startDate": "2022-04-04",
+          "endDate": "2022-05-04",
+          "schedules": [
+            {
+              "id": 6,
+              "day": "monday",
+              "startTime": "2022-04-04T09:06:00",
+              "endTime": "2022-04-04T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 7,
+              "day": "tuesday",
+              "startTime": "2022-04-05T09:06:00",
+              "endTime": "2022-04-05T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Fana Program 2",
+          "startDate": "2022-04-04",
+          "endDate": "2022-05-04",
+          "schedules": [
+            {
+              "id": 8,
+              "day": "monday",
+              "startTime": "2022-04-04T10:06:00",
+              "endTime": "2022-04-04T11:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 9,
+              "day": "tuesday",
+              "startTime": "2022-04-05T09:06:00",
+              "endTime": "2022-04-05T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            },
+            {
+              "id": 10,
+              "day": "wednesday",
+              "startTime": "2022-04-06T09:06:00",
+              "endTime": "2022-04-06T10:06:00",
+              "priceClassificationId": {
+                "id": 24,
+                "name": "PTA"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

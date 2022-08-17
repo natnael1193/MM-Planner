@@ -25,7 +25,7 @@ export default function Router() {
       path: '/',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/one" replace />, index: true },
+        { element: <Navigate to="/dashboard/advert-plan" replace />, index: true },
         { path: '/dashboard', element: <Navigate to="/dashboard/one" replace />, index: true },
         { path: '/dashboard/one', element: <PageOne /> },
         { path: '/dashboard/two', element: <PageTwo /> },
@@ -37,6 +37,15 @@ export default function Router() {
             { path: '/dashboard/user/four', element: <PageFour /> },
             { path: '/dashboard/user/five', element: <PageFive /> },
             { path: '/dashboard/user/six', element: <PageSix /> },
+          ],
+        },
+        {
+          path: '/dashboard/advert-plan',
+          children: [
+            { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
+            // { path: '/dashboard/advert/list', element: <AdvertList /> },
+            { path: '/dashboard/advert-plan/add', element: <AddAdvertPlan /> },
+            // { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
           ],
         },
         {
@@ -54,7 +63,10 @@ export default function Router() {
             { element: <Navigate to="/dashboard/advert-detail/list" replace />, index: true },
             { path: '/dashboard/advert-detail/list', element: <AdvertDetailList /> },
             { path: '/dashboard/advert-detail/add', element: <AddAdvertDetail /> },
-            { path: '/dashboard/advert-detail/edit/:advertDetailId', element: <EditAdvertDetail /> },
+            {
+              path: '/dashboard/advert-detail/edit/:advertDetailId',
+              element: <EditAdvertDetail />,
+            },
           ],
         },
         {
@@ -73,6 +85,15 @@ export default function Router() {
             { path: '/dashboard/spot-content/list', element: <SpotContentList /> },
             { path: '/dashboard/spot-content/add', element: <AddSpotContent /> },
             { path: '/dashboard/spot-content/edit/:spotContentId', element: <EditSpotContent /> },
+          ],
+        },
+        {
+          path: '/dashboard/campaign',
+          children: [
+            { element: <Navigate to="/dashboard/campaign/list" replace />, index: true },
+            { path: '/dashboard/campaign/list', element: <CampaignList /> },
+            { path: '/dashboard/campaign/add', element: <AddCampaign /> },
+            { path: '/dashboard/campaign/edit/:campaignId', element: <EditCampaign /> },
           ],
         },
       ],
@@ -125,14 +146,16 @@ const EditAdvertDetail = Loadable(
   lazy(() => import('../pages/customPages/advertDetail/EditAdvertDetail'))
 );
 
-
 //Advert
-const AdvertList = Loadable(
-  lazy(() => import('../pages/customPages/advert/AdvertList'))
-);
-const AddAdvert = Loadable(
-  lazy(() => import('../pages/customPages/advert/AddAdvert'))
-);
-const EditAdvert = Loadable(
-  lazy(() => import('../pages/customPages/advert/EditAdvert'))
-);
+const AdvertList = Loadable(lazy(() => import('../pages/customPages/advert/AdvertList')));
+const AddAdvert = Loadable(lazy(() => import('../pages/customPages/advert/AddAdvert')));
+const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditAdvert')));
+
+//Advert Plan
+const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
+
+
+//Campaign
+const CampaignList = Loadable(lazy(() => import('../pages/customPages/campaign/CampaignList')));
+const AddCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/AddCampaign')));
+const EditCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/EditCampaign')));

@@ -2,7 +2,7 @@ import React from 'react'
 import { useAdvertsQuery } from 'src/services/AdvertApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
-import AdvertListComponent from '../../../components/customComponents/advert/AdvertListComponent';
+import AdvertListComponent from '../../../components/customComponents/advertComponent/AdvertListComponent';
 
 const AdvertList = () => {
   let advertData: any = [];

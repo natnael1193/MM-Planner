@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAddAdvertMutation } from 'src/services/AdvertApi';
-import AdvertForm from '../../../components/customComponents/advert/AdvertForm';
+import AdvertForm from '../../../components/customComponents/advertComponent/AdvertForm';
 import { useNavigate } from 'react-router-dom';
 
 const AddAdvert = () => {

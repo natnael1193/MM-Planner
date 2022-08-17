@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdvertForm from 'src/components/customComponents/advertComponent/AdvertForm';
-import { useAdvertQuery, useUpdateAdvertMutation } from 'src/services/AdvertApi';
+import { useCampaignQuery, useUpdateCampaignMutation } from 'src/services/CamapignApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+import CampaignForm from 'src/components/customComponents/campaignComponent/CampaignForm';
 
-const EditAdvert = () => {
+const EditCampaign = () => {
   const params = useParams();
-  const paramsId: any = params.advertId;
+  const paramsId: any = params.campaignId;
   var defaultValues: any = {};
 
-  //Get Advert  By Id
-  const { data: advertData, error, isLoading } = useAdvertQuery(paramsId);
+  //Get Campaign By Id
+  const { data: campaignData, error, isLoading } = useCampaignQuery(paramsId);
 
   //Update the data
-  const [updateAdvert, result] = useUpdateAdvertMutation();
+  const [updateCampaing, result] = useUpdateCampaignMutation();
 
-  //Check the status
+  //Check the stauts
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
@@ -33,21 +33,21 @@ const EditAdvert = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  defaultValues = advertData;
+  defaultValues = campaignData;
+
   const onSubmit = (data: any) => {
-    updateAdvert(data);
+    updateCampaing(data);
   };
 
   return (
     <div>
-      <AdvertForm
-        formTitle={'Edit Advert '}
+      <CampaignForm
+        formTitle={'Edit Campaign '}
         defaultValues={defaultValues}
         onFormSubmit={onSubmit}
       />
     </div>
   );
-
 };
 
-export default EditAdvert;
+export default EditCampaign;
