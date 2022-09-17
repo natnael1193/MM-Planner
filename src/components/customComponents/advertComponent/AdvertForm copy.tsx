@@ -95,12 +95,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 </FormControl>
               </Grid>
               <ExternalProgram />
-              {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ m: 3 }}>
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ m: 3 }}>
                 <Button variant="contained" type="submit">
                   {' '}
                   Submit{' '}
                 </Button>
-              </Grid> */}
+              </Grid>
             </Grid>
           </Card>
         </form>

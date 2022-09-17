@@ -12,6 +12,11 @@ const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
   //Data Grid Header
   const columns: GridColumns = [
     {
+      field: 'name',
+      headerName: 'Spot Name',
+      width: 300,
+    },
+    {
       field: 'contentType',
       headerName: 'Content Type',
       width: 300,

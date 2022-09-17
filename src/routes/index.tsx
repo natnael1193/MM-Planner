@@ -43,9 +43,9 @@ export default function Router() {
           path: '/dashboard/advert-plan',
           children: [
             { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
-            // { path: '/dashboard/advert/list', element: <AdvertList /> },
+            { path: '/dashboard/advert-plan/list', element: <AdvertPlanList /> },
             { path: '/dashboard/advert-plan/add', element: <AddAdvertPlan /> },
-            // { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
+            { path: '/dashboard/advert-plan/edit/:advertPlanId', element: <EditAdvertPlan /> },
           ],
         },
         {
@@ -94,6 +94,14 @@ export default function Router() {
             { path: '/dashboard/campaign/list', element: <CampaignList /> },
             { path: '/dashboard/campaign/add', element: <AddCampaign /> },
             { path: '/dashboard/campaign/edit/:campaignId', element: <EditCampaign /> },
+          ],
+        },
+        {
+          path: '/dashboard/test',
+          children: [
+            { element: <Navigate to="/dashboard/test/pagination" replace />, index: true },
+            { path: '/dashboard/test/pagination', element: <Pagination /> },
+
           ],
         },
       ],
@@ -153,9 +161,20 @@ const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditA
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
-
+const EditAdvertPlan = Loadable(
+  lazy(() => import('../pages/customPages/advertPlan/EditAdvertPlan'))
+);
+const AdvertPlanList = Loadable(
+  lazy(() => import('../pages/customPages/advertPlan/AdvertPlanList'))
+);
 
 //Campaign
 const CampaignList = Loadable(lazy(() => import('../pages/customPages/campaign/CampaignList')));
 const AddCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/AddCampaign')));
 const EditCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/EditCampaign')));
+
+
+
+
+// Test
+const Pagination = Loadable(lazy(() => import('../pages/customPages/test/pagination')));

@@ -1,29 +1,103 @@
-import { Box, Card, Grid, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import DraftCampaignSummary from './DraftCampaignSummary';
 import ExternalProgram from './ExternalProgram';
+import Loading from 'src/pages/customPages/shared/Loading';
+import Error from 'src/pages/customPages/shared/Error';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
 
-const AdvertPlanForm = () => {
+const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
+  const [campaignContent, setCampaignContent] = React.useState('');
+  let campaignContentData: any = [];
+
+  //Campaign Content Data
+  const { data, isLoading, error, isSuccess } = useCampaignsQuery();
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCampaignContent(event.target.value);
+  };
+  
+  //React-hook-form
+  const { register, handleSubmit } = useForm({
+    defaultValues,
+  });
+
+  if (isLoading) return <Loading />;
+
+  if (isSuccess) {
+    campaignContentData = data;
+  }
+
+  if (error) return <Error />;
+
+  // console.log(campaignContentData);
+  // console.log(defaultValues)
+
   return (
     <div>
       <Box>
         <Card sx={{ p: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item lg={9} md={8} sm={12} xs={12}>
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ m: 2 }}>
-                <TextField label="Advert Plan Name" fullWidth />
+          <Typography variant="h3">Add Advert Plan</Typography>
+          <form onSubmit={handleSubmit(onFormSubmit)}>
+            <Grid container spacing={3} sx={{ mt: 3 }}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField label="Advert Plan Name" fullWidth {...register('name')} />
               </Grid>
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ m: 2 }}>
-                <TextField label="Advert Plan Description" multiline rows={5} fullWidth />
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <FormControl sx={{ width: '100%' }}>
+                  <InputLabel id="demo-simple-select-helper-label">Campaign</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    {...register('campaignId')}
+                    // value={campaignContent}
+                    label="Campaign"
+                    onChange={handleChange}
+                    defaultValue={defaultValues.campaignId !== undefined ? defaultValues.campaignId : ''}
+                  >
+                    {campaignContentData.map((campaign: any) => {
+                      return (
+                        <MenuItem key={campaign.id} value={campaign.id}>
+                          {campaign.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               </Grid>
-              <Grid container sx={{ pr: 3 }} spacing={1}>
+              <Grid item lg={12} md={12} sm={12} xs={12}>
+                <TextField
+                  label="Advert Plan Description"
+                  multiline
+                  rows={5}
+                  fullWidth
+                  {...register('description')}
+                />
+              </Grid>
+              {/* <Grid container sx={{ pr: 3 }} spacing={1}>
                 <ExternalProgram />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} md={4} sm={12} xs={12}>
+              </Grid> */}
+              {/* <Grid item lg={3} md={4} sm={12} xs={12}>
               <DraftCampaignSummary />
+            </Grid> */}
+              <Button type="submit" sx={{ ml: 3, mt: 2 }} variant="contained">
+                Submit
+              </Button>
             </Grid>
-          </Grid>
+          </form>
         </Card>
       </Box>
     </div>

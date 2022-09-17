@@ -1,5 +1,11 @@
 // components
 import SvgIconStyle from '../../../components/SvgIconStyle';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import AirplayIcon from '@mui/icons-material/Airplay';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DetailsIcon from '@mui/icons-material/Details';
+import RoomIcon from '@mui/icons-material/Room';
+import ComputerIcon from '@mui/icons-material/Computer';
 
 // ----------------------------------------------------------------------
 
@@ -44,16 +50,16 @@ const navConfig = [
       {
         title: 'Advert Plan',
         path: '/dashboard/advert-plan',
-        icon: ICONS.user,
+        icon: <ComputerIcon/>,
         children: [
-          // { title: 'Advert List', path: '/dashboard/advert/list' },
+          { title: 'Advert Plan List', path: '/dashboard/advert-plan/list' },
           { title: 'Add Advert Plan', path: '/dashboard/advert-plan/add' },
         ],
       },
       {
         title: 'Advert',
         path: '/dashboard/advert',
-        icon: ICONS.user,
+        icon: <AirplayIcon />,
         children: [
           { title: 'Advert List', path: '/dashboard/advert/list' },
           { title: 'Add Advert', path: '/dashboard/advert/add' },
@@ -62,7 +68,7 @@ const navConfig = [
       {
         title: 'Advert Detail',
         path: '/dashboard/advert-detail',
-        icon: ICONS.user,
+        icon: <DetailsIcon />,
         children: [
           { title: 'Advert Detail List', path: '/dashboard/advert-detail/list' },
           { title: 'Add Advert Detail', path: '/dashboard/advert-detail/add' },
@@ -71,7 +77,7 @@ const navConfig = [
       {
         title: 'spot',
         path: '/dashboard/spot',
-        icon: ICONS.user,
+        icon: <RoomIcon />,
         children: [
           { title: 'Spot List', path: '/dashboard/spot/list' },
           { title: 'Add Spot', path: '/dashboard/spot/add' },
@@ -80,7 +86,7 @@ const navConfig = [
       {
         title: 'spotContent',
         path: '/dashboard/spot-content',
-        icon: ICONS.user,
+        icon: <ContentCopyIcon />,
         children: [
           { title: 'Spot Content List', path: '/dashboard/spot-content/list' },
           { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
@@ -89,10 +95,18 @@ const navConfig = [
       {
         title: 'Campaign',
         path: '/dashboard/campaign',
-        icon: ICONS.user,
+        icon: <CampaignIcon />,
         children: [
           { title: 'Campaign List', path: '/dashboard/campaign/list' },
           { title: 'Add Campaign', path: '/dashboard/campaign/add' },
+        ],
+      },
+      {
+        title: 'Test',
+        path: '/dashboard/test',
+        icon: <CampaignIcon />,
+        children: [
+          { title: 'Pagination', path: '/dashboard/test/pagination' },
         ],
       },
     ],

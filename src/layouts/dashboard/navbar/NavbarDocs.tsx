@@ -13,7 +13,7 @@ export default function NavbarDocs() {
     >
       <DocIllustration sx={{ width: 1 }} />
 
-      <div>
+      {/* <div>
         <Typography gutterBottom variant="subtitle1">
           Hi, Rayan Moran
         </Typography>
@@ -23,7 +23,7 @@ export default function NavbarDocs() {
         </Typography>
       </div>
 
-      <Button variant="contained">Documentation</Button>
+      <Button variant="contained">Documentation</Button> */}
     </Stack>
   );
 }

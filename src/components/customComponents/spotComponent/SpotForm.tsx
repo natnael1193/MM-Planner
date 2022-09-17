@@ -49,7 +49,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   if (error) return <Error />;
 
-  console.log(spotContentData);
+  // console.log(spotContentData);
   return (
     <div>
       <Box>
@@ -59,6 +59,14 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
+                <TextField
+                  fullWidth
+                  label="Spot Name"
+                  {...register('name')}
+                  sx={{ mt: 1 }}
+                />
+              </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField
                   fullWidth
@@ -75,8 +83,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   sx={{ mt: 1 }}
                 />
               </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
-                {/* <TextField fullWidth label="Spot Contents" {...register('spotContentIds')} /> */}
+              {/* <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl sx={{ m: 1, width: '100%' }}>
                   <InputLabel id="demo-multiple-checkbox-label">Spot Contents</InputLabel>
                   <Select
@@ -86,7 +93,6 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     {...register('spotContentIds')}
                     fullWidth
                     multiple
-                    // value={defaultValues.spotContentIds}
                     onChange={handleChange}
                     input={<OutlinedInput label="Spot Contents" />}
                     renderValue={(selected) =>
@@ -95,7 +101,6 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     defaultValue={
                       defaultValues.spotContentIds !== undefined ? defaultValues.spotContentIds : []
                     }
-                    // MenuProps={MenuProps}
                   >
                     {spotContentData.map((name: any) => (
                       <MenuItem key={name.id} value={name.id}>
@@ -105,7 +110,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     ))}
                   </Select>
                 </FormControl>
-              </Grid>
+              </Grid> */}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 <Button type="submit" variant="contained" sx={{ ml: 2 }}>
                   Submit

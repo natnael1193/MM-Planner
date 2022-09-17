@@ -24,18 +24,20 @@
       "name": "Simone Campos",
       "startDate": "1984-12-26",
       "endDate": "2013-10-15"
+    }
+  ],
+  "advertPlan": [
+    {
+      "name": "Daria Hardin",
+      "description": "Voluptate voluptatib",
+      "campaignId": 2,
+      "id": 1
     },
     {
-      "id": 5,
-      "name": "Murphy Craft",
-      "startDate": "2014-06-22",
-      "endDate": "1999-07-07"
-    },
-    {
-      "name": "Lysandra Acosta",
-      "startDate": "1974-02-25",
-      "endDate": "1992-09-12",
-      "id": 6
+      "name": "Lacy Wilkerson",
+      "description": "Dolorem laudantium ",
+      "campaignId": 3,
+      "id": 2
     }
   ],
   "comments": [
@@ -77,9 +79,10 @@
   ],
   "spot": [
     {
-      "contentType": "Sed qui proident au",
-      "contentLength": "Esse aliquam sunt cu",
+      "contentType": "Illum qui incidunt",
+      "contentLength": "Perspiciatis perfer",
       "spotContentIds": "5,9",
+      "name": "Isadora Moses",
       "id": 3
     },
     {
@@ -91,63 +94,33 @@
         4,
         5
       ],
+      "name": "Spot 2",
       "id": 5
     },
     {
       "contentType": "AUDIO",
       "contentLength": "32",
       "spotContentIds": [
-        2,
-        3,
         4,
-        5
+        5,
+        1
       ],
+      "name": "Spot 3",
       "id": 6
-    },
-    {
-      "contentType": "Sapiente sunt omnis ",
-      "contentLength": "Perspiciatis exerci",
-      "spotContentIds": [
-        2,
-        3,
-        4
-      ],
-      "id": 7
-    },
-    {
-      "contentType": "AUDIO",
-      "contentLength": "449",
-      "spotContentIds": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "id": 8
     }
   ],
   "advertDetail": [
     {
-      "quantity": "00",
-      "contentType": "VIDEO",
-      "contentLength": "Consectetur aliquip ",
-      "spotContentIds": [
-        1,
-        2
-      ],
-      "id": 2
+      "quantity": "79",
+      "spotId": 2,
+      "advertId": 2,
+      "id": 1
     },
     {
-      "quantity": "23",
-      "contentType": "VIDEO",
-      "contentLength": "449",
-      "spotContentIds": [
-        2,
-        3,
-        4
-      ],
-      "id": 3
+      "quantity": "81",
+      "spotId": 4,
+      "advertId": 3,
+      "id": 2
     }
   ],
   "advert": [

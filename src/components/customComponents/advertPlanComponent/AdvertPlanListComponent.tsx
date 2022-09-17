@@ -3,45 +3,40 @@ import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDeleteAdvertDetailMutation } from 'src/services/AdvertDetailApi';
+import { useDeleteAdvertPlanMutation } from 'src/services/AdvertPlanApi';
 
-const AdvertDetailListComponent = ({ advertDetailData, dataGridTitle }: any) => {
+const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
   //Delete Spot
-  const [deleteAdverDetail] = useDeleteAdvertDetailMutation();
+  const [deleteAdvertPlan] = useDeleteAdvertPlanMutation();
 
   //Data Grid Header
   const columns: GridColumns = [
     {
-      field: 'spotId',
-      headerName: 'Spot',
+      field: 'name',
+      headerName: 'Advert Plan Name',
       width: 300,
     },
     {
-      field: 'advertId',
-      headerName: 'Advert',
-      width: 300,
-    },
-    {
-      field: 'quantity',
-      headerName: 'Quantity',
+      field: 'campaignId',
+      headerName: 'Campaign',
       width: 300,
     },
     {
       field: '',
       // headerName: '',
-      type: 'number',
-      width: 250,
+      type: '',
+      width: 150,
       renderCell: (cellValues: any) => (
         <>
           <Link
-            to={`/dashboard/advert-detail/edit/${cellValues.id}`}
+            to={`/dashboard/advert-plan/edit/${cellValues.id}`}
             style={{ textDecoration: 'none' }}
           >
             <Button sx={{ mr: 2 }}>
               <EditIcon />
             </Button>
           </Link>
-          <Button color="error" onClick={() => deleteAdverDetail(cellValues.id)}>
+          <Button color="error" onClick={() => deleteAdvertPlan(cellValues.id)}>
             <DeleteIcon />
           </Button>
         </>
@@ -56,7 +51,7 @@ const AdvertDetailListComponent = ({ advertDetailData, dataGridTitle }: any) => 
       </Typography>
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
-          rows={advertDetailData}
+          rows={advertPlanData}
           columns={columns}
           components={{
             Toolbar: GridToolbar,
@@ -74,4 +69,4 @@ const AdvertDetailListComponent = ({ advertDetailData, dataGridTitle }: any) => 
   );
 };
 
-export default AdvertDetailListComponent;
+export default AdvertPlanListComponent;

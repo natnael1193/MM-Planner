@@ -5,6 +5,8 @@ import { advertDetailApi } from '../services/AdvertDetailApi';
 import { advertApi } from '../services/AdvertApi';
 import { externalProgramApi } from '../services/ExternalProgramApi';
 import { campaignApi } from '../services/CamapignApi';
+import { advertPlanApi } from '../services/AdvertPlanApi';
+import { paginationApi } from 'src/services/Test';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     [advertApi.reducerPath]: advertApi.reducer,
     [externalProgramApi.reducerPath]: externalProgramApi.reducer,
     [campaignApi.reducerPath]: campaignApi.reducer,
+    [advertPlanApi.reducerPath]: advertPlanApi.reducer,
+    [paginationApi.reducerPath]: paginationApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -22,6 +26,8 @@ export const store = configureStore({
       advertDetailApi.middleware,
       advertApi.middleware,
       externalProgramApi.middleware,
-      campaignApi.middleware
+      campaignApi.middleware,
+      advertPlanApi.middleware,
+      paginationApi.middleware
     ),
 });

@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AdvertForm from 'src/components/customComponents/advertComponent/AdvertForm';
-import { useAdvertQuery, useUpdateAdvertMutation } from 'src/services/AdvertApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+import { useAdvertPlanQuery, useUpdateAdvertPlanMutation } from 'src/services/AdvertPlanApi';
+import AdvertPlanForm from 'src/components/customComponents/advertPlanComponent/AdvertPlanForm';
 
-const EditAdvert = () => {
+const EditAdvertPlan = () => {
+
   const params = useParams();
-  const paramsId: any = params.advertId;
+  const paramsId: any = params.advertPlanId;
   var defaultValues: any = {};
 
-  //Get Advert By Id
-  const { data: advertData, error, isLoading } = useAdvertQuery(paramsId);
+    //Get Advert Plan By Id
+    const { data: advertPlanData, error, isLoading } = useAdvertPlanQuery(paramsId);
 
-  //Update the data
-  const [updateAdvert, result] = useUpdateAdvertMutation();
+    //Update the data
+    const [updateAdvert, result] = useUpdateAdvertPlanMutation();
 
-  //Check the status
+      //Check the status
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
@@ -33,21 +35,22 @@ const EditAdvert = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  defaultValues = advertData;
+
+  defaultValues = advertPlanData;
   const onSubmit = (data: any) => {
+    console.log(data);
     updateAdvert(data);
   };
-
+    
   return (
     <div>
-      <AdvertForm
-        formTitle={'Edit Advert '}
+      <AdvertPlanForm
+        formTitle={'Edit Advert Plan'}
         defaultValues={defaultValues}
         onFormSubmit={onSubmit}
       />
     </div>
-  );
+  )
+}
 
-};
-
-export default EditAdvert;
+export default EditAdvertPlan
