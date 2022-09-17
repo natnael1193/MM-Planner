@@ -1,6 +1,6 @@
 export interface Spot {
     id: any;
-    // key: string,
+    key: string,
     name: string,
     contentType: string;
     contentLength: string;

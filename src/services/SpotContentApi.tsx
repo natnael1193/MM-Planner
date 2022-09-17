@@ -1,26 +1,39 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { SpotContent } from 'src/interfaces/SpotContent.interface';
 // const baseURL = `${process.env.REACT_APP_API_SERVER}`
-const baseURL = `http://localhost:4000`;
+// const baseURL = `http://localhost:4000`;
+
+const baseURL = `${process.env.REACT_APP_API_SERVER}`;
+const baseToken = `${process.env.REACT_APP_API_TOKEN}`;
+
 
 export const spotContentApi = createApi({
   reducerPath: 'spotContentApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseURL}`,
+    prepareHeaders: (headers, { getState }) => {
+      const token = baseToken;
+      // If we have a token set in state, let's assume that we should be passing it.
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+    
   }),
   tagTypes: ['SpotContent'],
   endpoints: (builder) => ({
     spotContents: builder.query<SpotContent[], void>({
-      query: () => '/spotContent',
+      query: () => '/SpotContent',
       providesTags: ['SpotContent'],
     }),
     spotContent: builder.query<SpotContent, string>({
-      query: (id) => `spotContent/${id}`,
+      query: (id) => `SpotContent/${id}`,
       providesTags: ['SpotContent'],
     }),
     addSpotContent: builder.mutation<void, SpotContent>({
       query: (spotContent) => ({
-        url: '/spotContent',
+        url: '/SpotContent',
         method: 'POST',
         body: spotContent,
       }),

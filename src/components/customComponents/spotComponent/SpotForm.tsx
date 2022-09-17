@@ -12,13 +12,12 @@ import { useSpotContentsQuery } from 'src/services/SpotContentApi';
 import Loading from 'src/pages/customPages/shared/Loading';
 import Error from 'src/pages/customPages/shared/Error';
 
-
 const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   const [spotContent, setSpotContent] = React.useState<string[]>([]);
   let spotContentData: any = [];
 
   //Spot Content Data
-  const { data, isLoading, error, isSuccess } = useSpotContentsQuery();
+  const { data, isLoading, error, isSuccess }: any = useSpotContentsQuery();
 
   const handleChange = (event: SelectChangeEvent<typeof spotContent>) => {
     const {
@@ -38,7 +37,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   if (isLoading) return <Loading />;
 
   if (isSuccess) {
-    spotContentData = data?.map(function (spotContents: any) {
+    spotContentData = data.data?.map(function (spotContents: any) {
       return {
         id: spotContents.id,
         name: spotContents.name,
@@ -59,15 +58,13 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Spot Name"
-                  {...register('name')}
-                  sx={{ mt: 1 }}
-                />
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Key" {...register('key')} sx={{ mt: 1 }} />
               </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Spot Name" {...register('name')} sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Content Type"
@@ -75,7 +72,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   sx={{ mt: 1 }}
                 />
               </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Content Length"

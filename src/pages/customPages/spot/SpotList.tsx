@@ -27,7 +27,7 @@ const SpotList = () => {
         child={'List'}
         parentLink={'/dashboard/spot/list'}
       />
-      <SpotListComponent spotData={spotData} dataGridTitle={'Spot List'} />
+      <SpotListComponent spotData={spotData.data} dataGridTitle={'Spot List'} />
     </div>
   );
 };

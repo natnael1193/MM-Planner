@@ -49,7 +49,7 @@ const EditSpot = () => {
         child={'Edit'}
         parentLink={'/dashboard/spot/list'}
       />
-      <SpotForm formTitle={'Edit Spot'} defaultValues={defaultValues} onFormSubmit={onSubmit} />
+      <SpotForm formTitle={'Edit Spot'} defaultValues={defaultValues.data} onFormSubmit={onSubmit} />
     </div>
   );
 };

@@ -1,47 +1,63 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Spot } from 'src/interfaces/Spot.interface';
-// const baseURL = `${process.env.REACT_APP_API_SERVER}`
-const baseURL = `http://localhost:4000`;
+
+// const baseURL = `http://localhost:4000`;
+const baseURL = `${process.env.REACT_APP_API_SERVER}`;
+const baseToken = `${process.env.REACT_APP_API_TOKEN}`;
 
 export const spotApi = createApi({
   reducerPath: 'spotApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseURL}`,
+    prepareHeaders: (headers, { getState }) => {
+      const token = baseToken;
+      // If we have a token set in state, let's assume that we should be passing it.
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ['Spot'],
   endpoints: (builder) => ({
     spots: builder.query<Spot[], void>({
-      query: () => '/spot',
+      query: () => '/Spot',
       providesTags: ['Spot'],
     }),
     spot: builder.query<Spot, string>({
-      query: (id) => `spot/${id}`,
+      query: (id) => `Spot/${id}`,
       providesTags: ['Spot'],
     }),
     addSpot: builder.mutation<void, Spot>({
       query: (spot) => ({
-        url: '/spot',
+        url: '/Spot',
         method: 'POST',
         body: spot,
       }),
-      invalidatesTags: ["Spot"]
+      invalidatesTags: ['Spot'],
     }),
     updateSpot: builder.mutation<void, Spot>({
-      query: ({ id, ...rest }) => ({
-          url: `Spot/${id}`,
-          method: "PUT",
-          body: rest
+      query: ({ ...rest }) => ({
+        url: `Spot/${rest.id}`,
+        method: 'PUT',
+        body: rest,
       }),
-      invalidatesTags: ["Spot"]
-  }),
-  deleteSpot: builder.mutation<void, string>({
+      invalidatesTags: ['Spot'],
+    }),
+    deleteSpot: builder.mutation<void, string>({
       query: (id) => ({
-          url: `Spot/${id}`,
-          method: 'DELETE'
+        url: `Spot/${id}`,
+        method: 'DELETE',
       }),
-      invalidatesTags: ['Spot']
-  })
+      invalidatesTags: ['Spot'],
+    }),
   }),
 });
 
-export const { useSpotsQuery, useSpotQuery, useAddSpotMutation, useUpdateSpotMutation, useDeleteSpotMutation } = spotApi;
+export const {
+  useSpotsQuery,
+  useSpotQuery,
+  useAddSpotMutation,
+  useUpdateSpotMutation,
+  useDeleteSpotMutation,
+} = spotApi;
