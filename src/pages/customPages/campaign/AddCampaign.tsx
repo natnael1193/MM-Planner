@@ -7,7 +7,6 @@ import BreadCrumb from '../breadCrumb/BreadCrumb';
 const AddCampaign = () => {
   // Initial State
   const initialValues: any = {
-    id: null,
     name: '',
     startDate: '',
     endDate: '',
@@ -31,8 +30,13 @@ const AddCampaign = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    addCampaign(data);
+    const newData: any = {
+      name: data.name,
+      key: data.key,
+      startDate: data.startDate + ':00.203Z',
+      endDate:  data.endDate + ':00.203Z',
+    };
+    addCampaign(newData);
   };
   return (
     <div>

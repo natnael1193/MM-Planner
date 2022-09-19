@@ -1,11 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AdvertPlan } from '../interfaces/AdvertPlan.interface';
-const baseURL = `http://localhost:4000`;
+// const baseURL = `http://localhost:4000`;
+
+const baseURL = `${process.env.REACT_APP_API_SERVER}`;
+const baseToken = `${process.env.REACT_APP_API_TOKEN}`;
 
 export const advertPlanApi = createApi({
   reducerPath: 'advertPlanApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseURL}`,
+    prepareHeaders: (headers, { getState }) => {
+      const token = baseToken;
+      // If we have a token set in state, let's assume that we should be passing it.
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ['AdvertPlan'],
   endpoints: (builder) => ({
@@ -26,8 +37,8 @@ export const advertPlanApi = createApi({
       invalidatesTags: ['AdvertPlan'],
     }),
     updateAdvertPlan: builder.mutation<void, AdvertPlan>({
-      query: ({ id, ...rest }) => ({
-          url: `/advertPlan/${id}`,
+      query: ({ ...rest }) => ({
+          url: `/advertPlan/${rest.id}`,
           method: "PUT",
           body: rest
       }),

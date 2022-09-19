@@ -18,8 +18,10 @@ const AdvertPlanList = () => {
 
   if (error) return <Error />;
 
+  console.log(data)
+
   return (
-    <div><AdvertPlanListComponent advertPlanData={advertPlanData} dataGridTitle={"Advert List"} /></div>
+    <div><AdvertPlanListComponent advertPlanData={advertPlanData.data} dataGridTitle={"Advert List"} /></div>
   )
 }
 

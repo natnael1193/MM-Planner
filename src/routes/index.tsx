@@ -49,6 +49,15 @@ export default function Router() {
           ],
         },
         {
+          path: '/dashboard/advert-schedule',
+          children: [
+            { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
+            { path: '/dashboard/advert-schedule/list', element: <AdvertScheduleList /> },
+            { path: '/dashboard/advert-schedule/add', element: <AddAdvertSchedule /> },
+            { path: '/dashboard/advert-schedule/edit/:advertScheduleId', element: <EditAdvertSchedule /> },
+          ],
+        },
+        {
           path: '/dashboard/advert',
           children: [
             { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
@@ -174,6 +183,10 @@ const AddCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/Ad
 const EditCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/EditCampaign')));
 
 
+// Advert Schedule
+const AdvertScheduleList = Loadable(lazy(() => import('../pages/customPages/advertSchedule/AdvertScheduleList')));
+const AddAdvertSchedule = Loadable(lazy(() => import('../pages/customPages/advertSchedule/AddAdvertSchedule')));
+const EditAdvertSchedule = Loadable(lazy(() => import('../pages/customPages/advertSchedule/EditAdvertSchedule')));
 
 
 // Test

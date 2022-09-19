@@ -40,28 +40,31 @@ const SpotContentForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField fullWidth label="Name" {...register('name')} />
               </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Key" {...register('key')} />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField fullWidth label="Content URL" {...register('contentUrl')} />
               </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ width: '100%' }}>
                   <InputLabel id="demo-simple-select-helper-label">Spot</InputLabel>
                   <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    {...register('spotID')}
+                    {...register('spotId')}
                     // value={campaignContent}
                     label="Spot"
                     onChange={handleChange}
-                    defaultValue={defaultValues.spotID !== undefined ? defaultValues.spotID : ''}
+                    defaultValue={defaultValues.spotId !== undefined ? defaultValues.spotId : ''}
                   >
-                    {spotContentData.map((spot: any) => {
+                    {spotContentData.data.map((spot: any) => {
                       return (
                         <MenuItem key={spot.id} value={spot.id}>
-                          {spot.name}
+                          {spot.key}
                         </MenuItem>
                       );
                     })}

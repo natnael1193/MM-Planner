@@ -40,8 +40,8 @@ export const spotContentApi = createApi({
       invalidatesTags: ["SpotContent"]
     }),
     updateSpotContent: builder.mutation<void, SpotContent>({
-      query: ({ id, ...rest }) => ({
-          url: `SpotContent/${id}`,
+      query: ({ ...rest }) => ({
+          url: `SpotContent/${rest.id}`,
           method: "PUT",
           body: rest
       }),

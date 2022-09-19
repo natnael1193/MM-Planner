@@ -57,6 +57,15 @@ const navConfig = [
         ],
       },
       {
+        title: 'Advert Schedule',
+        path: '/dashboard/advert-schedule',
+        icon: <ComputerIcon/>,
+        children: [
+          { title: 'Advert Schedule List', path: '/dashboard/advert-schedule/list' },
+          { title: 'Add Advert Schedule', path: '/dashboard/advert-schedule/add' },
+        ],
+      },
+      {
         title: 'Advert',
         path: '/dashboard/advert',
         icon: <AirplayIcon />,

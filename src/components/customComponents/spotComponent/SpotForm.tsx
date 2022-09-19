@@ -75,6 +75,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
+                  type="number"
                   label="Content Length"
                   {...register('contentLength')}
                   sx={{ mt: 1 }}

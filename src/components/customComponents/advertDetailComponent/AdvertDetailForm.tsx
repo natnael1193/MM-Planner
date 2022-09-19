@@ -105,7 +105,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                     }
                   >
                     {
-                      spotContentData.map((spot: any)=> {
+                      spotContentData.data.map((spot: any)=> {
                         return(
                           <MenuItem key={spot.id} value={spot.id}>{spot.name}</MenuItem>
                         )

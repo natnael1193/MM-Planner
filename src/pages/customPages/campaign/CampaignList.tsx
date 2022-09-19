@@ -17,7 +17,7 @@ const CampaignList = () => {
   if (error) return <Error />;
 
   return <div>
-    <CampaingListComponent campaignData={campaignData} dataGridTitle={"Campaign List"}/>
+    <CampaingListComponent campaignData={campaignData.data} dataGridTitle={"Campaign List"}/>
   </div>;
 };
 

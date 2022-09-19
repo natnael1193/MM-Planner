@@ -52,7 +52,7 @@ const EditSpotContent = () => {
       />
       <SpotContentForm
         formTitle={'Edit Spot Content'}
-        defaultValues={defaultValues}
+        defaultValues={defaultValues.data}
         onFormSubmit={onSubmit}
       />
     </>

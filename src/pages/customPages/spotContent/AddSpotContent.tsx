@@ -11,6 +11,8 @@ const AddSpotContent = () => {
   const InitialValues = {
     name: '',
     contentUrl: '',
+    spotId: '',
+    key: ''
   };
 
   //Add New Data

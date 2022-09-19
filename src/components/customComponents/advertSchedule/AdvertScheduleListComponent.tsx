@@ -2,29 +2,19 @@ import { Button, Typography } from '@mui/material';
 import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDeleteCampaignMutation } from 'src/services/CamapignApi';
+import { useDeleteAdvertScheduleMutation } from 'src/services/AdvertSchduleApi';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
+const AdvertScheduleListComponent = ({ advertScheduleData, dataGridTitle }: any) => {
   //Delete Campaign
-  const [deleteCampaign] = useDeleteCampaignMutation();
+  const [deleteAdvertSchedules] = useDeleteAdvertScheduleMutation();
 
   //Data Grid Header
   const columns: GridColumns = [
     {
-      field: 'name',
-      headerName: 'Campaign Name',
-      width: 300,
-    },
-    {
-      field: 'startDate',
-      headerName: 'Start Date',
-      width: 300,
-    },
-    {
-      field: 'endDate',
-      headerName: 'End Date',
+      field: 'memberName',
+      headerName: 'Member Name',
       width: 300,
     },
     {
@@ -34,20 +24,18 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
       width: 150,
       renderCell: (cellValues: any) => (
         <>
-          <Link to={`/dashboard/campaign/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
+          <Link to={`/dashboard/advert-schedule/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />
             </Button>
           </Link>
-          <Button color="error" onClick={() => deleteCampaign(cellValues.id)}>
+          <Button color="error" onClick={() => deleteAdvertSchedules(cellValues.id)}>
             <DeleteIcon />
           </Button>
         </>
       ),
     },
   ];
-
-  console.log(campaignData)
 
   return (
     <div>
@@ -56,7 +44,7 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
       </Typography>
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
-          rows={campaignData}
+          rows={advertScheduleData}
           columns={columns}
           components={{
             Toolbar: GridToolbar,
@@ -74,4 +62,4 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
   );
 };
 
-export default CampaingListComponent;
+export default AdvertScheduleListComponent;

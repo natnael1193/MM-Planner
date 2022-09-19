@@ -14,25 +14,34 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <Typography variant="h3">Add Campaign</Typography>
             <Grid container spacing={3} sx={{ mt: 4 }}>
-              <Grid item lg={4} md={4} sm={12}>
-                <TextField label="Campaign Name" fullWidth     {...register('name', { required: true})} />
+              <Grid item lg={6} md={6} sm={12}>
+                <TextField label="Key" fullWidth {...register('key', { required: true })} />
               </Grid>
-              <Grid item lg={4} md={4} sm={12}>
+              <Grid item lg={6} md={6} sm={12}>
                 <TextField
-                  type="date"
-                  InputLabelProps={{ shrink: true }}
-                  label="Start Date"
+                  label="Campaign Name"
                   fullWidth
-                  {...register('startDate', { required: true})}
+                  {...register('name', { required: true })}
                 />
               </Grid>
-              <Grid item lg={4} md={4} sm={12}>
+              <Grid item lg={6} md={6} sm={12}>
                 <TextField
-                  type="date"
+                  type="datetime-local"
+                  InputLabelProps={{ shrink: true }}
+                  label="Start Date"
+                  inputProps={{ step: 1 }}
+                  fullWidth
+                  {...register('startDate', { required: true })}
+                />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12}>
+                <TextField
+                  type="datetime-local"
                   InputLabelProps={{ shrink: true }}
                   label="End Date"
+                  inputProps={{ step: 1 }}
                   fullWidth
-                  {...register('endDate', { required: true})}
+                  {...register('endDate', { required: true })}
                 />
               </Grid>
             </Grid>

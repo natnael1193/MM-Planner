@@ -29,7 +29,7 @@ const SpotContentList = () => {
         parentLink={'/dashboard/spot-content/list'}
       />
       <SpotContentListComponent
-        spotContentData={spotContentData}
+        spotContentData={spotContentData.data}
         dataGridTitle={'Spot Content List'}
       />
     </>
