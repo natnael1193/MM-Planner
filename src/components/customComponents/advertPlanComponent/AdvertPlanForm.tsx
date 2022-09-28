@@ -31,7 +31,11 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
   };
 
   //React-hook-form
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
 
@@ -54,10 +58,16 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <Grid container spacing={3} sx={{ mt: 3 }}>
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField label="Key" fullWidth {...register('key')} />
+                <TextField label="Key" fullWidth {...register('key', { required: true })} />
+                <Typography color="red">{errors.key && 'This is required'}</Typography>
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField label="Advert Plan Name" fullWidth {...register('name')} />
+                <TextField
+                  label="Advert Plan Name"
+                  fullWidth
+                  {...register('name', { required: true })}
+                />
+                <Typography color="red">{errors.name && 'This is required'}</Typography>
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl sx={{ width: '100%' }}>
@@ -65,10 +75,10 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
                   <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    {...register('campainId')}
+                    {...register('campainId', { required: true })}
                     // value={campaignContent}
                     label="Campaign"
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     defaultValue={
                       defaultValues.campainId !== undefined ? defaultValues.campainId : ''
                     }
@@ -81,6 +91,7 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
                       );
                     })}
                   </Select>
+                  <Typography color="red">{errors.campainId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -89,8 +100,9 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
                   multiline
                   rows={5}
                   fullWidth
-                  {...register('description')}
+                  {...register('description', { required: true })}
                 />
+                <Typography color="red">{errors.description && 'This is required'}</Typography>
               </Grid>
               {/* <Grid container sx={{ pr: 3 }} spacing={1}>
                 <ExternalProgram />

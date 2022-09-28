@@ -55,7 +55,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   };
 
   //React-hook-form
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: {errors} } = useForm({
     defaultValues,
   });
 
@@ -90,10 +90,12 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Key" {...register('key')} sx={{ mt: 1 }} />
+                <TextField fullWidth label="Key" {...register('key', {required: true})} sx={{ mt: 1 }} />
+                <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Quantity" {...register('quantity')} sx={{ mt: 1 }} />
+                <TextField fullWidth label="Quantity" {...register('quantity', {required: true})} sx={{ mt: 1 }} />
+                <Typography color="red">{ errors.quantity && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ mt: 1, width: '100%' }}>
@@ -101,7 +103,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    {...register('spotId')}
+                    {...register('spotId', {required: true})}
                     fullWidth
                     // value={contentType}
                     label="Spot"
@@ -116,6 +118,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       );
                     })}
                   </Select>
+                  <Typography color="red">{ errors.spotId && "This is required"}</Typography>
                 </FormControl>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -124,7 +127,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                   <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    {...register('advertId')}
+                    {...register('advertId', {required: true})}
                     // value={campaignContent}
                     label="Advert"
                     onChange={advertHandleChange}
@@ -140,6 +143,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       );
                     })}
                   </Select>
+                  <Typography color="red">{ errors.advertId && "This is required"}</Typography>
                 </FormControl>
               </Grid>
 

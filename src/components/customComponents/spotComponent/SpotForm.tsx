@@ -30,7 +30,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   };
 
   //React-hook-form
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: {errors} } = useForm({
     defaultValues,
   });
 
@@ -59,27 +59,31 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Key" {...register('key')} sx={{ mt: 1 }} />
+                <TextField fullWidth label="Key" {...register('key', {required: true})} sx={{ mt: 1 }} />
+                <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Spot Name" {...register('name')} sx={{ mt: 1 }} />
+                <TextField fullWidth label="Spot Name" {...register('name', {required: true})} sx={{ mt: 1 }} />
+                <Typography color="red">{ errors.name && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Content Type"
-                  {...register('contentType')}
+                  {...register('contentType', {required: true})}
                   sx={{ mt: 1 }}
                 />
+                <Typography color="red">{ errors.contentType && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   type="number"
                   label="Content Length"
-                  {...register('contentLength')}
+                  {...register('contentLength', {required: true})}
                   sx={{ mt: 1 }}
                 />
+                <Typography color="red">{ errors.contentLength && "This is required"}</Typography>
               </Grid>
               {/* <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl sx={{ m: 1, width: '100%' }}>

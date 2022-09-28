@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   // React-hook form
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors} } = useForm({
     defaultValues,
   });
 
@@ -16,6 +16,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             <Grid container spacing={3} sx={{ mt: 4 }}>
               <Grid item lg={6} md={6} sm={12}>
                 <TextField label="Key" fullWidth {...register('key', { required: true })} />
+                <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12}>
                 <TextField
@@ -23,6 +24,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   fullWidth
                   {...register('name', { required: true })}
                 />
+                <Typography color="red">{ errors.name && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12}>
                 <TextField
@@ -33,6 +35,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   fullWidth
                   {...register('startDate', { required: true })}
                 />
+                    <Typography color="red">{ errors.startDate && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12}>
                 <TextField
@@ -43,6 +46,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   fullWidth
                   {...register('endDate', { required: true })}
                 />
+                    <Typography color="red">{ errors.endDate && "This is required"}</Typography>
               </Grid>
             </Grid>
             <Button type="submit" variant="contained" sx={{ ml: 2, mt: 2 }}>

@@ -17,7 +17,7 @@ const SpotContentForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   const { data, isLoading, error, isSuccess } = useSpotsQuery();
 
   //React-Hook-Form
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: {errors} } = useForm({
     defaultValues,
   });
 
@@ -40,14 +40,17 @@ const SpotContentForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Name" {...register('name')} />
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Key" {...register('key', { required: true })} />
+                <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Key" {...register('key')} />
+                <TextField fullWidth label="Name" {...register('name', { required: true })} />
+                <Typography color="red">{ errors.name && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Content URL" {...register('contentUrl')} />
+                <TextField fullWidth label="Content URL" {...register('contentUrl', { required: true })} />
+                <Typography color="red">{ errors.contentUrl && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ width: '100%' }}>
@@ -55,7 +58,7 @@ const SpotContentForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                   <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    {...register('spotId')}
+                    {...register('spotId', { required: true })}
                     // value={campaignContent}
                     label="Spot"
                     onChange={handleChange}
@@ -69,7 +72,9 @@ const SpotContentForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       );
                     })}
                   </Select>
+                  <Typography color="red">{ errors.spotId && "This is required"}</Typography>
                 </FormControl>
+          
               </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 <Button variant="contained" type="submit" color="primary" sx={{ ml: 2 }}>

@@ -61,7 +61,13 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   const [selectedSchedules, setSelectedSchedules] = useState([]);
 
   //React-hook-form
-  const { register, handleSubmit, control, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
   stationId = watch('stationId');
@@ -139,10 +145,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField {...register('key')} label="Key" fullWidth />
+                <TextField {...register('key', { required: true })} label="Key" fullWidth />
+                <Typography color="red">{errors.key && 'This is required'}</Typography>
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField {...register('name')} label="Name" fullWidth />
+                <TextField {...register('name', { required: true })} label="Name" fullWidth />
+                <Typography color="red">{errors.name && 'This is required'}</Typography>
               </Grid>
               {/* <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField {...register('advertType')} label="Advert Type" fullWidth />
@@ -150,6 +158,9 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <Controller
+                    rules={{
+                      required: true,
+                    }}
                     render={({ field }) => (
                       <div>
                         <InputLabel id="demo-simple-select-label">Advert Plan</InputLabel>
@@ -176,19 +187,23 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                       defaultValues.advertPlanId !== undefined ? defaultValues.advertPlanId : ''
                     }
                   />
+                  <Typography color="red">{errors.advertPlanId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
 
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <Controller
+                    rules={{
+                      required: true,
+                    }}
                     render={({ field }) => (
                       <div>
                         <InputLabel id="demo-simple-select-label">Station</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          label="Advert Schedule"
+                          label="Station"
                           {...field}
                           fullWidth
                         >
@@ -206,23 +221,27 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     name="stationId"
                     defaultValue=""
                   />
+                  <Typography color="red">{errors.stationId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
 
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <Controller
+                    rules={{
+                      required: true,
+                    }}
                     render={({ field }) => (
                       <div>
                         <InputLabel id="demo-simple-select-label">Program</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          label="Advert Schedule"
+                          label="Program"
                           {...field}
                           fullWidth
                         >
-                          {programsData.map((station: any) => {
+                          {programsData?.map((station: any) => {
                             return (
                               <MenuItem key={station.id} value={station.id}>
                                 {station.name}
@@ -236,16 +255,15 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     name="programId"
                     defaultValue=""
                   />
+                  <Typography color="red">{errors.programId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
 
-              <Grid container sx={{ p: 5 }}>
-                <div style={{ height: 500, width: '100%' }}>
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl:5}}>
+                <div style={{ height: 460, width: '100%' }}>
                   <DataGrid
                     rows={rows}
                     columns={columns}
-                    pageSize={7}
-                    rowsPerPageOptions={[7]}
                     checkboxSelection
                     hideFooterPagination
                     onSelectionModelChange={(ids) => {
@@ -256,15 +274,30 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     }}
                     // {...data}
                   />
+                  <Typography color="red" style={{ marginTop: '-25px'}}>
+                    {selectedSchedules.length === 0 ? 'One date must be selected' : ''}
+                  </Typography>
                 </div>
               </Grid>
 
               {/* <ExternalProgram /> */}
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ m: 2, ml: 0 }}>
-                <Button variant="contained" type="submit">
-                  {' '}
-                  Submit{' '}
-                </Button>
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl:5}}>
+                {
+                  selectedSchedules.length === 0 ? (
+                    <Button variant="contained" disabled>
+                    {' '}
+                    Submit{' '}
+                  </Button>
+                  )
+                  :
+                  (
+                    <Button variant="contained" type="submit" >
+                    {' '}
+                    Submit{' '}
+                  </Button>
+                  )
+                }
+          
               </Grid>
             </Grid>
           </Card>
