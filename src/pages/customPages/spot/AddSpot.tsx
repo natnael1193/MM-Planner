@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+
 import { useAddSpotMutation } from 'src/services/SpotApi';
-import SpotForm from '../../../components/customComponents/spotComponent/SpotForm';
+
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import SpotForm from '../../../components/customComponents/spotComponent/SpotForm';
 
 const AddSpot = () => {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const AddSpot = () => {
     console.log(data);
     addSpot(data);
   };
+
 
   return (
     <div>

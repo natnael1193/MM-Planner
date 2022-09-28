@@ -42,7 +42,7 @@ const EditAdvert = () => {
     <div>
       <AdvertForm
         formTitle={'Edit Advert '}
-        defaultValues={defaultValues}
+        defaultValues={defaultValues.data}
         onFormSubmit={onSubmit}
       />
     </div>

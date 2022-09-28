@@ -17,13 +17,13 @@ const AdvertListComponent = ({ advertData, dataGridTitle }: any) => {
       width: 300,
     },
     {
-      field: 'advertType',
-      headerName: 'Advert Type',
+      field: 'advertPlanId',
+      headerName: 'Advert Plan',
       width: 300,
     },
     {
-      field: 'advertDetailId',
-      headerName: 'Advert Detail',
+      field: 'advertScheduleId',
+      headerName: 'Advert Schedule',
       width: 300,
     },
     {

@@ -29,7 +29,7 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
   const handleChange = (event: SelectChangeEvent) => {
     setCampaignContent(event.target.value);
   };
-  
+
   //React-hook-form
   const { register, handleSubmit } = useForm({
     defaultValues,
@@ -45,7 +45,6 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
 
   console.log(campaignContentData);
   // console.log(defaultValues)
-
 
   return (
     <div>
@@ -70,7 +69,9 @@ const AdvertPlanForm = ({ formTitle, onFormSubmit, defaultValues, submitLoading 
                     // value={campaignContent}
                     label="Campaign"
                     onChange={handleChange}
-                    defaultValue={defaultValues.campainId !== undefined ? defaultValues.campainId : ''}
+                    defaultValue={
+                      defaultValues.campainId !== undefined ? defaultValues.campainId : ''
+                    }
                   >
                     {campaignContentData.data.map((campaign: any) => {
                       return (

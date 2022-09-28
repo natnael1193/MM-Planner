@@ -19,7 +19,7 @@ const AdvertList = () => {
   if (error) return <Error />;
 
   return (
-    <div><AdvertListComponent advertData={advertData} dataGridTitle={"Advert List"}/></div>
+    <div><AdvertListComponent advertData={advertData.data} dataGridTitle={"Advert List"}/></div>
   )
 }
 

@@ -41,6 +41,7 @@
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.2.4",
     "@mui/x-data-grid": "^5.12.0",
+    "@mui/x-data-grid-generator": "^5.17.4",
     "@reduxjs/toolkit": "^1.8.2",
     "@syncfusion/ej2-base": "^19.4.52",
     "@syncfusion/ej2-react-schedule": "^19.4.52",

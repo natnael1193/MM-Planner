@@ -9,7 +9,7 @@ const AddAdvert = () => {
   const initialValues: any = {
     name: '',
     adevertType: '',
-    advertDetailId: '',
+    advertPlanId: '',
   };
 
   const [addAdvert, result] = useAddAdvertMutation();
@@ -27,8 +27,9 @@ const AddAdvert = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
+    console.log(data)
     // alert(JSON.stringify(data));
-    addAdvert(data);
+    // addAdvert(data);
   };
   return (
     <div>

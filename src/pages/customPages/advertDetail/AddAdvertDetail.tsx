@@ -9,6 +9,7 @@ const AddAdvertDetail = () => {
   //Initial Values Of Spot
   const initialValues = {
     quantity: '',
+    key: "",
     spotId: '',
     advertId: '',
   };

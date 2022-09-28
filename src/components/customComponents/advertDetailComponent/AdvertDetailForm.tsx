@@ -23,11 +23,11 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   const [contentType, setContentType] = React.useState('');
   const [spotContent, setSpotContent] = React.useState<string[]>([]);
   const [advertContent, setAdvertContent] = React.useState('');
-  let spotContentData: any = [];
+  let spotData: any = [];
   let advertContentData: any = [];
-  
-  //Spot Content Data
-  const { data, isLoading, error, isSuccess } = useSpotContentsQuery();
+
+  //Spot Data
+  const { data, isLoading, error, isSuccess } = useSpotsQuery();
   // Advert Content Data
   const {
     data: advertData,
@@ -62,7 +62,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   if (isLoading || advertLoading) return <Loading />;
 
   // if (isSuccess) {
-  //   spotContentData = data?.map(function (spotContents: any) {
+  //   spotData = data?.map(function (spotContents: any) {
   //     return {
   //       id: spotContents.id,
   //       name: spotContents.name,
@@ -71,12 +71,12 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   //   });
   // }
   if (isSuccess) {
-    spotContentData = data;
-  } 
+    spotData = data;
+  }
 
   if (advertSuccess) {
     advertContentData = advertData;
-  } 
+  }
 
   if (error) return <Error />;
 
@@ -90,6 +90,12 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Key" {...register('key')} sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField fullWidth label="Quantity" {...register('quantity')} sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ mt: 1, width: '100%' }}>
                   <InputLabel id="demo-simple-select-label">Spot</InputLabel>
                   <Select
@@ -100,27 +106,17 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                     // value={contentType}
                     label="Spot"
                     onChange={handleSpotChange}
-                    defaultValue={
-                      defaultValues.spotId !== undefined ? defaultValues.spotId : ''
-                    }
+                    defaultValue={defaultValues.spotId !== undefined ? defaultValues.spotId : ''}
                   >
-                    {
-                      spotContentData.data.map((spot: any)=> {
-                        return(
-                          <MenuItem key={spot.id} value={spot.id}>{spot.name}</MenuItem>
-                        )
-                      })
-                    }
+                    {spotData.data.map((spot: any) => {
+                      return (
+                        <MenuItem key={spot.id} value={spot.id}>
+                          {spot.key}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
-              </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Quantity"
-                  {...register('quantity')}
-                  sx={{ mt: 1 }}
-                />
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ width: '100%' }}>
@@ -136,7 +132,7 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       defaultValues.advertId !== undefined ? defaultValues.advertId : ''
                     }
                   >
-                    {advertContentData.map((advert: any) => {
+                    {advertContentData.data.map((advert: any) => {
                       return (
                         <MenuItem key={advert.id} value={advert.id}>
                           {advert.name}
@@ -161,13 +157,13 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                     onChange={handleChange}
                     input={<OutlinedInput label="Spot Contents" />}
                     renderValue={(selected) =>
-                      selected.map((obj: any) => spotContentData[obj - 1].value).join(', ')
+                      selected.map((obj: any) => spotData[obj - 1].value).join(', ')
                     }
                     defaultValue={
                       defaultValues.spotContentIds !== undefined ? defaultValues.spotContentIds : []
                     }
                   >
-                    {spotContentData.map((name: any) => (
+                    {spotData.map((name: any) => (
                       <MenuItem key={name.id} value={name.id}>
                         <Checkbox checked={spotContent.indexOf(name.id) > -1} />
                         <ListItemText primary={name.name} />

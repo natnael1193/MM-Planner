@@ -6,11 +6,18 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 // ----------------------------------------------------------------------
+
+
+const token = localStorage.getItem('login_token');
 
 const Loadable = (Component: ElementType) => (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { pathname } = useLocation();
+
+  
 
   return (
     <Suspense fallback={<LoadingScreen isDashboard={pathname.includes('/dashboard')} />}>
@@ -19,7 +26,16 @@ const Loadable = (Component: ElementType) => (props: any) => {
   );
 };
 
+
+
 export default function Router() {
+  const navigate = useNavigate()
+  if(!token){
+    useEffect(() => {
+     return navigate('/login')
+    })
+  }
+
   return useRoutes([
     {
       path: '/',
@@ -126,6 +142,7 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
+
 
 // Dashboard
 const PageOne = Loadable(lazy(() => import('../pages/PageOne')));

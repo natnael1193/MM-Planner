@@ -3,7 +3,8 @@ import { AdvertPlan } from '../interfaces/AdvertPlan.interface';
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
-const baseToken = `${process.env.REACT_APP_API_TOKEN}`;
+const token: any = localStorage.getItem('login_token')
+const baseToken = JSON.parse(token)
 
 export const advertPlanApi = createApi({
   reducerPath: 'advertPlanApi',
@@ -21,16 +22,16 @@ export const advertPlanApi = createApi({
   tagTypes: ['AdvertPlan'],
   endpoints: (builder) => ({
     advertPlans: builder.query<AdvertPlan[], void>({
-      query: () => '/advertPlan',
+      query: () => '/AdvertPlan',
       providesTags: ['AdvertPlan'],
     }),
     advertPlan: builder.query<AdvertPlan, string>({
-      query: (id) => `/advertPlan/${id}`,
+      query: (id) => `/AdvertPlan/${id}`,
       providesTags: ['AdvertPlan'],
     }),
     addAdvertPlan: builder.mutation<void, AdvertPlan>({
       query: (advert) => ({
-        url: '/advertPlan',
+        url: '/AdvertPlan',
         method: 'POST',
         body: advert,
       }),
@@ -38,7 +39,7 @@ export const advertPlanApi = createApi({
     }),
     updateAdvertPlan: builder.mutation<void, AdvertPlan>({
       query: ({ ...rest }) => ({
-          url: `/advertPlan/${rest.id}`,
+          url: `/AdvertPlan/${rest.id}`,
           method: "PUT",
           body: rest
       }),
@@ -46,7 +47,7 @@ export const advertPlanApi = createApi({
   }),
   deleteAdvertPlan: builder.mutation<void, string>({
       query: (id) => ({
-          url: `/advertPlan/${id}`,
+          url: `/AdvertPlan/${id}`,
           method: 'DELETE'
       }),
       invalidatesTags: ['AdvertPlan']

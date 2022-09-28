@@ -15,9 +15,26 @@ import { store } from './redux/store';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoginRouter from './routes/LoginRouter';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
+const token = localStorage.getItem('login_token');
+
+console.log(token);
+
 export default function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => { 
+
+    if(token === null){
+      navigate('/login')
+    }
+
+  }, [])
+
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -28,7 +45,7 @@ export default function App() {
               <Settings />
               <ScrollToTop />
               {/* <ToastContainer /> */}
-              <Router />
+              {token !== null ? <Router /> : <LoginRouter />}
             </MotionLazyContainer>
           </RtlLayout>
         </ThemeColorPresets>

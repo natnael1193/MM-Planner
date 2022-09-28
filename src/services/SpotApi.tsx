@@ -3,7 +3,8 @@ import { Spot } from 'src/interfaces/Spot.interface';
 
 // const baseURL = `http://localhost:4000`;
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
-const baseToken = `${process.env.REACT_APP_API_TOKEN}`;
+const token: any = localStorage.getItem('login_token')
+const baseToken = JSON.parse(token)
 
 export const spotApi = createApi({
   reducerPath: 'spotApi',

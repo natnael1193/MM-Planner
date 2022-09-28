@@ -21,7 +21,7 @@ const AdvertDetailList = () => {
   return (
     <div>
       <AdvertDetailListComponent
-        advertDetailData={advertDetailData}
+        advertDetailData={advertDetailData.data}
         dataGridTitle={'Advert Detail List'}
       />
     </div>
