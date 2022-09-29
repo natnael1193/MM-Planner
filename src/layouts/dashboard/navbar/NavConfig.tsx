@@ -48,6 +48,15 @@ const navConfig = [
       //   ],
       // },
       {
+        title: 'Campaign',
+        path: '/dashboard/campaign',
+        icon: <CampaignIcon />,
+        children: [
+          { title: 'Campaign List', path: '/dashboard/campaign/list' },
+          { title: 'Add Campaign', path: '/dashboard/campaign/add' },
+        ],
+      },
+      {
         title: 'Advert Plan',
         path: '/dashboard/advert-plan',
         icon: <ComputerIcon/>,
@@ -56,15 +65,15 @@ const navConfig = [
           { title: 'Add Advert Plan', path: '/dashboard/advert-plan/add' },
         ],
       },
-      {
-        title: 'Advert Schedule',
-        path: '/dashboard/advert-schedule',
-        icon: <ComputerIcon/>,
-        children: [
-          { title: 'Advert Schedule List', path: '/dashboard/advert-schedule/list' },
-          { title: 'Add Advert Schedule', path: '/dashboard/advert-schedule/add' },
-        ],
-      },
+      // {
+      //   title: 'Advert Schedule',
+      //   path: '/dashboard/advert-schedule',
+      //   icon: <ComputerIcon/>,
+      //   children: [
+      //     { title: 'Advert Schedule List', path: '/dashboard/advert-schedule/list' },
+      //     { title: 'Add Advert Schedule', path: '/dashboard/advert-schedule/add' },
+      //   ],
+      // },
       {
         title: 'Advert',
         path: '/dashboard/advert',
@@ -99,15 +108,6 @@ const navConfig = [
         children: [
           { title: 'Spot Content List', path: '/dashboard/spot-content/list' },
           { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
-        ],
-      },
-      {
-        title: 'Campaign',
-        path: '/dashboard/campaign',
-        icon: <CampaignIcon />,
-        children: [
-          { title: 'Campaign List', path: '/dashboard/campaign/list' },
-          { title: 'Add Campaign', path: '/dashboard/campaign/add' },
         ],
       },
       {

@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { useDeleteCampaignMutation } from 'src/services/CamapignApi';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import moment from 'moment';
 
 const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
+  var newCampaignData: any = [];
   //Delete Campaign
   const [deleteCampaign] = useDeleteCampaignMutation();
 
@@ -47,7 +49,16 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
     },
   ];
 
-  console.log(campaignData)
+  newCampaignData = campaignData.map(function (campaing: any) {
+    return {
+      id: campaing.id,
+      name: campaing.name,
+      startDate: moment.utc(campaing.startDate).format('dddd Do MMMM YYYY'),
+      endDate: moment.utc(campaing.endDate).format('dddd Do MMMM YYYY'),
+    };
+  });
+
+  console.log(newCampaignData);
 
   return (
     <div>
@@ -56,7 +67,7 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
       </Typography>
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
-          rows={campaignData}
+          rows={newCampaignData}
           columns={columns}
           components={{
             Toolbar: GridToolbar,

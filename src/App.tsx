@@ -27,13 +27,25 @@ console.log(token);
 export default function App() {
   const navigate = useNavigate();
 
-  useEffect(() => { 
-
-    if(token === null){
-      navigate('/login')
+  useEffect(() => {
+    if (token === null) {
+      navigate('/login');
     }
 
-  }, [])
+    setTimeout(() => {
+      localStorage.clear();
+      navigate('/signin');
+      window.location.reload();
+    }, 360000);
+  }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     localStorage.clear();
+  //     navigate("/signin");
+  //     window.location.reload();
+  //   }, 10000);
+  // }, []);
 
   return (
     <Provider store={store}>

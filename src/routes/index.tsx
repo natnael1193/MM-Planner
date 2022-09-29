@@ -41,8 +41,8 @@ export default function Router() {
       path: '/',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/advert-plan" replace />, index: true },
-        { path: '/dashboard', element: <Navigate to="/dashboard/one" replace />, index: true },
+        { element: <Navigate to="/dashboard" replace />, index: true },
+        { path: '/dashboard', element: <Dashboard /> },
         { path: '/dashboard/one', element: <PageOne /> },
         { path: '/dashboard/two', element: <PageTwo /> },
         { path: '/dashboard/three', element: <PageThree /> },
@@ -145,6 +145,8 @@ export default function Router() {
 
 
 // Dashboard
+const Dashboard = Loadable(lazy(() => import('../pages/customPages/dashboard/Dashboard')));
+
 const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
 const PageTwo = Loadable(lazy(() => import('../pages/PageTwo')));
 const PageThree = Loadable(lazy(() => import('../pages/PageThree')));

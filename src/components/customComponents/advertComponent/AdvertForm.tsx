@@ -42,13 +42,13 @@ const columns: GridColDef[] = [
 ];
 
 const rows = [
-  { id: 1, startTime: 'Monday', day: 'Monday', endTime: 35 },
-  { id: 2, startTime: 'Tuesday', day: 'Tuesday', endTime: 42 },
-  { id: 3, startTime: 'Wendsday', day: 'JaWendsdayime', endTime: 45 },
-  { id: 4, startTime: 'Thursday', day: 'Thursday', endTime: 16 },
-  { id: 5, startTime: 'Friday', day: 'Friday', endTime: null },
-  { id: 6, startTime: 'Saturday', day: 'Saturday', endTime: 150 },
-  { id: 7, startTime: 'Sunday', day: 'Sunday', endTime: 44 },
+  { id: 1, startTime: '01:00', day: 'Monday', endTime: '02:00' },
+  { id: 2, startTime: '01:00', day: 'Tuesday', endTime: '02:00' },
+  { id: 3, startTime: '01:00', day: 'Wendsday', endTime: '02:00' },
+  { id: 4, startTime: '01:00', day: 'Thursday', endTime: '02:00' },
+  { id: 5, startTime: '01:00', day: 'Friday', endTime: '02:00' },
+  { id: 6, startTime: '01:00', day: 'Saturday', endTime: '02:00' },
+  { id: 7, startTime: '01:00', day: 'Sunday', endTime: '02:00' },
 ];
 
 const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
@@ -132,13 +132,20 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   // console.log(station)
   // console.log(program)
-  // console.log(schedule);
+  console.log(programsData);
   console.log(selectedSchedules);
+
+
+  const onSubmit = (data: any) => {
+    console.log(data)
+    // alert(JSON.stringify(data));
+    // addAdvert(data);
+  };
 
   return (
     <div>
       <Box>
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Card sx={{ p: 4 }}>
             <Typography variant="h3" sx={{ mb: 4 }}>
               {formTitle}
