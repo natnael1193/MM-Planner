@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginRouter from './routes/LoginRouter';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 // ----------------------------------------------------------------------
 
 const token = localStorage.getItem('login_token');
@@ -56,7 +57,7 @@ export default function App() {
               <ProgressBarStyle />
               <Settings />
               <ScrollToTop />
-              {/* <ToastContainer /> */}
+              <Toaster />
               {token !== null ? <Router /> : <LoginRouter />}
             </MotionLazyContainer>
           </RtlLayout>

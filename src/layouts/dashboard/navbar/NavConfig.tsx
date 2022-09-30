@@ -23,14 +23,14 @@ const ICONS = {
 const navConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
-  // {
-  //   subheader: 'general v3.0.0',
-  //   items: [
-  //     { title: 'One', path: '/dashboard/one', icon: ICONS.dashboard },
-  //     { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
-  //     { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics },
-  //   ],
-  // },
+  {
+    subheader: 'general v3.0.0',
+    items: [
+      { title: 'Dashboard', path: '/dashboard', icon: ICONS.dashboard },
+      // { title: 'Two', path: '/dashboard/two', icon: ICONS.ecommerce },
+      // { title: 'Three', path: '/dashboard/three', icon: ICONS.analytics },
+    ],
+  },
 
   // MANAGEMENT
   // ----------------------------------------------------------------------

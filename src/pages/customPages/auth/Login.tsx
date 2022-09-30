@@ -3,6 +3,9 @@ import { Container, Grid, Typography, Card, TextField, Button } from '@mui/mater
 import { useForm } from 'react-hook-form';
 import { useLoginMutation } from 'src/services/LoginApi';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,14 +19,15 @@ const Login = () => {
     if (response.isSuccess) {
       localStorage.setItem('login_token', JSON.stringify(response.data.data.jwToken));
       navigate('/dashboard');
-      window.location.reload();  
+      window.location.reload();
     }
     if (response.isError) {
       navigate('/login');
+      toast.error('Invalid Credentials')
     }
   }, [response, navigate]);
 
-console.log('result', result)
+  console.log('result', result);
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -33,31 +37,33 @@ console.log('result', result)
   return (
     <div
       style={{
-        backgroundColor: 'white',
+        backgroundColor: '#ffeee0',
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <Card>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container direction="column" sx={{ width: '100%', p: 5 }} spacing={3}>
-            <Grid item>
-              <Typography>Login</Typography>
+      <Grid container direction="row" justifyContent="center" alignItems="center" lg={6} sm={12}>
+        <Card sx={{ width: '100%' }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" sx={{ width: '100%', p: 5 }} spacing={3}>
+              <Grid item>
+                <Typography variant="h4">Login</Typography>
+              </Grid>
+              <Grid item>
+                <TextField label="Email" {...register('email')} fullWidth />
+              </Grid>
+              <Grid item>
+                <TextField label="Password" {...register('password')} fullWidth />
+              </Grid>
+              <Grid item>
+                <Button type="submit" variant='contained'>Submit</Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <TextField label="Email" {...register('email')} />
-            </Grid>
-            <Grid item>
-              <TextField label="Password" {...register('password')} />
-            </Grid>
-            <Grid item>
-              <Button type="submit">Submit</Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Card>
+          </form>
+        </Card>
+      </Grid>
     </div>
   );
 };

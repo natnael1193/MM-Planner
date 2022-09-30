@@ -16,8 +16,7 @@ import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
 import Error from 'src/pages/customPages/shared/Error';
 import Loading from 'src/pages/customPages/shared/Loading';
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ExternalProgram from './ExternalProgram';
 import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
 import { useAdvertSchedulesQuery } from 'src/services/AdvertSchduleApi';
@@ -28,6 +27,10 @@ import {
 } from 'src/services/ExternalScheduleApi';
 
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useAddAdvertMutation } from 'src/services/AdvertApi';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -41,17 +44,10 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  { id: 1, startTime: '01:00', day: 'Monday', endTime: '02:00' },
-  { id: 2, startTime: '01:00', day: 'Tuesday', endTime: '02:00' },
-  { id: 3, startTime: '01:00', day: 'Wendsday', endTime: '02:00' },
-  { id: 4, startTime: '01:00', day: 'Thursday', endTime: '02:00' },
-  { id: 5, startTime: '01:00', day: 'Friday', endTime: '02:00' },
-  { id: 6, startTime: '01:00', day: 'Saturday', endTime: '02:00' },
-  { id: 7, startTime: '01:00', day: 'Sunday', endTime: '02:00' },
-];
+
 
 const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
+  const navigate = useNavigate();
   let advertPlansData: any = [];
   let stationsData: any = [];
   let programsData: any = [];
@@ -102,6 +98,8 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     error: scheduleError,
   }: any = useScheduleByProgramQuery(programId);
 
+  const [ addAdvert, result ] = useAddAdvertMutation();
+
   if (
     isLoading ||
     isFetching ||
@@ -124,20 +122,43 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     programsData = program.data.programs;
   }
 
-  // if(scheduleSucess){
-  //   schedulesData =
-  // }
+  if (scheduleSucess) {
+    schedulesData = schedule.data.schedules;
+    // setSelectedSchedules(schedule)
+    // useEffect(() => {
+    //   setSelectedSchedules(schedule);
+    // }, []);
+  }
 
   if (error || stationError) return <Error />;
 
+  // useEffect(() => {
+  //   if (result.isSuccess) {
+  //     console.log(result);
+  //     navigate('/dashboard/campaign/list');
+  //   }
+  //   if (result.isError) {
+  //     console.log(result);
+  //   }
+  // }, [result, navigate]);
+
   // console.log(station)
-  // console.log(program)
+  console.log(schedulesData);
   console.log(programsData);
   console.log(selectedSchedules);
 
-
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
+
+    const newData: any = {
+      name: data.name,
+      advertPlanId: data.advertPlanId,
+      key: data.key,
+      schedules: selectedSchedules,
+    };
+
+    console.log(newData);
+    addAdvert(newData)
     // alert(JSON.stringify(data));
     // addAdvert(data);
   };
@@ -266,45 +287,43 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 </FormControl>
               </Grid>
 
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl:5}}>
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
                 <div style={{ height: 460, width: '100%' }}>
                   <DataGrid
-                    rows={rows}
+                    rows={schedulesData === undefined ? [] : schedulesData}
                     columns={columns}
                     checkboxSelection
                     hideFooterPagination
                     onSelectionModelChange={(ids) => {
                       const selectedIDs = new Set(ids);
-                      const selectedRows: any = rows.filter((row) => selectedIDs.has(row.id));
+                      const selectedRows: any =
+                        schedulesData === undefined
+                          ? []
+                          : schedulesData.filter((row: any) => selectedIDs.has(row.id));
 
                       setSelectedSchedules(selectedRows);
                     }}
                     // {...data}
                   />
-                  <Typography color="red" style={{ marginTop: '-25px'}}>
+                  <Typography color="red" style={{ marginTop: '-25px' }}>
                     {selectedSchedules.length === 0 ? 'One date must be selected' : ''}
                   </Typography>
                 </div>
               </Grid>
 
               {/* <ExternalProgram /> */}
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl:5}}>
-                {
-                  selectedSchedules.length === 0 ? (
-                    <Button variant="contained" disabled>
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
+                {selectedSchedules.length === 0 ? (
+                  <Button variant="contained" disabled>
                     {' '}
                     Submit{' '}
                   </Button>
-                  )
-                  :
-                  (
-                    <Button variant="contained" type="submit" >
+                ) : (
+                  <Button variant="contained" type="submit">
                     {' '}
                     Submit{' '}
                   </Button>
-                  )
-                }
-          
+                )}
               </Grid>
             </Grid>
           </Card>
