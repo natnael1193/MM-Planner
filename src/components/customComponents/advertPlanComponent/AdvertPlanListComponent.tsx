@@ -3,6 +3,7 @@ import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import { useDeleteAdvertPlanMutation } from 'src/services/AdvertPlanApi';
 
 const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
@@ -25,9 +26,17 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
       field: '',
       // headerName: '',
       type: '',
-      width: 150,
+      width: 250,
       renderCell: (cellValues: any) => (
         <>
+          <Link
+            to={`/dashboard/advert-plan/detail/${cellValues.id}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Button sx={{ mr: 2 }}>
+              <PreviewIcon />
+            </Button>
+          </Link>
           <Link
             to={`/dashboard/advert-plan/edit/${cellValues.id}`}
             style={{ textDecoration: 'none' }}

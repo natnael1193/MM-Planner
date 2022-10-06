@@ -3,10 +3,18 @@ import { Advert } from '../interfaces/Advert.interface';
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
-const token: any = localStorage.getItem('login_token')
-const baseToken = JSON.parse(token)
+const token: any = localStorage.getItem('login_token');
+const baseToken = JSON.parse(token);
 
 // console.log(baseToken)
+
+interface ListResponse<T> {
+  pageNumber: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+  data: T[];
+}
 
 export const advertApi = createApi({
   reducerPath: 'advertApi',
@@ -23,8 +31,8 @@ export const advertApi = createApi({
   }),
   tagTypes: ['Advert'],
   endpoints: (builder) => ({
-    adverts: builder.query<Advert[], void>({
-      query: () => '/Advert',
+    adverts: builder.query<ListResponse<Advert>, number | void>({
+      query: (page = 1) => `/Advert/?pageNumber=${page}`,
       providesTags: ['Advert'],
     }),
     advert: builder.query<Advert, string>({
@@ -37,24 +45,30 @@ export const advertApi = createApi({
         method: 'POST',
         body: advert,
       }),
-      invalidatesTags: ["Advert"]
+      invalidatesTags: ['Advert'],
     }),
     updateAdvert: builder.mutation<void, Advert>({
       query: ({ id, ...rest }) => ({
-          url: `/Advert/${id}`,
-          method: "PUT",
-          body: rest
+        url: `/Advert/${id}`,
+        method: 'PUT',
+        body: rest,
       }),
-      invalidatesTags: ["Advert"]
-  }),
-  deleteAdvert: builder.mutation<void, string>({
+      invalidatesTags: ['Advert'],
+    }),
+    deleteAdvert: builder.mutation<void, string>({
       query: (id) => ({
-          url: `/Advert/${id}`,
-          method: 'DELETE'
+        url: `/Advert/${id}`,
+        method: 'DELETE',
       }),
-      invalidatesTags: ['Advert']
-  })
+      invalidatesTags: ['Advert'],
+    }),
   }),
 });
 
-export const { useAdvertsQuery, useAdvertQuery, useAddAdvertMutation, useUpdateAdvertMutation, useDeleteAdvertMutation } = advertApi;
+export const {
+  useAdvertsQuery,
+  useAdvertQuery,
+  useAddAdvertMutation,
+  useUpdateAdvertMutation,
+  useDeleteAdvertMutation,
+} = advertApi;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useAdvertsQuery } from 'src/services/AdvertApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
@@ -6,9 +6,10 @@ import AdvertListComponent from '../../../components/customComponents/advertComp
 
 const AdvertList = () => {
   let advertData: any = [];
+  const [page, setPage]: any = useState(1);
 
   //Ger All Advert 
-  const { data, error, isLoading, isSuccess, isFetching } = useAdvertsQuery();
+  const { data, error, isLoading, isSuccess, isFetching } = useAdvertsQuery(page);
 
   if (isLoading || isFetching) return <Loading />;
 
@@ -19,7 +20,7 @@ const AdvertList = () => {
   if (error) return <Error />;
 
   return (
-    <div><AdvertListComponent advertData={advertData.data} dataGridTitle={"Advert List"}/></div>
+    <div><AdvertListComponent advertData={advertData.data} dataGridTitle={"Advert List"} page={page} setPage={setPage}/></div>
   )
 }
 

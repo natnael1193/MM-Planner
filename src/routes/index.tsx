@@ -62,6 +62,7 @@ export default function Router() {
             { path: '/dashboard/advert-plan/list', element: <AdvertPlanList /> },
             { path: '/dashboard/advert-plan/add', element: <AddAdvertPlan /> },
             { path: '/dashboard/advert-plan/edit/:advertPlanId', element: <EditAdvertPlan /> },
+            { path: '/dashboard/advert-plan/detail/:advertPlanId', element: <AdvertPlanDetail /> },
           ],
         },
         {
@@ -80,6 +81,7 @@ export default function Router() {
             { path: '/dashboard/advert/list', element: <AdvertList /> },
             { path: '/dashboard/advert/add', element: <AddAdvert /> },
             { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
+            { path: '/dashboard/advert/timeline', element: <AdvertTimeline /> },
           ],
         },
         {
@@ -186,15 +188,13 @@ const EditAdvertDetail = Loadable(
 const AdvertList = Loadable(lazy(() => import('../pages/customPages/advert/AdvertList')));
 const AddAdvert = Loadable(lazy(() => import('../pages/customPages/advert/AddAdvert')));
 const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditAdvert')));
+const AdvertTimeline = Loadable(lazy(() => import('../pages/customPages/advert/AdvertTimeline')));
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
-const EditAdvertPlan = Loadable(
-  lazy(() => import('../pages/customPages/advertPlan/EditAdvertPlan'))
-);
-const AdvertPlanList = Loadable(
-  lazy(() => import('../pages/customPages/advertPlan/AdvertPlanList'))
-);
+const EditAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/EditAdvertPlan')));
+const AdvertPlanList = Loadable(lazy(() => import('../pages/customPages/advertPlan/AdvertPlanList')));
+const AdvertPlanDetail = Loadable(lazy(() => import('../pages/customPages/advertPlan/AdvertPlanDetail')));
 
 //Campaign
 const CampaignList = Loadable(lazy(() => import('../pages/customPages/campaign/CampaignList')));

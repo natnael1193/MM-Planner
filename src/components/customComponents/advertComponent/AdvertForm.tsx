@@ -290,7 +290,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
                 <div style={{ height: 460, width: '100%' }}>
                   <DataGrid
-                    rows={schedulesData === undefined ? [] : schedulesData}
+                    rows={schedulesData === undefined || programsData.length === 0 ? [] : schedulesData}
                     columns={columns}
                     checkboxSelection
                     hideFooterPagination

@@ -37,7 +37,7 @@ const Login = () => {
   return (
     <div
       style={{
-        backgroundColor: '#ffeee0',
+        backgroundColor: 'black',
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
@@ -45,6 +45,7 @@ const Login = () => {
       }}
     >
       <Grid container direction="row" justifyContent="center" alignItems="center" lg={6} sm={12}>
+        <Typography color="white" variant="h1">MM - Planner</Typography>
         <Card sx={{ width: '100%' }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container direction="column" sx={{ width: '100%', p: 5 }} spacing={3}>
