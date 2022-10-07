@@ -5,6 +5,7 @@ import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import CampaignForm from 'src/components/customComponents/campaignComponent/CampaignForm';
 import moment from 'moment';
+import toast from 'react-hot-toast';
 
 const EditCampaign = () => {
   const params = useParams();
@@ -21,7 +22,7 @@ const EditCampaign = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      //  toast.success(response.data.status)
+       toast.success("Updated Successfully!");
     }
     if (response.isError) {
       //  toast.error(response.error.data.error)
@@ -52,13 +53,13 @@ const EditCampaign = () => {
       id: data.id,
       name: data.name,
       key: data.key,
-      startDate: data.startDate + ':00.000Z',
-      endDate:  data.endDate + ':00.000Z',
+      startDate: data.startDate + 'Z',
+      endDate:  data.endDate + 'Z',
     };
     updateCampaing(newData);
   };
 
-  console.log(defaultValues);
+
   return (
     <div>
       <CampaignForm

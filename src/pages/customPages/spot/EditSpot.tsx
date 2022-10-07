@@ -5,6 +5,7 @@ import { useSpotQuery, useUpdateSpotMutation } from 'src/services/SpotApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import toast from 'react-hot-toast';
 
 const EditSpot = () => {
   const params = useParams();
@@ -21,10 +22,10 @@ const EditSpot = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      //  toast.success(response.data.status)
+      toast.success("Updated Successfully!");
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+       toast.error(response.error.data.error)
     }
   }, [response]);
 

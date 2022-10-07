@@ -1,4 +1,4 @@
-import { Container, Card, Typography, Grid, TextField, Button } from '@mui/material';
+import { Card, Typography, Grid, TextField, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
@@ -9,10 +9,10 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   return (
     <div>
-      <Container>
+      <Grid>
         <Card sx={{ p: 3 }}>
           <form onSubmit={handleSubmit(onFormSubmit)}>
-            <Typography variant="h3">Add Campaign</Typography>
+            <Typography variant="h3">{formTitle}</Typography>
             <Grid container spacing={3} sx={{ mt: 4 }}>
               <Grid item lg={6} md={6} sm={12}>
                 <TextField label="Key" fullWidth {...register('key', { required: true })} />
@@ -54,7 +54,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             </Button>
           </form>
         </Card>
-      </Container>
+      </Grid>
     </div>
   );
 };
