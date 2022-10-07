@@ -37,7 +37,7 @@ const TimelineComponent = ( { advertData, advertPlanData }: any) => {
           EndTime: moment.utc(advert.endTime).format().replace(/Z/g, ''),
           Id: advert.id,
           // TaskId: advert.program.id,
-          TaskId: advert.programId,
+          TaskId: advert.advertPlanId,
           ProjectId: advert.ProjectId,
           // IsAllDay: advert.IsAllDay,
           IsReadonly: true,
@@ -56,7 +56,8 @@ const TimelineComponent = ( { advertData, advertPlanData }: any) => {
       });
   
       console.log(newAdvertPlanData)
-  
+      console.log(newAdvertData)
+      
     return (
       <div>
         <ScheduleComponent

@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [login, result] = useLoginMutation();
 
@@ -22,8 +22,8 @@ const Login = () => {
       window.location.reload();
     }
     if (response.isError) {
+      toast.error(response.error.data.Message)
       navigate('/login');
-      toast.error('Invalid Credentials')
     }
   }, [response, navigate]);
 
@@ -44,26 +44,42 @@ const Login = () => {
         alignItems: 'center',
       }}
     >
-      <Grid container direction="row" justifyContent="center" alignItems="center" lg={6} sm={12}>
-        <Typography color="white" variant="h1">MM - Planner</Typography>
-        <Card sx={{ width: '100%' }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container direction="column" sx={{ width: '100%', p: 5 }} spacing={3}>
-              <Grid item>
-                <Typography variant="h4">Login</Typography>
+      <Grid container  direction="row" justifyContent="center" alignItems="center">
+        <Grid item lg={6} sm={12} justifyContent="center" alignItems="center">
+          <Typography color="white" variant="h1">
+            MM - Scheduler
+          </Typography>
+          <Card sx={{ width: '100%' }}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid container direction="column" sx={{ width: '100%', p: 5 }} spacing={3}>
+                <Grid item>
+                  <Typography variant="h4">Login</Typography>
+                </Grid>
+                <Grid item>
+                  <TextField label="Email" {...register('email', { required: true })} fullWidth />
+                  <Typography variant="inherit" color="error">
+                    {errors.email && 'This is required'}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <TextField
+                    label="Password"
+                    {...register('password', { required: true })}
+                    fullWidth
+                  />
+                  <Typography variant="inherit" color="error">
+                    {errors.password && 'This is required'}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button type="submit" variant="contained">
+                    Submit
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <TextField label="Email" {...register('email')} fullWidth />
-              </Grid>
-              <Grid item>
-                <TextField label="Password" {...register('password')} fullWidth />
-              </Grid>
-              <Grid item>
-                <Button type="submit" variant='contained'>Submit</Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Card>
+            </form>
+          </Card>
+        </Grid>
       </Grid>
     </div>
   );
