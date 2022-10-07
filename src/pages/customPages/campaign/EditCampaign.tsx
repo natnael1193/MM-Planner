@@ -25,7 +25,7 @@ const EditCampaign = () => {
        toast.success("Updated Successfully!");
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+       toast.error("Error, Something went wrong!");
     }
   }, [response]);
 

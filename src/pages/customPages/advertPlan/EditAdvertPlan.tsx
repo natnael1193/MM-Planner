@@ -5,7 +5,8 @@ import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import { useAdvertPlanQuery, useUpdateAdvertPlanMutation } from 'src/services/AdvertPlanApi';
 import AdvertPlanForm from 'src/components/customComponents/advertPlanComponent/AdvertPlanForm';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+
 
 const EditAdvertPlan = () => {
   const params = useParams();
@@ -22,10 +23,10 @@ const EditAdvertPlan = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      // toast.success(response.data.message);
+      toast.success("Updated Successfully!");
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+       toast.error("Error: Something went wrong!" )
     }
   }, [response]);
 
