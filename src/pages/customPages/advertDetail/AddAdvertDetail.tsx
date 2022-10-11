@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddAdvertDetailMutation } from 'src/services/AdvertDetailApi';
 import AdvertDetailForm from '../../../components/customComponents/advertDetailComponent/AdvertDetailForm';
+import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
 
 const AddAdvertDetail = () => {
   const navigate = useNavigate();

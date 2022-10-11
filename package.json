@@ -46,6 +46,7 @@
     "@syncfusion/ej2-base": "^19.4.52",
     "@syncfusion/ej2-react-schedule": "^19.4.52",
     "change-case": "^4.1.2",
+    "classnames": "^2.3.2",
     "date-fns": "^2.27.0",
     "framer-motion": "^4.1.17",
     "history": "^5.2.0",

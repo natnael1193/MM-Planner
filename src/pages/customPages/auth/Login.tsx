@@ -45,7 +45,7 @@ const Login = () => {
       }}
     >
       <Grid container  direction="row" justifyContent="center" alignItems="center">
-        <Grid item lg={6} sm={12} justifyContent="center" alignItems="center">
+        <Grid item lg={6} sm={12} xs={12} justifyContent="center" alignItems="center">
           <Typography color="white" variant="h1">
             MM - Planner
           </Typography>

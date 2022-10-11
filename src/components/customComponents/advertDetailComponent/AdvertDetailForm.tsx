@@ -11,30 +11,61 @@ import {
   InputLabel,
   SelectChangeEvent,
 } from '@mui/material';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import Loading from 'src/pages/customPages/shared/Loading';
 import Error from 'src/pages/customPages/shared/Error';
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useSpotContentsQuery } from 'src/services/SpotContentApi';
 import { useAdvertsQuery } from 'src/services/AdvertApi';
+import { useAdvertPlansQuery, useAdvertPlanQuery } from 'src/services/AdvertPlanApi';
+import moment from 'moment';
 
 const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   const [contentType, setContentType] = React.useState('');
   const [spotContent, setSpotContent] = React.useState<string[]>([]);
   const [advertContent, setAdvertContent] = React.useState('');
+  const [advertId, setAdvertId] = React.useState('');
+  const [advertPlanId, setAdvertPlanId]: any = React.useState(
+    defaultValues.advertPlanId !== undefined ? defaultValues.advertPlanId : ''
+  );
+  // const [advertPlanDetailData, setAdvertPlanDetailData]: any = React.useState('');
+
   let spotData: any = [];
   let advertContentData: any = [];
+  let advertPlanData: any = [];
+  let advertPlanDetailData: any = [];
+
+
+  // setAdvertPlanId(defaultValues.advertPlanId);
 
   //Spot Data
   const { data, isLoading, error, isSuccess } = useSpotsQuery();
-  // Advert Content Data
+
+  //Get All Advert Plan
   const {
-    data: advertData,
-    isLoading: advertLoading,
-    error: advertError,
-    isSuccess: advertSuccess,
-  } = useAdvertsQuery();
+    data: advetPlan,
+    error: advertPlanError,
+    isLoading: advertPlanLoading,
+    isSuccess: advertPlanSuccess,
+  } = useAdvertPlansQuery();
+
+  //Get All Advert Plan
+  const {
+    data: advertPlanDetail,
+    error: advertPlanDetailError,
+    isLoading: advertPlanDetailLoading,
+    isFetching: advertPlanDetailFetching,
+    isSuccess: advertPlanDetailSuccess,
+  }: any = useAdvertPlanQuery(advertPlanId);
+
+  // Advert Content Data
+  // const {
+  //   data: advertData,
+  //   isLoading: advertLoading,
+  //   error: advertError,
+  //   isSuccess: advertSuccess,
+  // } = useAdvertsQuery();
 
   const handleChange = (event: SelectChangeEvent<typeof spotContent>) => {
     const {
@@ -47,7 +78,12 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   };
 
   const advertHandleChange = (event: SelectChangeEvent) => {
-    setAdvertContent(event.target.value);
+    // setAdvertContent(event.target.value);
+    setAdvertId(event.target.value)
+  };
+
+  const advertPlanHandleChange = (event: SelectChangeEvent) => {
+    setAdvertPlanId(event.target.value);
   };
 
   const handleSpotChange = (event: SelectChangeEvent) => {
@@ -55,11 +91,15 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
   };
 
   //React-hook-form
-  const { register, handleSubmit, formState: {errors} } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
 
-  if (isLoading || advertLoading) return <Loading />;
+  if (isLoading || advertPlanLoading || advertPlanDetailLoading || advertPlanDetailFetching) return <Loading />;
 
   // if (isSuccess) {
   //   spotData = data?.map(function (spotContents: any) {
@@ -74,11 +114,25 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
     spotData = data;
   }
 
-  if (advertSuccess) {
-    advertContentData = advertData;
+  // if (advertSuccess) {
+  //   advertContentData = advertData;
+  // }
+
+  if (advertPlanSuccess) {
+    advertPlanData = advetPlan;
   }
 
-  if (error) return <Error />;
+
+
+  if (advertPlanDetailSuccess) {
+          advertPlanDetailData = advertPlanDetail.data?.adverts;
+  }
+  
+
+  if (error || advertPlanError) return <Error />;
+
+  console.log(advertPlanData);
+  console.log(advertPlanDetail.data?.adverts);
 
   return (
     <div>
@@ -89,21 +143,31 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Key" {...register('key', {required: true})} sx={{ mt: 1 }} />
-                <Typography color="red">{ errors.key && "This is required"}</Typography>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
+                <TextField
+                  fullWidth
+                  label="Key"
+                  {...register('key', { required: true })}
+                  sx={{ mt: 1 }}
+                />
+                <Typography color="red">{errors.key && 'This is required'}</Typography>
               </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Quantity" {...register('quantity', {required: true})} sx={{ mt: 1 }} />
-                <Typography color="red">{ errors.quantity && "This is required"}</Typography>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
+                <TextField
+                  fullWidth
+                  label="Quantity"
+                  {...register('quantity', { required: true })}
+                  sx={{ mt: 1 }}
+                />
+                <Typography color="red">{errors.quantity && 'This is required'}</Typography>
               </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl sx={{ mt: 1, width: '100%' }}>
                   <InputLabel id="demo-simple-select-label">Spot</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    {...register('spotId', {required: true})}
+                    {...register('spotId', { required: true })}
                     fullWidth
                     // value={contentType}
                     label="Spot"
@@ -118,24 +182,24 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       );
                     })}
                   </Select>
-                  <Typography color="red">{ errors.spotId && "This is required"}</Typography>
+                  <Typography color="red">{errors.spotId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
                 <FormControl sx={{ width: '100%' }}>
-                  <InputLabel id="demo-simple-select-helper-label">Advert</InputLabel>
+                  <InputLabel id="demo-simple-select-helper-label">Advert Plan</InputLabel>
                   <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    {...register('advertId', {required: true})}
+                    {...register('advertPlanId', { required: true })}
                     // value={campaignContent}
-                    label="Advert"
-                    onChange={advertHandleChange}
+                    label="Advert Plan"
+                    onChange={advertPlanHandleChange}
                     defaultValue={
-                      defaultValues.advertId !== undefined ? defaultValues.advertId : ''
+                      defaultValues.advertPlanId !== undefined ? defaultValues.advertPlanId : ''
                     }
                   >
-                    {advertContentData.data.map((advert: any) => {
+                    {advertPlanData.data.map((advert: any) => {
                       return (
                         <MenuItem key={advert.id} value={advert.id}>
                           {advert.name}
@@ -143,7 +207,34 @@ const AdvertDetailForm = ({ formTitle, defaultValues, onFormSubmit }: any) => {
                       );
                     })}
                   </Select>
-                  <Typography color="red">{ errors.advertId && "This is required"}</Typography>
+                  <Typography color="red">{errors.advertPlanId && 'This is required'}</Typography>
+                </FormControl>
+              </Grid>
+
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <FormControl sx={{ width: '100%' }}>
+                  <InputLabel id="demo-simple-select-helper-label">Advert </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    {...register('advertId', { required: true })}
+                    // value={defaultValues.advertId}
+                    label="Advert"
+                    // onChange={advertPlanHandleChange}
+                    defaultValue={
+                      defaultValues.advertId !== undefined ? defaultValues.advertId : ''
+                    }
+                  >
+                    {
+                        advertPlanDetailData?.map((advert: any) => {
+                          return (
+                            <MenuItem key={advert.id} value={advert.id}>
+                              {advert.name} ( { moment.utc(advert.startTime).format('Do dd, MM YYYY hh:mm')} - {moment.utc(advert.endTime).format('Do dd, MM YYYY hh:mm')} )
+                            </MenuItem>
+                          );
+                        })}
+                  </Select>
+                  <Typography color="red">{errors.advertPlanId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
 

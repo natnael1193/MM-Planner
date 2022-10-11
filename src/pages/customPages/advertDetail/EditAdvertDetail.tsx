@@ -12,7 +12,7 @@ const EditAdvertDetail = () => {
   var defaultValues: any = {};
 
   //Get Advert Detail By Id
-  const { data: advertDetailData, error, isLoading } = useAdvertDetailQuery(paramsId);
+  const { data: advertDetailData, error, isLoading }: any = useAdvertDetailQuery(paramsId);
 
   //Update the data
   const [updateAdvertDetail, result] = useUpdateAdvertDetailMutation();
@@ -34,7 +34,17 @@ const EditAdvertDetail = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  defaultValues = advertDetailData;
+  defaultValues = {
+    id: advertDetailData.data.id,
+    key: advertDetailData.data.key,
+    quantity: advertDetailData.data.quantity,
+    advertId: advertDetailData.data.advert.id,
+    spotId: advertDetailData.data.spot.id,
+    advertPlanId: advertDetailData.data.advert.advertPlanId
+  };
+
+console.log(defaultValues.advertId)
+
   const onSubmit = (data: any) => {
     console.log(data);
     updateAdvertDetail(data);

@@ -8,7 +8,7 @@ const AdvertDetailList = () => {
   let advertDetailData: any = [];
 
   //Get All Advert Details
-  const { data, error, isLoading, isSuccess, isFetching } = useAdvertDetailsQuery();
+  const { data, error, isLoading, isSuccess, isFetching }: any = useAdvertDetailsQuery();
   if (isLoading || isFetching) return <Loading />;
 
   if (isSuccess) {
@@ -17,11 +17,21 @@ const AdvertDetailList = () => {
 
   if (error) return <Error />;
 
-  console.log(advertDetailData);
+  advertDetailData = data.data?.map(function(advertDetail: any){
+    return{
+      id: advertDetail.id,
+      spotId: advertDetail.spot.name,
+      advertId: advertDetail.advert.name,
+      quantity: advertDetail.quantity
+    }
+  })
+
+console.log(advertDetailData)
+
   return (
     <div>
       <AdvertDetailListComponent
-        advertDetailData={advertDetailData.data}
+        advertDetailData={advertDetailData}
         dataGridTitle={'Advert Detail List'}
       />
     </div>
