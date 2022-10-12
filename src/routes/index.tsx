@@ -79,6 +79,7 @@ export default function Router() {
             { path: '/dashboard/advert/list', element: <AdvertList /> },
             { path: '/dashboard/advert/add', element: <AddAdvert /> },
             { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
+            { path: '/dashboard/advert/detail/:advertId', element: <AdvertDetail /> },
             { path: '/dashboard/advert/timeline', element: <AdvertTimeline /> },
           ],
         },
@@ -185,6 +186,7 @@ const EditAdvertDetail = Loadable(
 const AdvertList = Loadable(lazy(() => import('../pages/customPages/advert/AdvertList')));
 const AddAdvert = Loadable(lazy(() => import('../pages/customPages/advert/AddAdvert')));
 const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditAdvert')));
+const AdvertDetail = Loadable(lazy(() => import('../pages/customPages/advert/AdvertDetail')));
 const AdvertTimeline = Loadable(lazy(() => import('../pages/customPages/advert/AdvertTimeline')));
 
 //Advert Plan
