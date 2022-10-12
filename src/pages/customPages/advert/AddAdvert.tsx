@@ -29,7 +29,7 @@ const AddAdvert = () => {
   const onSubmit = (data: any) => {
     console.log(data)
     // alert(JSON.stringify(data));
-    // addAdvert(data);
+    addAdvert(data);
   };
   return (
     <div>

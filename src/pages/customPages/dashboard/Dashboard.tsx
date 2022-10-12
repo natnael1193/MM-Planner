@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Grid, Box, Paper, Card, Typography, Divider } from '@mui/material';
 // import MovingIcon from '@mui/icons-material/Moving';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -6,25 +6,93 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import SourceIcon from '@mui/icons-material/Source';
 import DetailsIcon from '@mui/icons-material/Details';
 import { styled } from '@mui/material/styles';
-
+import Loading from '../shared/Loading';
+import { useSpotsQuery } from 'src/services/SpotApi';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
+import { useSpotContentsQuery } from 'src/services/SpotContentApi';
+import { useAdvertsQuery } from 'src/services/AdvertApi';
+import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
+import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
+import Error from '../shared/Error';
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    textAlign: 'start',
-    // color: theme.palette.text.secondary,
-    // boxShadow: "",
-    // border: "black"
-  }));
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  textAlign: 'start',
+  // color: theme.palette.text.secondary,
+  // boxShadow: "",
+  // border: "black"
+}));
 
 const Dashboard = () => {
+  //Get All Spot Contents
+  const { data: spotData, error: spotError, isLoading: spotLoading }: any = useSpotsQuery();
+
+  //Get all campaign
+  const {
+    data: campaignData,
+    error: campaignError,
+    isLoading: campaignLoading,
+  }: any = useCampaignsQuery();
+
+  //Get All Spot Contents
+  const {
+    data: spotContentData,
+    error: spotContentError,
+    isLoading: spotContentLoading,
+  }: any = useSpotContentsQuery();
+
+  //Ger All Advert
+  const { data: advertData, error: advertError, isLoading: advertLoading }: any = useAdvertsQuery();
+
+  //Get all advert plans
+  const {
+    data: advertPlanData,
+    error: advertPlanError,
+    isLoading: advertPlanLoading,
+  }: any = useAdvertPlansQuery();
+
+  //Get All Advert Details
+  const {
+    data: advertDetailData,
+    error: advertDetailError,
+    isLoading: advertDetailLoading,
+  }: any = useAdvertDetailsQuery();
+
+  if (
+    spotLoading ||
+    campaignLoading ||
+    spotContentLoading ||
+    advertLoading ||
+    advertPlanLoading ||
+    advertDetailLoading
+  )
+    return <Loading />;
+
+  if (
+    spotError ||
+    campaignError ||
+    spotContentError ||
+    advertError ||
+    advertPlanError ||
+    advertDetailError
+  )
+    return <Error />;
+
+  console.log(
+    spotData.data.length,
+    campaignData.data.length,
+    advertPlanData.data.length,
+    advertDetailData.data.length
+  );
+
   return (
     <div>
-              <Box sx={{ width: '100%', paddingLeft: 2, paddingRight: 2 }}>
+      <Box sx={{ width: '100%', paddingLeft: 2, paddingRight: 2 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
             <Card sx={{ boxShadow: 5 }}>
@@ -39,7 +107,7 @@ const Dashboard = () => {
                 </Typography>
               </Item>
               <Item>
-                <Typography variant="h4"></Typography>
+                <Typography variant="h4">{campaignData.data.length}</Typography>
               </Item>
             </Card>
           </Grid>
@@ -56,7 +124,7 @@ const Dashboard = () => {
                 </Typography>
               </Item>
               <Item>
-                <Typography variant="h4"></Typography>
+                <Typography variant="h4">{advertData.data.length}</Typography>
               </Item>
             </Card>
           </Grid>
@@ -73,7 +141,7 @@ const Dashboard = () => {
                 </Typography>
               </Item>
               <Item>
-                <Typography variant="h4">664</Typography>
+                <Typography variant="h4">{advertPlanData.data.length}</Typography>
               </Item>
             </Card>
           </Grid>
@@ -89,7 +157,7 @@ const Dashboard = () => {
                 </Typography>
               </Item>
               <Item>
-                <Typography variant="h4"></Typography>
+                <Typography variant="h4">{advertDetailData.data.length}</Typography>
               </Item>
             </Card>
           </Grid>
@@ -106,14 +174,31 @@ const Dashboard = () => {
                 </Typography>
               </Item>
               <Item>
-                <Typography variant="h4"></Typography>
+                <Typography variant="h4">{spotData.data.length}</Typography>
+              </Item>
+            </Card>
+          </Grid>
+          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
+            <Card sx={{ boxShadow: 5 }}>
+              <Item>
+                <Typography variant="h6">
+                  Total Spot <DetailsIcon color="error" />
+                </Typography>
+              </Item>
+              <Item>
+                <Typography variant="inherit">
+                  {/* +2.6% <MovingIcon color="success" />{' '} */}
+                </Typography>
+              </Item>
+              <Item>
+                <Typography variant="h4">{spotContentData.data.length}</Typography>
               </Item>
             </Card>
           </Grid>
         </Grid>
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
