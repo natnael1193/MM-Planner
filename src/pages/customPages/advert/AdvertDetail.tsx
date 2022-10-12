@@ -28,7 +28,7 @@ const AdvertDetail = () => {
   advertDetailData = advertData.data?.advertDetails.map(function (advertDetail: any) {
     return {
       id: advertDetail.id,
-      spotId: advertDetail.spot.name,
+      // spotId: advertDetail.spot.name,
       advertId: advertDetail.advert.name,
       quantity: advertDetail.quantity,
     };
