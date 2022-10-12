@@ -13,6 +13,11 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
   //Data Grid Header
   const columns: GridColumns = [
     {
+      field: 'key',
+      headerName: 'Key',
+      width: 300,
+    },
+    {
       field: 'name',
       headerName: 'Advert Plan Name',
       width: 300,
@@ -55,7 +60,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
 
   return (
     <div>
-      <Typography variant="h3" sx={{ mb: 3 }}>
+      <Typography variant="h3" sx={{ mb: 1, }}>
         {dataGridTitle}
       </Typography>
       <div style={{ height: '400px', width: '100%' }}>

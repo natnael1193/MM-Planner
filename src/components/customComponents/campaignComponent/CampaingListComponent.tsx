@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDeleteCampaignMutation } from 'src/services/CamapignApi';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import moment from 'moment';
 
 const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
@@ -14,6 +15,11 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
 
   //Data Grid Header
   const columns: GridColumns = [
+    {
+      field: 'key',
+      headerName: 'Key',
+      width: 300,
+    },
     {
       field: 'name',
       headerName: 'Campaign Name',
@@ -33,9 +39,17 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
       field: '',
       // headerName: '',
       type: '',
-      width: 150,
+      width: 250,
       renderCell: (cellValues: any) => (
         <>
+          <Link
+            to={`/dashboard/campaign/detail/${cellValues.id}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Button sx={{ mr: 2 }}>
+              <PreviewIcon />
+            </Button>
+          </Link>
           <Link to={`/dashboard/campaign/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />
@@ -52,6 +66,7 @@ const CampaingListComponent = ({ campaignData, dataGridTitle }: any) => {
   newCampaignData = campaignData.map(function (campaing: any) {
     return {
       id: campaing.id,
+      key: campaing.key,
       name: campaing.name,
       startDate: moment.utc(campaing.startDate).format('dddd Do MMMM YYYY'),
       endDate: moment.utc(campaing.endDate).format('dddd Do MMMM YYYY'),

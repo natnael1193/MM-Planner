@@ -21,7 +21,8 @@ const AdvertPlanList = () => {
   console.log(data)
 
   return (
-    <div><AdvertPlanListComponent advertPlanData={advertPlanData.data} dataGridTitle={"Advert List"} /></div>
+    <div><AdvertPlanListComponent advertPlanData={advertPlanData.data} dataGridTitle={"Advert Plan List"} />
+    </div>
   )
 }
 

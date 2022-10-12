@@ -10,14 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
-
 const token = localStorage.getItem('login_token');
 
 const Loadable = (Component: ElementType) => (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { pathname } = useLocation();
-
-  
 
   return (
     <Suspense fallback={<LoadingScreen isDashboard={pathname.includes('/dashboard')} />}>
@@ -26,14 +23,12 @@ const Loadable = (Component: ElementType) => (props: any) => {
   );
 };
 
-
-
 export default function Router() {
-  const navigate = useNavigate()
-  if(!token){
+  const navigate = useNavigate();
+  if (!token) {
     useEffect(() => {
-     return navigate('/login')
-    })
+      return navigate('/login');
+    });
   }
 
   return useRoutes([
@@ -71,7 +66,10 @@ export default function Router() {
             { element: <Navigate to="/dashboard/advert/list" replace />, index: true },
             { path: '/dashboard/advert-schedule/list', element: <AdvertScheduleList /> },
             { path: '/dashboard/advert-schedule/add', element: <AddAdvertSchedule /> },
-            { path: '/dashboard/advert-schedule/edit/:advertScheduleId', element: <EditAdvertSchedule /> },
+            {
+              path: '/dashboard/advert-schedule/edit/:advertScheduleId',
+              element: <EditAdvertSchedule />,
+            },
           ],
         },
         {
@@ -121,6 +119,7 @@ export default function Router() {
             { path: '/dashboard/campaign/list', element: <CampaignList /> },
             { path: '/dashboard/campaign/add', element: <AddCampaign /> },
             { path: '/dashboard/campaign/edit/:campaignId', element: <EditCampaign /> },
+            { path: '/dashboard/campaign/detail/:campaignId', element: <CampaignDetail /> },
           ],
         },
         {
@@ -128,7 +127,6 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/test/pagination" replace />, index: true },
             { path: '/dashboard/test/pagination', element: <Pagination /> },
-
           ],
         },
       ],
@@ -144,7 +142,6 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
-
 
 // Dashboard
 const Dashboard = Loadable(lazy(() => import('../pages/customPages/dashboard/Dashboard')));
@@ -192,21 +189,32 @@ const AdvertTimeline = Loadable(lazy(() => import('../pages/customPages/advert/A
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
-const EditAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/EditAdvertPlan')));
-const AdvertPlanList = Loadable(lazy(() => import('../pages/customPages/advertPlan/AdvertPlanList')));
-const AdvertPlanDetail = Loadable(lazy(() => import('../pages/customPages/advertPlan/AdvertPlanDetail')));
+const EditAdvertPlan = Loadable(
+  lazy(() => import('../pages/customPages/advertPlan/EditAdvertPlan'))
+);
+const AdvertPlanList = Loadable(
+  lazy(() => import('../pages/customPages/advertPlan/AdvertPlanList'))
+);
+const AdvertPlanDetail = Loadable(
+  lazy(() => import('../pages/customPages/advertPlan/AdvertPlanDetail'))
+);
 
 //Campaign
 const CampaignList = Loadable(lazy(() => import('../pages/customPages/campaign/CampaignList')));
 const AddCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/AddCampaign')));
 const EditCampaign = Loadable(lazy(() => import('../pages/customPages/campaign/EditCampaign')));
-
+const CampaignDetail = Loadable(lazy(() => import('../pages/customPages/campaign/CampaignDetail')));
 
 // Advert Schedule
-const AdvertScheduleList = Loadable(lazy(() => import('../pages/customPages/advertSchedule/AdvertScheduleList')));
-const AddAdvertSchedule = Loadable(lazy(() => import('../pages/customPages/advertSchedule/AddAdvertSchedule')));
-const EditAdvertSchedule = Loadable(lazy(() => import('../pages/customPages/advertSchedule/EditAdvertSchedule')));
-
+const AdvertScheduleList = Loadable(
+  lazy(() => import('../pages/customPages/advertSchedule/AdvertScheduleList'))
+);
+const AddAdvertSchedule = Loadable(
+  lazy(() => import('../pages/customPages/advertSchedule/AddAdvertSchedule'))
+);
+const EditAdvertSchedule = Loadable(
+  lazy(() => import('../pages/customPages/advertSchedule/EditAdvertSchedule'))
+);
 
 // Test
 const Pagination = Loadable(lazy(() => import('../pages/customPages/test/pagination')));
