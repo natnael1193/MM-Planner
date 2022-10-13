@@ -8,6 +8,7 @@ import moment from 'moment';
 import toast from 'react-hot-toast';
 import { Grid, Typography } from '@mui/material';
 import AdvertPlanListComponent from 'src/components/customComponents/advertPlanComponent/AdvertPlanListComponent';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const CampaignDetail = () => {
   const params = useParams();
@@ -41,6 +42,13 @@ const CampaignDetail = () => {
 
   return (
     <div>
+          <BreadCrumb
+        main={'Dashboard'}
+        parent={'Campaign'}
+        child={'Detail'}
+        parentLink={'/dashboard/campaign/list'}
+        
+      />
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h3">{defaultValues.name}</Typography>

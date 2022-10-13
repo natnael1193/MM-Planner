@@ -46,7 +46,7 @@ const AddCampaign = () => {
         child={'Add'}
         parentLink={'/dashboard/campaign/list'}
       />
-      <CampaignForm formTitle={'Add Spot'} defaultValues={initialValues} onFormSubmit={onSubmit} />
+      <CampaignForm formTitle={'Add Campaign'} defaultValues={initialValues} onFormSubmit={onSubmit} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Error from '../shared/Error';
 import CampaignForm from 'src/components/customComponents/campaignComponent/CampaignForm';
 import moment from 'moment';
 import toast from 'react-hot-toast';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const EditCampaign = () => {
   const params = useParams();
@@ -22,10 +23,10 @@ const EditCampaign = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-       toast.success("Updated Successfully!");
+      toast.success('Updated Successfully!');
     }
     if (response.isError) {
-       toast.error("Error, Something went wrong!");
+      toast.error('Error, Something went wrong!');
     }
   }, [response]);
 
@@ -54,14 +55,19 @@ const EditCampaign = () => {
       name: data.name,
       key: data.key,
       startDate: data.startDate + 'Z',
-      endDate:  data.endDate + 'Z',
+      endDate: data.endDate + 'Z',
     };
     updateCampaing(newData);
   };
 
-
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Campaign'}
+        child={'Edit'}
+        parentLink={'/dashboard/campaign/list'}
+      />
       <CampaignForm
         formTitle={'Edit Campaign '}
         defaultValues={defaultValues}
