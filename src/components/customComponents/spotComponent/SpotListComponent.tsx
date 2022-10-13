@@ -3,6 +3,7 @@ import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import { useDeleteSpotMutation } from 'src/services/SpotApi';
 
 const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
@@ -16,21 +17,21 @@ const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
       headerName: 'Spot Name',
       width: 300,
     },
-    {
-      field: 'contentType',
-      headerName: 'Content Type',
-      width: 300,
-    },
+    // {
+    //   field: 'contentType',
+    //   headerName: 'Content Type',
+    //   width: 300,
+    // },
     {
       field: 'contentLength',
       headerName: 'Content Length',
       width: 300,
     },
-    {
-        field: 'spotContentIds',
-        headerName: 'Spot Contents',
-        width: 300,
-      },
+    // {
+    //     field: 'spotContentIds',
+    //     headerName: 'Spot Contents',
+    //     width: 300,
+    //   },
     {
       field: '',
       // headerName: '',
@@ -38,10 +39,12 @@ const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
       width: 250,
       renderCell: (cellValues: any) => (
         <>
-          <Link
-            to={`/dashboard/spot/edit/${cellValues.id}`}
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to={`/dashboard/spot/detail/${cellValues.id}`} style={{ textDecoration: 'none' }}>
+            <Button sx={{ mr: 2 }}>
+              <PreviewIcon />
+            </Button>
+          </Link>
+          <Link to={`/dashboard/spot/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />
             </Button>

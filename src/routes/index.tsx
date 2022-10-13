@@ -102,6 +102,7 @@ export default function Router() {
             { path: '/dashboard/spot/list', element: <SpotList /> },
             { path: '/dashboard/spot/add', element: <AddSpot /> },
             { path: '/dashboard/spot/edit/:spotId', element: <EditSpot /> },
+            { path: '/dashboard/spot/detail/:spotId', element: <SpotDetail /> },
           ],
         },
         {
@@ -170,6 +171,7 @@ const EditSpotContent = Loadable(
 const SpotList = Loadable(lazy(() => import('../pages/customPages/spot/SpotList')));
 const AddSpot = Loadable(lazy(() => import('../pages/customPages/spot/AddSpot')));
 const EditSpot = Loadable(lazy(() => import('../pages/customPages/spot/EditSpot')));
+const SpotDetail = Loadable(lazy(() => import('../pages/customPages/spot/SpotDetail')));
 
 //Advert Detail
 const AdvertDetailList = Loadable(

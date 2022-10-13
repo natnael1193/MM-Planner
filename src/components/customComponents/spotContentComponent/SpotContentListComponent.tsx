@@ -46,7 +46,7 @@ const SpotContentListComponent = ({ spotContentData, dataGridTitle }: any) => {
   ];
   return (
     <div>
-      <Typography variant="h3" sx={{ mb: 3 }}>{dataGridTitle}</Typography>
+      <Typography variant="h3" sx={{ mb: 1 }}>{dataGridTitle}</Typography>
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
           rows={spotContentData}
