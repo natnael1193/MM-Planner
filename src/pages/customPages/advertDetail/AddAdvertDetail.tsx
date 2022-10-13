@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAddAdvertDetailMutation } from 'src/services/AdvertDetailApi';
 import AdvertDetailForm from '../../../components/customComponents/advertDetailComponent/AdvertDetailForm';
 import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AddAdvertDetail = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const AddAdvertDetail = () => {
   //Initial Values Of Spot
   const initialValues = {
     quantity: '',
-    key: "",
+    key: '',
     spotId: '',
     advertId: '',
   };
@@ -31,12 +32,17 @@ const AddAdvertDetail = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     addAdvertDetail(data);
   };
 
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert Detail'}
+        child={'Add'}
+        parentLink={'/dashboard/advert-detail/list'}
+      />
       <AdvertDetailForm
         formTitle={'Add Advert Detail'}
         defaultValues={initialValues}

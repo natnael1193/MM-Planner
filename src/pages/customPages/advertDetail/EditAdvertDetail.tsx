@@ -40,18 +40,21 @@ const EditAdvertDetail = () => {
     quantity: advertDetailData.data.quantity,
     advertId: advertDetailData.data.advert.id,
     spotId: advertDetailData.data.spot.id,
-    advertPlanId: advertDetailData.data.advert.advertPlanId
+    advertPlanId: advertDetailData.data.advert.advertPlanId,
   };
 
-console.log(defaultValues.advertId)
-
   const onSubmit = (data: any) => {
-    console.log(data);
     updateAdvertDetail(data);
   };
 
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert Detail'}
+        child={'Edit'}
+        parentLink={'/dashboard/advert-detail/list'}
+      />
       <AdvertDetailForm
         formTitle={'Edit Advert Detail'}
         defaultValues={defaultValues}
