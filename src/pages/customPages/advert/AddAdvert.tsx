@@ -3,6 +3,7 @@ import { useAddAdvertMutation } from 'src/services/AdvertApi';
 import AdvertForm from '../../../components/customComponents/advertComponent/AdvertForm';
 import { useNavigate } from 'react-router-dom';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import { toast } from 'react-hot-toast';
 
 const AddAdvert = () => {
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ const AddAdvert = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      console.log(response);
+      console.log(response.isSuccess);
+      toast("Success!");
       navigate('/dashboard/advert/list');
     }
     if (response.isError) {
@@ -28,10 +30,11 @@ const AddAdvert = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    // alert(JSON.stringify(data));
     addAdvert(data);
   };
+
+  console.log(response)
+
   return (
     <div>
       <BreadCrumb

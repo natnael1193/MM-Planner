@@ -29,6 +29,7 @@ import {
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useAddAdvertMutation } from 'src/services/AdvertApi';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 
 
@@ -124,32 +125,22 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   if (scheduleSucess) {
     schedulesData = schedule.data.schedules;
-    // setSelectedSchedules(schedule)
-    // useEffect(() => {
-    //   setSelectedSchedules(schedule);
-    // }, []);
   }
 
   if (error || stationError) return <Error />;
 
-  // useEffect(() => {
-  //   if (result.isSuccess) {
-  //     console.log(result);
-  //     navigate('/dashboard/campaign/list');
-  //   }
-  //   if (result.isError) {
-  //     console.log(result);
-  //   }
-  // }, [result, navigate]);
 
-  // console.log(station)
-  console.log(schedulesData);
-  console.log(programsData);
-  console.log(selectedSchedules);
+    if (result.isSuccess) {
+     
+      navigate('/dashboard/advert/list');
+    }
+    if (result.isError) {
+      toast.error("Something went wrong, please try again later");
+    }
+
+
 
   const onSubmit = (data: any) => {
-    console.log(data);
-
     const newData: any = {
       name: data.name,
       advertPlanId: data.advertPlanId,
@@ -157,10 +148,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
       schedules: selectedSchedules,
     };
 
-    console.log(newData);
     addAdvert(newData)
-    // alert(JSON.stringify(data));
-    // addAdvert(data);
   };
 
   return (
