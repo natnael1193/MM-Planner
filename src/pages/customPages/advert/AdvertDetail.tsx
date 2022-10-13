@@ -54,8 +54,8 @@ const AdvertDetail = () => {
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
           <Typography variant="h6">
-            {moment(advertData.data.startTime).format('dddd Do, MMMM YYYY')} -{' '}
-            {moment(advertData.data.endTime).format('dddd Do, MMMM YYYY')}
+            {moment(advertData.data.startTime).format('dddd Do, MMMM YYYY, hh:mm a')} -{' '}
+            {moment(advertData.data.endTime).format('dddd Do, MMMM YYYY, hh:mm a')}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 3 }}>

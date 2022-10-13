@@ -48,8 +48,8 @@ export const advertApi = createApi({
       invalidatesTags: ['Advert'],
     }),
     updateAdvert: builder.mutation<void, Advert>({
-      query: ({ id, ...rest }) => ({
-        url: `/Advert/${id}`,
+      query: ({ ...rest }) => ({
+        url: `/Advert/${rest.id}`,
         method: 'PUT',
         body: rest,
       }),
