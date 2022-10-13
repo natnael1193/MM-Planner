@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddAdvertPlanMutation } from 'src/services/AdvertPlanApi';
 import AdvertPlanForm from '../../../components/customComponents/advertPlanComponent/AdvertPlanForm';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AddAdvertPlan = () => {
   const navigate = useNavigate();
@@ -13,10 +14,10 @@ const AddAdvertPlan = () => {
     campaignId: '',
   };
 
-   //Add New Data
-   const [addAdvertPlan, result] = useAddAdvertPlanMutation();
+  //Add New Data
+  const [addAdvertPlan, result] = useAddAdvertPlanMutation();
 
-   //Check the status
+  //Check the status
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
@@ -29,13 +30,18 @@ const AddAdvertPlan = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     addAdvertPlan(data);
   };
 
   return (
     <div>
-      <AdvertPlanForm onFormSubmit={onSubmit} defaultValues={initialValues}/>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert Plan'}
+        child={'Add'}
+        parentLink={'/dashboard/advert-plan/list'}
+      />
+      <AdvertPlanForm onFormSubmit={onSubmit} defaultValues={initialValues} />
     </div>
   );
 };

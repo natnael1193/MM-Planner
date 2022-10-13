@@ -6,7 +6,7 @@ import Error from '../shared/Error';
 import { useAdvertPlanQuery, useUpdateAdvertPlanMutation } from 'src/services/AdvertPlanApi';
 import AdvertPlanForm from 'src/components/customComponents/advertPlanComponent/AdvertPlanForm';
 import { toast } from 'react-hot-toast';
-
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const EditAdvertPlan = () => {
   const params = useParams();
@@ -23,10 +23,10 @@ const EditAdvertPlan = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      toast.success("Updated Successfully!");
+      toast.success('Updated Successfully!');
     }
     if (response.isError) {
-       toast.error("Error: Something went wrong!" )
+      toast.error('Error: Something went wrong!');
     }
   }, [response]);
 
@@ -44,6 +44,12 @@ const EditAdvertPlan = () => {
 
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert Plan'}
+        child={'Edit'}
+        parentLink={'/dashboard/advert-plan/list'}
+      />
       <AdvertPlanForm
         formTitle={'Edit Advert Plan'}
         defaultValues={defaultValues.data}
