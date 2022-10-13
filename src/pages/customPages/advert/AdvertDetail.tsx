@@ -9,6 +9,7 @@ import { Typography } from '@mui/material';
 import moment from 'moment';
 import AdvertDetailList from '../advertDetail/AdvertDetailList';
 import AdvertDetailListComponent from '../../../components/customComponents/advertDetailComponent/AdvertDetailListComponent';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AdvertDetail = () => {
   const params = useParams();
@@ -38,6 +39,12 @@ const AdvertDetail = () => {
 
   return (
     <div>
+            <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert'}
+        child={'Detail'}
+        parentLink={'/dashboard/advert/list'}
+      />
       <Grid container sx={{ p: 3 }}>
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h3">{advertData.data.name}</Typography>

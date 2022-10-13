@@ -4,6 +4,7 @@ import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import AdvertListComponent from '../../../components/customComponents/advertComponent/AdvertListComponent';
 import moment from 'moment';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AdvertList = () => {
   let advertData: any = [];
@@ -38,10 +39,14 @@ const AdvertList = () => {
 
   if (error) return <Error />;
 
-  console.log(data.data);
-
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert'}
+        child={'List'}
+        parentLink={'/dashboard/advert/list'}
+      />
       <AdvertListComponent
         advertData={advertData}
         dataGridTitle={'Advert List'}

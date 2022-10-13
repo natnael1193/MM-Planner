@@ -4,6 +4,7 @@ import AdvertForm from 'src/components/customComponents/advertComponent/AdvertFo
 import { useAdvertQuery, useUpdateAdvertMutation } from 'src/services/AdvertApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const EditAdvert = () => {
   const params = useParams();
@@ -40,6 +41,12 @@ const EditAdvert = () => {
 
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert'}
+        child={'Edit'}
+        parentLink={'/dashboard/advert/list'}
+      />
       <AdvertForm
         formTitle={'Edit Advert '}
         defaultValues={defaultValues.data}
@@ -47,7 +54,6 @@ const EditAdvert = () => {
       />
     </div>
   );
-
 };
 
 export default EditAdvert;

@@ -4,6 +4,7 @@ import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import TimelineComponent from '../../../components/customComponents/timeline/TimelineComponent';
 import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AdvertTimeline = () => {
   let advertData: any = [];
@@ -35,6 +36,12 @@ const AdvertTimeline = () => {
 
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert'}
+        child={'Timeline'}
+        parentLink={'/dashboard/advert/list'}
+      />
       <TimelineComponent advertData={advertData.data} advertPlanData={advertPlanData.data} />
     </div>
   );

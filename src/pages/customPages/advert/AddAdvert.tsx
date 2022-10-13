@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAddAdvertMutation } from 'src/services/AdvertApi';
 import AdvertForm from '../../../components/customComponents/advertComponent/AdvertForm';
 import { useNavigate } from 'react-router-dom';
+import BreadCrumb from '../breadCrumb/BreadCrumb';
 
 const AddAdvert = () => {
   const navigate = useNavigate();
@@ -27,12 +28,18 @@ const AddAdvert = () => {
   }, [response, navigate]);
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
     // alert(JSON.stringify(data));
     addAdvert(data);
   };
   return (
     <div>
+      <BreadCrumb
+        main={'Dashboard'}
+        parent={'Advert'}
+        child={'Add'}
+        parentLink={'/dashboard/advert/list'}
+      />
       <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} onFormSubmit={onSubmit} />
     </div>
   );
