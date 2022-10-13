@@ -5,6 +5,7 @@ import Loading from '../shared/Loading';
 import Error from '../shared/Error';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
 import AdvertDetailForm from '../../../components/customComponents/advertDetailComponent/AdvertDetailForm';
+import toast from 'react-hot-toast';
 
 const EditAdvertDetail = () => {
   const params = useParams();
@@ -21,10 +22,10 @@ const EditAdvertDetail = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      //  toast.success(response.data.status)
+       toast.success("Updated Successfully!")
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+       toast.error("Something went wrong")
     }
   }, [response]);
 

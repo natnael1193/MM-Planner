@@ -3,8 +3,8 @@ import { AdvertDetail } from '../interfaces/AdvertDetail.interface';
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
-const token: any = localStorage.getItem('login_token')
-const baseToken = JSON.parse(token)
+const token: any = localStorage.getItem('login_token');
+const baseToken = JSON.parse(token);
 
 export const advertDetailApi = createApi({
   reducerPath: 'advertDetailApi',
@@ -35,24 +35,30 @@ export const advertDetailApi = createApi({
         method: 'POST',
         body: advertDetail,
       }),
-      invalidatesTags: ["AdvertDetail"]
+      invalidatesTags: ['AdvertDetail'],
     }),
     updateAdvertDetail: builder.mutation<void, AdvertDetail>({
-      query: ({ id, ...rest }) => ({
-          url: `/AdvertDetail/${id}`,
-          method: "PUT",
-          body: rest
+      query: ({ ...rest }) => ({
+        url: `/AdvertDetail/${rest.id}`,
+        method: 'PUT',
+        body: rest,
       }),
-      invalidatesTags: ["AdvertDetail"]
-  }),
-  deleteAdvertDetail: builder.mutation<void, string>({
+      invalidatesTags: ['AdvertDetail'],
+    }),
+    deleteAdvertDetail: builder.mutation<void, string>({
       query: (id) => ({
-          url: `/AdvertDetail/${id}`,
-          method: 'DELETE'
+        url: `/AdvertDetail/${id}`,
+        method: 'DELETE',
       }),
-      invalidatesTags: ['AdvertDetail']
-  })
+      invalidatesTags: ['AdvertDetail'],
+    }),
   }),
 });
 
-export const { useAdvertDetailsQuery, useAdvertDetailQuery, useAddAdvertDetailMutation, useUpdateAdvertDetailMutation, useDeleteAdvertDetailMutation } = advertDetailApi;
+export const {
+  useAdvertDetailsQuery,
+  useAdvertDetailQuery,
+  useAddAdvertDetailMutation,
+  useUpdateAdvertDetailMutation,
+  useDeleteAdvertDetailMutation,
+} = advertDetailApi;
