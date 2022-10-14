@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { useSpotContentQuery, useUpdateSpotContentMutation } from 'src/services/SpotContentApi';
 import SpotContentForm from '../../../components/customComponents/spotContentComponent/SpotContentForm';
@@ -21,10 +22,10 @@ const EditSpotContent = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      //  toast.success(response.data.status)
+       toast.success("Updated Successfully");
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+       toast.error("Something went wrong")
     }
   }, [response]);
 
