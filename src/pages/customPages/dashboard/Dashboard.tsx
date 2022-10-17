@@ -14,6 +14,7 @@ import { useAdvertsQuery } from 'src/services/AdvertApi';
 import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
 import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
 import Error from '../shared/Error';
+import BarChart from './BarChart';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,6 +30,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Dashboard = () => {
+  let campaignChartData: any = [];
+  let advertPlansChartData: any = [];
+  let advertPlanChartData: any = [];
+  let advertChartData: any = [];
+
   //Get All Spot Contents
   const { data: spotData, error: spotError, isLoading: spotLoading }: any = useSpotsQuery();
 
@@ -83,12 +89,27 @@ const Dashboard = () => {
   )
     return <Error />;
 
-  console.log(
-    spotData.data.length,
-    campaignData.data.length,
-    advertPlanData.data.length,
-    advertDetailData.data.length
-  );
+  //  Returns campaign name only
+  campaignChartData = campaignData.data.map(function (campaigns: any) {
+    return campaigns.name;
+  });
+
+  // Returns the number of advert plans
+  advertPlansChartData = campaignData.data.map(function (advertPlans: any) {
+    return advertPlans.advertPlans.length;
+  });
+
+  // Returns the name of advert plans
+  advertPlanChartData = advertPlanData.data.map(function (advertPlans: any) {
+    return advertPlans.name;
+  });
+
+  // Returns the number of adverts
+  advertChartData = advertPlanData.data.map(function (adverts: any) {
+    return adverts.adverts.length;
+  });
+
+console.log(advertChartData)
 
   return (
     <div>
@@ -194,6 +215,23 @@ const Dashboard = () => {
                 <Typography variant="h4">{spotContentData.data.length}</Typography>
               </Item>
             </Card>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
+            <Typography variant="h3">Campaign with Advert Plans</Typography>
+            <BarChart
+              xData={campaignChartData}
+              yData={advertPlansChartData}
+              label={'Advert Plans'}
+            />
+          </Grid>
+
+          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
+            <Typography variant="h3">Advert Plans with Adverts</Typography>
+            <BarChart
+              xData={advertPlanChartData}
+              yData={advertChartData}
+              label={'Adverts'}
+            />
           </Grid>
         </Grid>
       </Box>

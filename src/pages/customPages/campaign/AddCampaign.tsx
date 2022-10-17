@@ -33,8 +33,8 @@ const AddCampaign = () => {
     const newData: any = {
       name: data.name,
       key: data.key,
-      startDate: data.startDate + ':00.203Z',
-      endDate:  data.endDate + ':00.203Z',
+      startDate: data.startDate + 'Z',
+      endDate:  data.endDate + 'Z',
     };
     addCampaign(newData);
   };
