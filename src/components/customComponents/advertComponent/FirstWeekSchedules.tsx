@@ -13,6 +13,7 @@ import {
 import moment from 'moment';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import AdvertModal from './AdvertModal';
 
 const FirstWeekSchedules = ({ programId, programData }: any) => {
   let filteredProgram: any = [];
@@ -33,13 +34,14 @@ const FirstWeekSchedules = ({ programId, programData }: any) => {
 
   console.log('programId', programId);
   // console.log('programData', programData)
-  console.log(filteredProgram[0])
-  console.log('schedules', newScheduleData)
+  console.log(filteredProgram[0]);
+  console.log('schedules', newScheduleData);
   console.log('ScheduleIds', scheduleIds);
 
   return (
     <div>
       <Grid container direction={'row'} justifyContent="center" sx={{ mt: 2, ml: 6 }}>
+        {/* <AdvertModal /> */}
         {/* Schdeule List */}
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <TableContainer>

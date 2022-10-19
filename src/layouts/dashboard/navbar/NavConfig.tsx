@@ -117,6 +117,8 @@ const navConfig = [
         icon: <CampaignIcon />,
         children: [
           { title: 'Pagination', path: '/dashboard/test/pagination' },
+          { title: 'CollapsibleTable', path: '/dashboard/test/table-collapse' },
+          // 
         ],
       },
     ],

@@ -30,8 +30,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useAddAdvertMutation } from 'src/services/AdvertApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-
-
+import AdvertModal from './AdvertModal';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -45,8 +44,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-
-
 const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   const navigate = useNavigate();
   let advertPlansData: any = [];
@@ -56,6 +53,8 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   let stationId: any = 1;
   let programId: any = 1;
   const [selectedSchedules, setSelectedSchedules] = useState([]);
+  const [modal, setModal] = useState(null);
+  let filteredModals: any = [];
 
   //React-hook-form
   const {
@@ -99,7 +98,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     error: scheduleError,
   }: any = useScheduleByProgramQuery(programId);
 
-  const [ addAdvert, result ] = useAddAdvertMutation();
+  const [addAdvert, result] = useAddAdvertMutation();
 
   if (
     isLoading ||
@@ -129,16 +128,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   if (error || stationError) return <Error />;
 
-
-    if (result.isSuccess) {
-     
-      navigate('/dashboard/advert/list');
-    }
-    if (result.isError) {
-      toast.error("Something went wrong, please try again later");
-    }
-
-
+  if (result.isSuccess) {
+    navigate('/dashboard/advert/list');
+  }
+  if (result.isError) {
+    toast.error('Something went wrong, please try again later');
+  }
 
   const onSubmit = (data: any) => {
     const newData: any = {
@@ -148,8 +143,10 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
       schedules: selectedSchedules,
     };
 
-    addAdvert(newData)
+    addAdvert(newData);
   };
+
+  console.log('modal', filteredModals);
 
   return (
     <div>
@@ -278,18 +275,22 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
                 <div style={{ height: 460, width: '100%' }}>
                   <DataGrid
-                    rows={schedulesData === undefined || programsData.length === 0 ? [] : schedulesData}
+                    rows={
+                      schedulesData === undefined || programsData.length === 0 ? [] : schedulesData
+                    }
                     columns={columns}
                     checkboxSelection
                     hideFooterPagination
-                    onSelectionModelChange={(ids) => {
-                      const selectedIDs = new Set(ids);
+                    onSelectionModelChange={(ids: any) => {
+                      const selectedIDs: any = new Set(ids);
                       const selectedRows: any =
                         schedulesData === undefined
                           ? []
                           : schedulesData.filter((row: any) => selectedIDs.has(row.id));
 
                       setSelectedSchedules(selectedRows);
+                      setModal(ids.slice(-1).pop());
+                      filteredModals = selectedRows.push(ids)
                     }}
                     // {...data}
                   />
@@ -316,6 +317,13 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             </Grid>
           </Card>
         </form>
+        <AdvertModal
+          selectedSchedules={selectedSchedules}
+          setSelectedSchedules={setSelectedSchedules}
+          advertPlansData={advertPlansData.data}
+          modal={modal}
+          setModal={setModal}
+        />
       </Box>
     </div>
   );
