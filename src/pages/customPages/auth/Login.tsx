@@ -5,11 +5,13 @@ import { useLoginMutation } from 'src/services/LoginApi';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
-
-
 const Login = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [login, result] = useLoginMutation();
 
@@ -22,7 +24,7 @@ const Login = () => {
       window.location.reload();
     }
     if (response.isError) {
-      toast.error(response.error.data.Message)
+      toast.error(response.error.data.Message);
       navigate('/login');
     }
   }, [response, navigate]);
@@ -34,7 +36,6 @@ const Login = () => {
     login(data);
   };
 
-  
   return (
     <div
       style={{
@@ -45,7 +46,7 @@ const Login = () => {
         alignItems: 'center',
       }}
     >
-      <Grid container  direction="row" justifyContent="center" alignItems="center">
+      <Grid container direction="row" justifyContent="center" alignItems="center">
         <Grid item lg={6} sm={12} xs={12} justifyContent="center" alignItems="center">
           <Typography color="white" variant="h1">
             MM - Planner
@@ -74,7 +75,7 @@ const Login = () => {
                 </Grid>
                 <Grid item>
                   <Button type="submit" variant="contained">
-                    Submit
+                    {result.isLoading ? 'Loading...' : 'Submit'}
                   </Button>
                 </Grid>
               </Grid>

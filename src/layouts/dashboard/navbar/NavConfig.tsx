@@ -118,6 +118,7 @@ const navConfig = [
         children: [
           { title: 'Pagination', path: '/dashboard/test/pagination' },
           { title: 'CollapsibleTable', path: '/dashboard/test/table-collapse' },
+          { title: 'Field Array', path: '/dashboard/test/field-array' },
           // 
         ],
       },

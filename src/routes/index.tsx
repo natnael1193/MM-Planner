@@ -130,6 +130,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/test/pagination" replace />, index: true },
             { path: '/dashboard/test/pagination', element: <Pagination /> },
             { path: '/dashboard/test/table-collapse', element: <CollapsibleTable /> },
+            { path: '/dashboard/test/field-array', element: <FieldArray /> },
           ],
         },
       ],
@@ -223,6 +224,9 @@ const EditAdvertSchedule = Loadable(
 
 // Test
 const Pagination = Loadable(lazy(() => import('../pages/customPages/test/pagination')));
-const CollapsibleTable = Loadable(lazy(() => import('../pages/customPages/test/CollapsibleTable')));
 // CollapsibleTable
+const CollapsibleTable = Loadable(lazy(() => import('../pages/customPages/test/CollapsibleTable')));
+// FieldArray
+const FieldArray = Loadable(lazy(() => import('../pages/customPages/test/FieldArray')));
+
 
