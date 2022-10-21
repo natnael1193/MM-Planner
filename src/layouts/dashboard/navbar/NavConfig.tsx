@@ -81,6 +81,7 @@ const navConfig = [
         children: [
           { title: 'Advert List', path: '/dashboard/advert/list' },
           { title: 'Add Advert', path: '/dashboard/advert/add' },
+          { title: 'Advert By Date', path: '/dashboard/advert/advert-by-date' },
           { title: 'Advert Timeline', path: '/dashboard/advert/timeline' },
         ],
       },

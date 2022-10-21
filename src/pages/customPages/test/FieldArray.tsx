@@ -42,8 +42,10 @@ const FieldArray = () => {
       };
     });
 
-    console.log(newData);
+    // console.log(newData);
   };
+
+  console.log(defaultValues)
 
   return (
     <div>

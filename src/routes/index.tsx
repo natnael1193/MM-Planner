@@ -81,6 +81,8 @@ export default function Router() {
             { path: '/dashboard/advert/edit/:advertId', element: <EditAdvert /> },
             { path: '/dashboard/advert/detail/:advertId', element: <AdvertDetail /> },
             { path: '/dashboard/advert/timeline', element: <AdvertTimeline /> },
+            { path: '/dashboard/advert/advert-by-date', element: <AdvertByDate /> },
+
           ],
         },
         {
@@ -192,6 +194,7 @@ const AddAdvert = Loadable(lazy(() => import('../pages/customPages/advert/AddAdv
 const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditAdvert')));
 const AdvertDetail = Loadable(lazy(() => import('../pages/customPages/advert/AdvertDetail')));
 const AdvertTimeline = Loadable(lazy(() => import('../pages/customPages/advert/AdvertTimeline')));
+const AdvertByDate = Loadable(lazy(() => import('../pages/customPages/advert/AdvertByDays')));
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
@@ -228,5 +231,3 @@ const Pagination = Loadable(lazy(() => import('../pages/customPages/test/paginat
 const CollapsibleTable = Loadable(lazy(() => import('../pages/customPages/test/CollapsibleTable')));
 // FieldArray
 const FieldArray = Loadable(lazy(() => import('../pages/customPages/test/FieldArray')));
-
-

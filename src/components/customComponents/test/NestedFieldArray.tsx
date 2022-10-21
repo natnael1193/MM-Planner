@@ -3,12 +3,12 @@ import { useFieldArray } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
 const NestedFieldArray = ({ nestIndex, control, register, item, defaultValues }: any) => {
-  const { fields, remove, append, } = useFieldArray({
+  const { fields, remove, append } = useFieldArray({
     control,
     name: `test[${nestIndex}].nestedArray`,
   });
 
-//   console.log(fields);
+  //   console.log(fields);
 
   return (
     <div>
@@ -17,10 +17,10 @@ const NestedFieldArray = ({ nestIndex, control, register, item, defaultValues }:
           <div key={item.field} style={{ marginLeft: 20 }}>
             <label>Nested Array:</label>
             <TextField
-            //   name={`test[${nestIndex}].nestedArray[${k}].field`}
+              //   name={`test[${nestIndex}].nestedArray[${k}].field`}
               // ref={register({ required: true })}
-            //   {...register('nestedArray')}
-            {...register(`test[${nestIndex}].nestedArray[${k}].field` as const)}
+              //   {...register('nestedArray')}
+              {...register(`test[${nestIndex}].nestedArray[${k}].field` as const)}
               defaultValue={item.field}
             />
           </div>

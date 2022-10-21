@@ -3,7 +3,7 @@ import React from 'react';
 import { useFieldArray } from 'react-hook-form';
 import NestedFieldArray from './NestedFieldArray';
 
-const FieldArrayComponet = ({ control, register, setValue, getValues, defaultValues }: any) => {
+const FieldArrayComponet = ({ control, register, defaultValues }: any) => {
   const { fields, append, remove, prepend } = useFieldArray({
     control,
     name: 'test',
@@ -17,11 +17,7 @@ const FieldArrayComponet = ({ control, register, setValue, getValues, defaultVal
     return value.nestedArray;
   });
 
-  //   console.log('value', newData);
 
-  //   console.log('defa', defaultValues.test);
-
-  //   console.log(fields);
   return (
     <>
       <ul>
@@ -29,8 +25,8 @@ const FieldArrayComponet = ({ control, register, setValue, getValues, defaultVal
           return (
             <li key={item.id}>
               <TextField
-                name={`test[${index}].name`}
-                ref={register()}
+                // name={`test[${index}].name`}
+                // ref={register()}
                 {...register(`test[${index}].name` as const)}
                 defaultValue={item.name}
               />
