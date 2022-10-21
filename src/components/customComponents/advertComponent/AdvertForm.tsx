@@ -124,6 +124,9 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   if (scheduleSucess) {
     schedulesData = schedule.data.schedules;
+    schedulesData = schedulesData?.filter((schedules: any) => {
+      return schedules !== null;
+    });
   }
 
   if (error || stationError) return <Error />;
@@ -146,7 +149,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     addAdvert(newData);
   };
 
-  console.log('modal', filteredModals);
+  console.log('modal', schedulesData);
 
   return (
     <div>
@@ -290,7 +293,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
                       setSelectedSchedules(selectedRows);
                       setModal(ids.slice(-1).pop());
-                      filteredModals = selectedRows.push(ids)
+                      filteredModals = selectedRows.push(ids);
                     }}
                     // {...data}
                   />
