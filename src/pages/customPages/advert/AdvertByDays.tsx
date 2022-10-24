@@ -131,10 +131,13 @@ const AdvertByDays = () => {
   // console.log(isCheck);
 
   const onSubmit = (data: any) => {
+    // console.log(data) 
     const newData = data.adverts.map(function (test: any) {
       return {
         day: activeDate,
         name: test?.name,
+        scheduleId: test?.scheduleId,
+        adType: test?.adType,
         ads: test.ads?.filter((element: any) => {
           return element.field !== false;
         }),
@@ -142,10 +145,11 @@ const AdvertByDays = () => {
     });
 
     const filteredData: any = newData.filter((adverts: any) => {
-      return adverts.name !== undefined &&  adverts.name !== ''
+      return adverts.name !== undefined &&  adverts.name !== '' 
     });
 
     console.log('filteredData', filteredData);
+    // console.log(newData)
   };
   // console.log('isCheck', isCheck);
   return (

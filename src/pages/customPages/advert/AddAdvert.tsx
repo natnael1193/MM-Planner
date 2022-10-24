@@ -29,11 +29,7 @@ const AddAdvert = () => {
     }
   }, [response, navigate]);
 
-  const onSubmit = (data: any) => {
-    addAdvert(data);
-  };
 
-  console.log(response)
 
   return (
     <div>
@@ -43,7 +39,7 @@ const AddAdvert = () => {
         child={'Add'}
         parentLink={'/dashboard/advert/list'}
       />
-      <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} onFormSubmit={onSubmit} />
+      <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} />
     </div>
   );
 };

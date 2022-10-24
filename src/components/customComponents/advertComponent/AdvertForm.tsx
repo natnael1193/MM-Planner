@@ -7,8 +7,15 @@ import {
   Grid,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
   SelectChangeEvent,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from '@mui/material';
@@ -31,6 +38,8 @@ import { useAddAdvertMutation } from 'src/services/AdvertApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import AdvertModal from './AdvertModal';
+import AdvertByPrograms from './AdvertByPrograms';
+import { useSpotsQuery } from 'src/services/SpotApi';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -61,6 +70,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     register,
     handleSubmit,
     control,
+    setValue,
     watch,
     formState: { errors },
   } = useForm({
@@ -98,6 +108,13 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     error: scheduleError,
   }: any = useScheduleByProgramQuery(programId);
 
+  const {
+    data: adsData,
+    isLoading: adsLoading,
+    isFetching: adsFetching,
+    error: adsError,
+  }: any = useSpotsQuery();
+
   const [addAdvert, result] = useAddAdvertMutation();
 
   if (
@@ -106,7 +123,9 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     stationLoading ||
     stationFetching ||
     programLoading ||
-    scheduleLoading
+    scheduleLoading ||
+    adsLoading ||
+    adsFetching
   )
     return <Loading />;
 
@@ -127,9 +146,19 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     schedulesData = schedulesData?.filter((schedules: any) => {
       return schedules !== null;
     });
+    schedulesData = schedulesData?.map(function (schedules: any) {
+      return {
+        id: schedules.id,
+        day: schedules.day,
+        startTime: schedules.startTime,
+        endTime: schedules.endTime,
+        key: schedules.key,
+        ads: adsData?.data,
+      };
+    });
   }
 
-  if (error || stationError) return <Error />;
+  if (error || stationError || adsError) return <Error />;
 
   if (result.isSuccess) {
     navigate('/dashboard/advert/list');
@@ -139,17 +168,23 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   }
 
   const onSubmit = (data: any) => {
+    console.log(data);
     const newData: any = {
       name: data.name,
-      advertPlanId: data.advertPlanId,
       key: data.key,
-      schedules: selectedSchedules,
+      days: data.adverts?.filter((day: any) => {
+        return day.name !== false && day.adType !== undefined;
+      }),
+      programId: data.programId,
+      stationId: data.stationId,
     };
 
-    addAdvert(newData);
+    console.log(newData);
+
+    // addAdvert(newData);
   };
 
-  console.log('modal', schedulesData);
+  // console.log('modal', schedulesData);
 
   return (
     <div>
@@ -274,59 +309,42 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   <Typography color="red">{errors.programId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
+            </Grid>
+            <Grid sx={{ mt: 2 }}>
+              <TableContainer component={Paper}>
+                <Table aria-label="collapsible table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell>Day</TableCell>
+                      <TableCell>Start Time</TableCell>
+                      <TableCell>End Time</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {schedulesData?.map((schedules: any, index: any) => {
+                      return (
+                        <AdvertByPrograms
+                          {...{ register, control }}
+                          scheduleData={schedules}
+                          key={schedules.id}
+                          nestIndex={index}
+                          setValue={setValue}
+                        />
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
-                <div style={{ height: 460, width: '100%' }}>
-                  <DataGrid
-                    rows={
-                      schedulesData === undefined || programsData.length === 0 ? [] : schedulesData
-                    }
-                    columns={columns}
-                    checkboxSelection
-                    hideFooterPagination
-                    onSelectionModelChange={(ids: any) => {
-                      const selectedIDs: any = new Set(ids);
-                      const selectedRows: any =
-                        schedulesData === undefined
-                          ? []
-                          : schedulesData.filter((row: any) => selectedIDs.has(row.id));
-
-                      setSelectedSchedules(selectedRows);
-                      setModal(ids.slice(-1).pop());
-                      filteredModals = selectedRows.push(ids);
-                    }}
-                    // {...data}
-                  />
-                  <Typography color="red" style={{ marginTop: '-25px' }}>
-                    {selectedSchedules.length === 0 ? 'One date must be selected' : ''}
-                  </Typography>
-                </div>
-              </Grid>
-
-              {/* <ExternalProgram /> */}
-              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ pl: 5 }}>
-                {selectedSchedules.length === 0 ? (
-                  <Button variant="contained" disabled>
-                    {' '}
-                    Submit{' '}
-                  </Button>
-                ) : (
-                  <Button variant="contained" type="submit">
-                    {' '}
-                    Submit{' '}
-                  </Button>
-                )}
+              <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2, ml: 2 }}>
+                <Button type="submit" variant="contained">
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </Card>
         </form>
-        <AdvertModal
-          selectedSchedules={selectedSchedules}
-          setSelectedSchedules={setSelectedSchedules}
-          advertPlansData={advertPlansData.data}
-          modal={modal}
-          setModal={setModal}
-        />
       </Box>
     </div>
   );

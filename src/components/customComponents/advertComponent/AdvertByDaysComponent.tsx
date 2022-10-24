@@ -55,12 +55,13 @@ const AdvertByDaysComponent = ({
               onClick={() => {
                 setIsChecked((prev) => !prev);
                 isChecked === false
-                  ? setValue(`adverts[${index}].name`, defaultValues[index].name)
-                  : setValue(`adverts[${index}].name`, '');
+                  ? (setValue(`adverts[${index}].name`, defaultValues[index].name),
+                    setValue(`adverts[${index}].scheduleId`, defaultValues[index].id))
+                  : (setValue(`adverts[${index}].name`, ''),
+                    setValue(`adverts[${index}].scheduleId`, ''));
               }}
               checked={isCheck.length > 0 ? true : isChecked === true ? true : false}
             />
-
           </TableCell>
           <TableCell>{defaultValues[index].name}</TableCell>
           <TableCell>

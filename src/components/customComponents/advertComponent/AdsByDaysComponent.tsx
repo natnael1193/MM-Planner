@@ -29,7 +29,7 @@ const AdsByDaysComponent = ({ nestIndex, control, register, item, isChecked, isC
   return (
     <div>
       <Collapse in={isChecked || isCheckAll}>
-        <Grid style={{ marginLeft: 20 }} lg={4} md={6} sm={12} xs={12}>
+        <Grid item style={{ marginLeft: 20 }} lg={4} md={6} sm={12} xs={12}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
             <Select
@@ -75,7 +75,7 @@ const AdsByDaysComponent = ({ nestIndex, control, register, item, isChecked, isC
                     {' '}
                     <Input
                       {...register(`adverts[${nestIndex}].ads[${k}].quantity` as const)}
-                      defaultValue={item.name}
+                      defaultValue={0}
                       type="number"
                     />
                   </TableCell>
