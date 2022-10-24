@@ -21,6 +21,7 @@ const AdvertByDaysComponent = ({
   setOpen,
   setValue,
   index,
+  newProgramData,
 }: any) => {
   const { fields, remove } = useFieldArray({
     control,
@@ -33,7 +34,7 @@ const AdvertByDaysComponent = ({
     setIsChecked((prev) => !prev);
   };
 
-  console.log(isChecked);
+  console.log(newProgramData);
 
   return (
     <React.Fragment>
@@ -55,15 +56,15 @@ const AdvertByDaysComponent = ({
               onClick={() => {
                 setIsChecked((prev) => !prev);
                 isChecked === false
-                  ? (setValue(`adverts[${index}].name`, defaultValues[index].name),
-                    setValue(`adverts[${index}].scheduleId`, defaultValues[index].id))
+                  ? (setValue(`adverts[${index}].name`, newProgramData[index].name),
+                    setValue(`adverts[${index}].scheduleId`, newProgramData[index].scheduleId))
                   : (setValue(`adverts[${index}].name`, ''),
                     setValue(`adverts[${index}].scheduleId`, ''));
               }}
               checked={isCheck.length > 0 ? true : isChecked === true ? true : false}
             />
           </TableCell>
-          <TableCell>{defaultValues[index].name}</TableCell>
+          <TableCell>{newProgramData[index].name}</TableCell>
           <TableCell>
             {moment.utc(row.startTime).format('h:mm A')} -{' '}
             {moment.utc(row.endTime).format('h:mm A')}

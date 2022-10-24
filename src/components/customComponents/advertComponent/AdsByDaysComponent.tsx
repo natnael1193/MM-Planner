@@ -75,7 +75,7 @@ const AdsByDaysComponent = ({ nestIndex, control, register, item, isChecked, isC
                     {' '}
                     <Input
                       {...register(`adverts[${nestIndex}].ads[${k}].qut` as const)}
-                      defaultValue={0}
+                      defaultValue={1}
                       type="number"
                     />
                   </TableCell>

@@ -126,6 +126,7 @@ const AdvertByDays = () => {
       startTime: program.startTime,
       endTime: program.endTime,
       schedules: program.program.schedules,
+      scheduleId:  program.id,
       // station: program.station.name,
     };
   });
@@ -163,7 +164,7 @@ const AdvertByDays = () => {
     }
   };
 
-  console.log('campaignData', campaignData.data);
+  // console.log('campaignData', campaignData.data);
 
   const onSubmit = (data: any) => {
     // console.log(data)
@@ -199,7 +200,7 @@ const AdvertByDays = () => {
     addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
-  // console.log('isCheck', isCheck);
+  console.log('isCheck', programDataByDate);
   return (
     <React.Fragment>
       <Card>
@@ -275,6 +276,7 @@ const AdvertByDays = () => {
                       row={row}
                       index={index}
                       key={index}
+                      newProgramData={newProgramData}
                     />
                   );
                 })}
