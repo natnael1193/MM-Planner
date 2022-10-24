@@ -196,7 +196,7 @@ const AdvertByDays = () => {
         }),
       };
     });
-    // addAdvert({ ads: filteredData });
+    addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
   // console.log('isCheck', isCheck);
