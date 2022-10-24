@@ -8,12 +8,23 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import TableCheckBox from 'src/components/customComponents/test/TableCheckBox';
-import { Button, CircularProgress, Grid, Card } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Card,
+  Input,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import AdvertByDaysComponent from 'src/components/customComponents/advertComponent/AdvertByDaysComponent';
 import ProgramsByDays from 'src/components/customComponents/externalPrograms/ProgramsByDays';
 import { useExternalProgramsByDaysQuery } from 'src/services/ExternalProgramApi';
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useForm } from 'react-hook-form';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
 
 const AdvertByDays = () => {
   const [activeDate, setActiveDate] = React.useState('Monday');
@@ -27,6 +38,7 @@ const AdvertByDays = () => {
   var programDataByDate: any = [];
   var newProgramData: any = [];
   var spotData: any = [];
+  var campaignData: any = [];
   let defaultValues: any = {};
 
   const {
@@ -40,6 +52,15 @@ const AdvertByDays = () => {
   } = useForm({
     defaultValues,
   });
+
+  //Get all campaign
+  const {
+    data: campaign,
+    error: campaignError,
+    isLoading: campaignLoading,
+    isFetching: campaignFetching,
+    isSuccess: campaignSuccess,
+  } = useCampaignsQuery();
 
   //Get Spots
   const {
@@ -59,7 +80,14 @@ const AdvertByDays = () => {
     isFetching: programByDateFetching,
   } = useExternalProgramsByDaysQuery(activeDate);
 
-  if (programByDateLoading || programByDateFetching || spotLoading || spotFetching)
+  if (
+    programByDateLoading ||
+    programByDateFetching ||
+    spotLoading ||
+    spotFetching ||
+    campaignLoading ||
+    campaignFetching
+  )
     return (
       <Grid container direction="row" justifyContent="center" alignItems="center">
         <CircularProgress />
@@ -72,6 +100,10 @@ const AdvertByDays = () => {
 
   if (spotSuccess) {
     spotData = spot;
+  }
+
+  if (campaignSuccess) {
+    campaignData = campaign;
   }
 
   if (programByDateError || spotError)
@@ -128,24 +160,25 @@ const AdvertByDays = () => {
     }
   };
 
-  // console.log(isCheck);
+  console.log('campaignData', campaignData.data);
 
   const onSubmit = (data: any) => {
-    // console.log(data) 
-    const newData = data.adverts.map(function (test: any) {
+    // console.log(data)
+    const newData = data.adverts.map(function (advert: any) {
       return {
         day: activeDate,
-        name: test?.name,
-        scheduleId: test?.scheduleId,
-        adType: test?.adType,
-        ads: test.ads?.filter((element: any) => {
+        name: advert?.name,
+        scheduleId: advert?.scheduleId,
+        campainId: data.campaignId,
+        adType: advert?.adType,
+        ads: advert.ads?.filter((element: any) => {
           return element.field !== false;
         }),
       };
     });
 
     const filteredData: any = newData.filter((adverts: any) => {
-      return adverts.name !== undefined &&  adverts.name !== '' 
+      return adverts.name !== undefined && adverts.name !== '';
     });
 
     console.log('filteredData', filteredData);
@@ -155,20 +188,22 @@ const AdvertByDays = () => {
   return (
     <React.Fragment>
       <Card>
-      <Typography variant='h3' sx={{ m: 2}}>Add Advert</Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ProgramsByDays
-          activeDate={activeDate}
-          setActiveDate={setActiveDate}
-          setIsCheck={setIsCheck}
-        />
-        <TableContainer component={Paper} sx={{ width: '100%'}}>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {' '}
-                  {/* <TableCheckBox
+        <Typography variant="h3" sx={{ m: 2 }}>
+          Add Advert
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <ProgramsByDays
+            activeDate={activeDate}
+            setActiveDate={setActiveDate}
+            setIsCheck={setIsCheck}
+          />
+          <TableContainer component={Paper} sx={{ width: '100%' }}>
+            <Table aria-label="collapsible table">
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{width: '20%'}}>
+                    {' '}
+                    {/* <TableCheckBox
                     type="checkbox"
                     name="selectAll"
                     id="selectAll"
@@ -179,46 +214,65 @@ const AdvertByDays = () => {
                       setOpen(true);
                     }}
                   /> */}
-                </TableCell>
-                <TableCell>Program Name</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Station</TableCell>
-                <TableCell>Program Type</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {defaultValues.adverts.map((row: any, index: any) => {
-                return (
-                  <AdvertByDaysComponent
-                    {...{ control, register, defaultValues, getValues, setValue, errors }}
-                    defaultValues={defaultValues.adverts}
-                    handleSelectAll={handleSelectAll}
-                    isCheck={isCheck}
-                    setIsCheck={setIsCheck}
-                    isCheckAll={isCheckAll}
-                    setIsCheckAll={setIsCheckAll}
-                    handleClick={handleClick}
-                    isSelected={isSelected}
-                    handleSelectClick={handleSelectClick}
-                    setOpen={setOpen}
-                    row={row}
-                    index={index}
-                    key={index}
-                  />
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
-          <Button type="submit" variant="contained">
-            Submit
-          </Button>
-        </Grid>
-      </form>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Campaign"
+                        defaultValue=""
+                        displayEmpty
+                        required
+                        {...register('campaignId')}
+                      >
+                        {campaignData.data?.map((campaigns: any) => {
+                          return (
+                            <MenuItem value={campaigns.id} key={campaigns.id}>
+                              {campaigns.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                  <TableCell>Program Name</TableCell>
+                  <TableCell>Time</TableCell>
+                  <TableCell>Station</TableCell>
+                  <TableCell>Program Type</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {defaultValues.adverts.map((row: any, index: any) => {
+                  return (
+                    <AdvertByDaysComponent
+                      {...{ control, register, defaultValues, getValues, setValue, errors }}
+                      defaultValues={defaultValues.adverts}
+                      handleSelectAll={handleSelectAll}
+                      isCheck={isCheck}
+                      setIsCheck={setIsCheck}
+                      isCheckAll={isCheckAll}
+                      setIsCheckAll={setIsCheckAll}
+                      handleClick={handleClick}
+                      isSelected={isSelected}
+                      handleSelectClick={handleSelectClick}
+                      setOpen={setOpen}
+                      row={row}
+                      index={index}
+                      key={index}
+                    />
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
+            <Button type="submit" variant="contained">
+              Submit
+            </Button>
+          </Grid>
+        </form>
       </Card>
- 
     </React.Fragment>
   );
 };

@@ -177,6 +177,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
       }),
       programId: data.programId,
       stationId: data.stationId,
+      campainId: data.campaignId,
     };
 
     console.log(newData);
