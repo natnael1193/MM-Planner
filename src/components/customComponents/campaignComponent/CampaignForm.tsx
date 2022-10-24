@@ -48,6 +48,14 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 />
                     <Typography color="red">{ errors.endDate && "This is required"}</Typography>
               </Grid>
+              <Grid item lg={12} md={12} sm={12}>
+                <TextField
+                  label="Description"
+                  fullWidth
+                  {...register('description', { required: true })}
+                />
+                    <Typography color="red">{ errors.description && "This is required"}</Typography>
+              </Grid>
             </Grid>
             <Button type="submit" variant="contained" sx={{ ml: 2, mt: 2 }}>
               Submit

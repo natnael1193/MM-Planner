@@ -8,6 +8,8 @@ const AddCampaign = () => {
   // Initial State
   const initialValues: any = {
     name: '',
+    key: '',
+    description: '',
     startDate: '',
     endDate: '',
   };
@@ -33,6 +35,7 @@ const AddCampaign = () => {
     const newData: any = {
       name: data.name,
       key: data.key,
+      description: data.description,
       startDate: data.startDate + 'Z',
       endDate:  data.endDate + 'Z',
     };

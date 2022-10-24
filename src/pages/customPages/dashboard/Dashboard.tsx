@@ -96,7 +96,7 @@ const Dashboard = () => {
 
   // Returns the number of advert plans
   advertPlansChartData = campaignData.data.map(function (advertPlans: any) {
-    return advertPlans.advertPlans.length;
+    return advertPlans?.advertPlans?.length;
   });
 
   // Returns the name of advert plans

@@ -5,8 +5,8 @@ import { Campaign } from '../interfaces/Campaign.interface';
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
-const token: any = localStorage.getItem('login_token')
-const baseToken = JSON.parse(token)
+const token: any = localStorage.getItem('login_token');
+const baseToken = JSON.parse(token);
 
 export const campaignApi = createApi({
   reducerPath: 'campaign',
@@ -14,7 +14,6 @@ export const campaignApi = createApi({
     baseUrl: `${baseURL}`,
     prepareHeaders: (headers, { getState }) => {
       const token = baseToken;
-      // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -25,16 +24,16 @@ export const campaignApi = createApi({
   endpoints: (builder) => ({
     campaigns: builder.query<Campaign[], void>({
       // query: () => 'Campaign',
-      query: () => 'Campain',
+      query: () => 'ModifiedCampain',
       providesTags: ['Campaign'],
     }),
     campaign: builder.query<Campaign, string>({
-      query: (id) => `Campain/${id}`,
+      query: (id) => `ModifiedCampain/${id}`,
       providesTags: ['Campaign'],
     }),
     addCampaign: builder.mutation<void, Campaign>({
       query: (campaign) => ({
-        url: 'Campain',
+        url: 'ModifiedCampain',
         method: 'POST',
         body: campaign,
       }),
@@ -42,7 +41,7 @@ export const campaignApi = createApi({
     }),
     updateCampaign: builder.mutation<void, Campaign>({
       query: ({ ...rest }) => ({
-        url: `Campain/${rest.id}`,
+        url: `ModifiedCampain/${rest.id}`,
         method: 'PUT',
         body: rest,
       }),
@@ -51,7 +50,7 @@ export const campaignApi = createApi({
 
     deleteCampaign: builder.mutation<void, string>({
       query: (id) => ({
-        url: `Campain/${id}`,
+        url: `ModifiedCampain/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Campaign'],
@@ -59,5 +58,10 @@ export const campaignApi = createApi({
   }),
 });
 
-
-export const { useCampaignsQuery, useCampaignQuery, useAddCampaignMutation, useUpdateCampaignMutation, useDeleteCampaignMutation } = campaignApi
+export const {
+  useCampaignsQuery,
+  useCampaignQuery,
+  useAddCampaignMutation,
+  useUpdateCampaignMutation,
+  useDeleteCampaignMutation,
+} = campaignApi;

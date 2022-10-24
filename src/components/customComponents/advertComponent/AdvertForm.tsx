@@ -195,16 +195,13 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
               {formTitle}
             </Typography>
             <Grid container spacing={3}>
-              <Grid item lg={4} md={4} sm={12} xs={12}>
+              {/* <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField {...register('key', { required: true })} label="Key" fullWidth />
                 <Typography color="red">{errors.key && 'This is required'}</Typography>
               </Grid>
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField {...register('name', { required: true })} label="Name" fullWidth />
                 <Typography color="red">{errors.name && 'This is required'}</Typography>
-              </Grid>
-              {/* <Grid item lg={4} md={4} sm={12} xs={12}>
-                <TextField {...register('advertType')} label="Advert Type" fullWidth />
               </Grid> */}
               <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl fullWidth>
@@ -242,7 +239,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 </FormControl>
               </Grid>
 
-              <Grid item lg={6} md={6} sm={12} xs={12}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <Controller
                     rules={{
@@ -276,7 +273,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 </FormControl>
               </Grid>
 
-              <Grid item lg={6} md={6} sm={12} xs={12}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <Controller
                     rules={{

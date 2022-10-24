@@ -43,6 +43,7 @@ const EditCampaign = () => {
       id: campaignData.data.id,
       key: campaignData.data.key,
       name: campaignData.data.name,
+      description: campaignData.data.description,
       startDate: moment(campaignData.data.startDate).format().replace('+03:00', ''),
       // startDate: campaignData.data.startDate.replace(/.203Z/g, ''),
       endDate: moment(campaignData.data.endDate).format().replace('+03:00', ''),
