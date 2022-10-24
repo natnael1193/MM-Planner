@@ -85,34 +85,10 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 />
                 <Typography color="red">{ errors.contentLength && "This is required"}</Typography>
               </Grid>
-              {/* <Grid item lg={4} md={4} sm={12} xs={12}>
-                <FormControl sx={{ m: 1, width: '100%' }}>
-                  <InputLabel id="demo-multiple-checkbox-label">Spot Contents</InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    label="Spot Contents"
-                    id="demo-multiple-checkbox"
-                    {...register('spotContentIds')}
-                    fullWidth
-                    multiple
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Spot Contents" />}
-                    renderValue={(selected) =>
-                      selected.map((obj: any) => spotContentData[obj - 1].value).join(', ')
-                    }
-                    defaultValue={
-                      defaultValues.spotContentIds !== undefined ? defaultValues.spotContentIds : []
-                    }
-                  >
-                    {spotContentData.map((name: any) => (
-                      <MenuItem key={name.id} value={name.id}>
-                        <Checkbox checked={spotContent.indexOf(name.id) > -1} />
-                        <ListItemText primary={name.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid> */}
+              <Grid item lg={12} md={12} sm={12} xs={12}>
+                <TextField fullWidth label="Description" {...register('description', {required: true})} sx={{ mt: 1 }} />
+                <Typography color="red">{ errors.description && "This is required"}</Typography>
+              </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 <Button type="submit" variant="contained" sx={{ ml: 2 }}>
                   Submit

@@ -12,9 +12,12 @@ const AddSpot = () => {
   //Initial Values Of Spot
   const initialValues = {
     key: '',
+    name: '',
+    description: '',
     contentType: '',
     contentLength: '',
-    spotContentIds: [],
+    
+    // spotContentIds: [],
   };
 
   //Add New Data
