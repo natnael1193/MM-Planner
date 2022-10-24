@@ -25,6 +25,7 @@ import { useExternalProgramsByDaysQuery } from 'src/services/ExternalProgramApi'
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useForm } from 'react-hook-form';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
+import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 
 const AdvertByDays = () => {
   const [activeDate, setActiveDate] = React.useState('Monday');
@@ -79,6 +80,8 @@ const AdvertByDays = () => {
     isLoading: programByDateLoading,
     isFetching: programByDateFetching,
   } = useExternalProgramsByDaysQuery(activeDate);
+
+  const [addAdvert, result] = useAddMultipleAdvertMutation();
 
   if (
     programByDateLoading ||
@@ -166,23 +169,35 @@ const AdvertByDays = () => {
     // console.log(data)
     const newData = data.adverts.map(function (advert: any) {
       return {
-        day: activeDate,
+        // day: activeDate,
         name: advert?.name,
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
-        adType: advert?.adType,
+        advertType: advert?.adType,
         ads: advert.ads?.filter((element: any) => {
           return element.field !== false;
         }),
       };
     });
 
-    const filteredData: any = newData.filter((adverts: any) => {
+    var filteredData: any = newData.filter((adverts: any) => {
       return adverts.name !== undefined && adverts.name !== '';
     });
 
-    console.log('filteredData', filteredData);
-    // console.log(newData)
+    filteredData = filteredData.map(function (advert: any) {
+      return {
+        // day: activeDate,
+        // name: advert?.name,
+        scheduleId: advert?.scheduleId,
+        campainId: data.campaignId,
+        advertType: advert?.advertType,
+        adverts: advert.ads?.filter((element: any) => {
+          return element.adsId !== false;
+        }),
+      };
+    });
+    // addAdvert({ ads: filteredData });
+    console.log(filteredData);
   };
   // console.log('isCheck', isCheck);
   return (
@@ -201,7 +216,7 @@ const AdvertByDays = () => {
             <Table aria-label="collapsible table">
               <TableHead>
                 <TableRow>
-                  <TableCell style={{width: '20%'}}>
+                  <TableCell style={{ width: '25%' }}>
                     {' '}
                     {/* <TableCheckBox
                     type="checkbox"
@@ -268,7 +283,7 @@ const AdvertByDays = () => {
           </TableContainer>
           <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
             <Button type="submit" variant="contained">
-              Submit
+              {result.isLoading ? 'Loading...' : 'Submit'}
             </Button>
           </Grid>
         </form>

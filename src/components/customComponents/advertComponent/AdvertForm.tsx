@@ -34,7 +34,7 @@ import {
 } from 'src/services/ExternalScheduleApi';
 
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useAddAdvertMutation } from 'src/services/AdvertApi';
+import { useAddAdvertMutation, useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import AdvertModal from './AdvertModal';
@@ -79,6 +79,9 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   stationId = watch('stationId');
   programId = watch('programId');
 
+
+
+
   //Get All Advert Plan
   const { data: advertPlan, isLoading, isFetching, isSuccess, error } = useAdvertPlansQuery();
 
@@ -115,7 +118,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     error: adsError,
   }: any = useSpotsQuery();
 
-  const [addAdvert, result] = useAddAdvertMutation();
+  const [addAdvert, result] = useAddMultipleAdvertMutation();
 
   if (
     isLoading ||
@@ -182,7 +185,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
     console.log(newData);
 
-    // addAdvert(newData);
+    addAdvert(newData);
   };
 
   // console.log('modal', schedulesData);

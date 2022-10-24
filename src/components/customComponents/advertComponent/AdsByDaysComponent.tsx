@@ -65,8 +65,8 @@ const AdsByDaysComponent = ({ nestIndex, control, register, item, isChecked, isC
                 <TableRow>
                   <TableCell>
                     <Input
-                      {...register(`adverts[${nestIndex}].ads[${k}].name` as const)}
-                      defaultValue={item.name}
+                      {...register(`adverts[${nestIndex}].ads[${k}].adsId` as const)}
+                      defaultValue={item.id}
                       type="checkbox"
                     />
                   </TableCell>
@@ -74,7 +74,7 @@ const AdsByDaysComponent = ({ nestIndex, control, register, item, isChecked, isC
                   <TableCell>
                     {' '}
                     <Input
-                      {...register(`adverts[${nestIndex}].ads[${k}].quantity` as const)}
+                      {...register(`adverts[${nestIndex}].ads[${k}].qut` as const)}
                       defaultValue={0}
                       type="number"
                     />

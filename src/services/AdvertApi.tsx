@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Advert } from '../interfaces/Advert.interface';
+import { Advert, Adverts } from '../interfaces/Advert.interface';
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
@@ -47,6 +47,14 @@ export const advertApi = createApi({
       }),
       invalidatesTags: ['Advert'],
     }),
+    addMultipleAdvert: builder.mutation<void, Adverts>({
+      query: (advert) => ({
+        url: '/ModifiedAdvertPlan/multiple',
+        method: 'POST',
+        body: advert,
+      }),
+      invalidatesTags: ['Advert'],
+    }),
     updateAdvert: builder.mutation<void, Advert>({
       query: ({ ...rest }) => ({
         url: `/Advert/${rest.id}`,
@@ -69,6 +77,7 @@ export const {
   useAdvertsQuery,
   useAdvertQuery,
   useAddAdvertMutation,
+  useAddMultipleAdvertMutation,
   useUpdateAdvertMutation,
   useDeleteAdvertMutation,
 } = advertApi;
