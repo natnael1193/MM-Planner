@@ -80,8 +80,8 @@ const navConfig = [
         icon: <AirplayIcon />,
         children: [
           { title: 'Advert List', path: '/dashboard/advert/list' },
-          { title: 'Add Advert', path: '/dashboard/advert/add' },
-          { title: 'Advert By Date', path: '/dashboard/advert/advert-by-date' },
+          { title: 'Add Advert By Program', path: '/dashboard/advert/add' },
+          { title: 'Add Advert By Date', path: '/dashboard/advert/advert-by-date' },
           { title: 'Advert Timeline', path: '/dashboard/advert/timeline' },
         ],
       },
@@ -95,12 +95,12 @@ const navConfig = [
       //   ],
       // },
       {
-        title: 'spot',
+        title: 'Ads',
         path: '/dashboard/spot',
         icon: <RoomIcon />,
         children: [
-          { title: 'Spot List', path: '/dashboard/spot/list' },
-          { title: 'Add Spot', path: '/dashboard/spot/add' },
+          { title: 'Ads List', path: '/dashboard/spot/list' },
+          { title: 'Add Ads', path: '/dashboard/spot/add' },
         ],
       },
       // {
