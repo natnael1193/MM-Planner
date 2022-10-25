@@ -32,7 +32,7 @@ export const advertApi = createApi({
   tagTypes: ['Advert'],
   endpoints: (builder) => ({
     adverts: builder.query<ListResponse<Advert>, number | void>({
-      query: (page = 1) => `/Advert/?pageNumber=${page}`,
+      query: () => `/ModifiedAdvertPlan`,
       providesTags: ['Advert'],
     }),
     advert: builder.query<Advert, string>({

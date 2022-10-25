@@ -19,10 +19,10 @@ const AdvertList = () => {
     advertData = data.data?.map(function (adverts: any) {
       return {
         id: adverts.id,
-        key: adverts.key,
-        name: adverts.name,
-        startTime: moment.utc(adverts.startTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
-        endTime: moment.utc(adverts.endTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
+        key: adverts.ads.key,
+        name: adverts.ads.name,
+        startTime: moment.utc(adverts.schedule.startTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
+        endTime: moment.utc(adverts.schedule.endTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
         advertPlanId: adverts.advertPlanId,
       };
     });
@@ -38,6 +38,8 @@ const AdvertList = () => {
   }
 
   if (error) return <Error />;
+
+  console.log(data)
 
   return (
     <div>

@@ -112,17 +112,17 @@ const navConfig = [
       //     { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
       //   ],
       // },
-      {
-        title: 'Test',
-        path: '/dashboard/test',
-        icon: <CampaignIcon />,
-        children: [
-          { title: 'Pagination', path: '/dashboard/test/pagination' },
-          { title: 'CollapsibleTable', path: '/dashboard/test/table-collapse' },
-          { title: 'Field Array', path: '/dashboard/test/field-array' },
-          //
-        ],
-      },
+      // {
+      //   title: 'Test',
+      //   path: '/dashboard/test',
+      //   icon: <CampaignIcon />,
+      //   children: [
+      //     { title: 'Pagination', path: '/dashboard/test/pagination' },
+      //     { title: 'CollapsibleTable', path: '/dashboard/test/table-collapse' },
+      //     { title: 'Field Array', path: '/dashboard/test/field-array' },
+      //     //
+      //   ],
+      // },
     ],
   },
 ];
