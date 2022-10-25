@@ -47,11 +47,11 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" style={{ fontSize: '24px'}}>
           {scheduleData?.day}
         </TableCell>
-        <TableCell>{moment.utc(scheduleData?.startTime).format('h:mm A')}</TableCell>
-        <TableCell>{moment.utc(scheduleData?.endTime).format('h:mm A')}</TableCell>
+        <TableCell style={{ fontSize: '24px'}}>{moment.utc(scheduleData?.startTime).format('h:mm A')}</TableCell>
+        <TableCell style={{ fontSize: '24px'}}>{moment.utc(scheduleData?.endTime).format('h:mm A')}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -87,9 +87,10 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
                     <TableRow key={ads.id}>
                       <TableCell>
                         <Input
-                          {...register(`adverts[${nestIndex}].ads[${k}].name` as const)}
-                          defaultValue={ads.name}
+                          {...register(`adverts[${nestIndex}].ads[${k}].adsId` as const)}
+                          defaultValue={ads.id}
                           type="checkbox"
+                          // required={open === true ? true : false}
                         />
                       </TableCell>
                       <TableCell component="th" scope="row">
@@ -98,9 +99,10 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
                       <TableCell>
                         {' '}
                         <Input
-                          {...register(`adverts[${nestIndex}].ads[${k}].quantity` as const)}
-                          defaultValue={0}
+                          {...register(`adverts[${nestIndex}].ads[${k}].qut` as const)}
+                          defaultValue={1}
                           type="number"
+                          // required={open === true ? true : false}
                         />
                       </TableCell>
                     </TableRow>

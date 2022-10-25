@@ -13,7 +13,7 @@ const ProgramsByDays =  ({ setActiveDate, activeDate, setIsCheck }: any) => {
       },
       {
         id: 3,
-        label: 'Wendsday',
+        label: 'Wednesday',
       },
       {
         id: 4,
@@ -32,7 +32,7 @@ const ProgramsByDays =  ({ setActiveDate, activeDate, setIsCheck }: any) => {
         label: 'Sunday',
       },
     ];
-  
+
     return (
       <Grid container spacing={4} sx={{ mb: 2, pt: 2, pl:1}}>
         {DatesList.map((dates: any) => (

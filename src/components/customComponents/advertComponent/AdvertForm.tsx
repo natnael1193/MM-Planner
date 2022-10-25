@@ -19,14 +19,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
 import Error from 'src/pages/customPages/shared/Error';
 import Loading from 'src/pages/customPages/shared/Loading';
 import { Controller, useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
-import ExternalProgram from './ExternalProgram';
-import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
-import { useAdvertSchedulesQuery } from 'src/services/AdvertSchduleApi';
 import {
   useProgramByStationQuery,
   useStationsQuery,
@@ -40,6 +36,7 @@ import { toast } from 'react-hot-toast';
 import AdvertModal from './AdvertModal';
 import AdvertByPrograms from './AdvertByPrograms';
 import { useSpotsQuery } from 'src/services/SpotApi';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -55,7 +52,7 @@ const columns: GridColDef[] = [
 
 const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   const navigate = useNavigate();
-  let advertPlansData: any = [];
+  let campaignsData: any = [];
   let stationsData: any = [];
   let programsData: any = [];
   let schedulesData: any = [];
@@ -79,11 +76,8 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   stationId = watch('stationId');
   programId = watch('programId');
 
-
-
-
-  //Get All Advert Plan
-  const { data: advertPlan, isLoading, isFetching, isSuccess, error } = useAdvertPlansQuery();
+  //Get All campaign
+  const { data: campaign, isLoading, isFetching, isSuccess, error } = useCampaignsQuery();
 
   //Get All Stations
   const {
@@ -133,7 +127,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     return <Loading />;
 
   if (isSuccess) {
-    advertPlansData = advertPlan;
+    campaignsData = campaign;
   }
 
   if (stationSucess) {
@@ -146,17 +140,17 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
   if (scheduleSucess) {
     schedulesData = schedule.data.schedules;
-    schedulesData = schedulesData?.filter((schedules: any) => {
+    schedulesData = schedulesData ?.filter((schedules: any) => {
       return schedules !== null;
     });
-    schedulesData = schedulesData?.map(function (schedules: any) {
+    schedulesData = schedulesData ?.map(function(schedules: any) {
       return {
         id: schedules.id,
         day: schedules.day,
         startTime: schedules.startTime,
         endTime: schedules.endTime,
         key: schedules.key,
-        ads: adsData?.data,
+        ads: adsData ?.data,
       };
     });
   }
@@ -167,28 +161,42 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     navigate('/dashboard/advert/list');
   }
   if (result.isError) {
-    toast.error('Something went wrong, please try again later');
+    toast.error('Something went wrong, please check all fields are filled');
   }
 
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    // console.log(data);
     const newData: any = {
       name: data.name,
       key: data.key,
       days: data.adverts?.filter((day: any) => {
-        return day.name !== false && day.adType !== undefined;
+        return day.name !== false && day.name !== '' && day.adType !== undefined;
       }),
       programId: data.programId,
       stationId: data.stationId,
       campainId: data.campaignId,
     };
 
-    console.log(newData);
+    let filteredData: any = {
+      ads: newData.days.map((day: any) => {
+        return {
+          advertType: day.adType,
+          scheduleId: day.scheduleId,
+          adverts: day?.ads?.filter((ad: any) => {
+            return ad.adsId !== false;
+          }),
+          // programId: newData.programId,
+          // stationId: newData.stationId,
+          campainId: newData.campainId,
+        };
+      }),
+    };
 
-    addAdvert(newData);
+    console.log(filteredData)
+    console.log('newData',newData)
+    addAdvert(filteredData);
   };
-
-  // console.log('modal', schedulesData);
 
   return (
     <div>
@@ -223,10 +231,10 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                           {...field}
                           fullWidth
                         >
-                          {advertPlansData.data?.map((advertPlan: any) => {
+                          {campaignsData.data ?.map((campaign: any) => {
                             return (
-                              <MenuItem key={advertPlan.id} value={advertPlan.id}>
-                                {advertPlan.name}
+                              <MenuItem key={campaign.id} value={campaign.id}>
+                                {campaign.name}
                               </MenuItem>
                             );
                           })}
@@ -234,12 +242,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                       </div>
                     )}
                     control={control}
-                    name="advertPlanId"
+                    name="campaignId"
                     defaultValue={
-                      defaultValues.advertPlanId !== undefined ? defaultValues.advertPlanId : ''
+                      defaultValues.campaignId !== undefined ? defaultValues.campaignId : ''
                     }
                   />
-                  <Typography color="red">{errors.advertPlanId && 'This is required'}</Typography>
+                  <Typography color="red">{errors.campaignId && 'This is required'}</Typography>
                 </FormControl>
               </Grid>
 
@@ -259,7 +267,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                           {...field}
                           fullWidth
                         >
-                          {stationsData.data?.map((station: any) => {
+                          {stationsData.data ?.map((station: any) => {
                             return (
                               <MenuItem key={station.id} value={station.id}>
                                 {station.name}
@@ -293,7 +301,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                           {...field}
                           fullWidth
                         >
-                          {programsData?.map((station: any) => {
+                          {programsData ?.map((station: any) => {
                             return (
                               <MenuItem key={station.id} value={station.id}>
                                 {station.name}
@@ -323,7 +331,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {schedulesData?.map((schedules: any, index: any) => {
+                    {schedulesData ?.map((schedules: any, index: any) => {
                       return (
                         <AdvertByPrograms
                           {...{ register, control }}
