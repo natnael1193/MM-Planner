@@ -36,7 +36,7 @@ export const advertApi = createApi({
       providesTags: ['Advert'],
     }),
     advert: builder.query<Advert, string>({
-      query: (id) => `/Advert/${id}`,
+      query: (id) => `/ModifiedAdvertPlan/${id}`,
       providesTags: ['Advert'],
     }),
     addAdvert: builder.mutation<void, Advert>({
@@ -57,7 +57,7 @@ export const advertApi = createApi({
     }),
     updateAdvert: builder.mutation<void, Advert>({
       query: ({ ...rest }) => ({
-        url: `/Advert/${rest.id}`,
+        url: `/ModifiedAdvertPlan/${rest.id}`,
         method: 'PUT',
         body: rest,
       }),
@@ -65,7 +65,7 @@ export const advertApi = createApi({
     }),
     deleteAdvert: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/Advert/${id}`,
+        url: `/ModifiedAdvertPlan/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Advert'],

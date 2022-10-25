@@ -37,30 +37,10 @@ const EditAdvert = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  defaultValues = {
-    id: advertData.data.id,
-    name: advertData.data.name,
-    key: advertData.data.key,
-    startTime: advertData.data.startTime.replace('Z', ''),
-    endTime: advertData.data.endTime.replace('Z', ''),
-    advertPlanId: advertData.data.advertPlan.id,
-    scheduleId: advertData.data.schedule.id,
-  };
+  defaultValues = advertData.data
   const onSubmit = (data: any) => {
-    if (data.startTime > data.endTime) return toast.error('Start time must be less than End time');
-    if (moment.utc(data.startTime).format('DD MMMM YYYY') !== moment.utc(data.endTime).format('DD MMMM YYYY')) return toast.error("Dates can't be different");
-
-    console.log(moment.utc(data.startTime).format('dd MMMM YYYY'))
-    const newData: any = {
-      id: data.id,
-      name: data.name,
-      key: data.key,
-      startTime: data.startTime.concat('Z'),
-      endTime: data.endTime.concat('Z'),
-      advertPlanId: data.advertPlanId,
-      scheduleId: data.scheduleId,
-    };
-    updateAdvert(newData);
+    console.log(data)
+    updateAdvert(data);
     return toast.success('Updated Successfully');
   };
 

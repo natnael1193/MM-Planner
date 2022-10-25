@@ -37,7 +37,7 @@ export default function App() {
       localStorage.clear();
       navigate('/signin');
       window.location.reload();
-    }, 360000);
+    }, 3600000);
   }, []);
 
   // useEffect(() => {
