@@ -56,15 +56,15 @@ const navConfig = [
           { title: 'Add Campaign', path: '/dashboard/campaign/add' },
         ],
       },
-      {
-        title: 'Advert Plan',
-        path: '/dashboard/advert-plan',
-        icon: <ComputerIcon/>,
-        children: [
-          { title: 'Advert Plan List', path: '/dashboard/advert-plan/list' },
-          { title: 'Add Advert Plan', path: '/dashboard/advert-plan/add' },
-        ],
-      },
+      // {
+      //   title: 'Advert Plan',
+      //   path: '/dashboard/advert-plan',
+      //   icon: <ComputerIcon/>,
+      //   children: [
+      //     { title: 'Advert Plan List', path: '/dashboard/advert-plan/list' },
+      //     { title: 'Add Advert Plan', path: '/dashboard/advert-plan/add' },
+      //   ],
+      // },
       // {
       //   title: 'Advert Schedule',
       //   path: '/dashboard/advert-schedule',
@@ -85,15 +85,15 @@ const navConfig = [
           { title: 'Advert Timeline', path: '/dashboard/advert/timeline' },
         ],
       },
-      {
-        title: 'Advert Detail',
-        path: '/dashboard/advert-detail',
-        icon: <DetailsIcon />,
-        children: [
-          { title: 'Advert Detail List', path: '/dashboard/advert-detail/list' },
-          { title: 'Add Advert Detail', path: '/dashboard/advert-detail/add' },
-        ],
-      },
+      // {
+      //   title: 'Advert Detail',
+      //   path: '/dashboard/advert-detail',
+      //   icon: <DetailsIcon />,
+      //   children: [
+      //     { title: 'Advert Detail List', path: '/dashboard/advert-detail/list' },
+      //     { title: 'Add Advert Detail', path: '/dashboard/advert-detail/add' },
+      //   ],
+      // },
       {
         title: 'spot',
         path: '/dashboard/spot',
@@ -103,15 +103,15 @@ const navConfig = [
           { title: 'Add Spot', path: '/dashboard/spot/add' },
         ],
       },
-      {
-        title: 'spotContent',
-        path: '/dashboard/spot-content',
-        icon: <ContentCopyIcon />,
-        children: [
-          { title: 'Spot Content List', path: '/dashboard/spot-content/list' },
-          { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
-        ],
-      },
+      // {
+      //   title: 'spotContent',
+      //   path: '/dashboard/spot-content',
+      //   icon: <ContentCopyIcon />,
+      //   children: [
+      //     { title: 'Spot Content List', path: '/dashboard/spot-content/list' },
+      //     { title: 'Add Spot Content', path: '/dashboard/spot-content/add' },
+      //   ],
+      // },
       {
         title: 'Test',
         path: '/dashboard/test',
@@ -120,7 +120,7 @@ const navConfig = [
           { title: 'Pagination', path: '/dashboard/test/pagination' },
           { title: 'CollapsibleTable', path: '/dashboard/test/table-collapse' },
           { title: 'Field Array', path: '/dashboard/test/field-array' },
-          // 
+          //
         ],
       },
     ],
