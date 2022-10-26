@@ -25,20 +25,21 @@ const CampaignDetail = () => {
   if (error) return <Error />;
 
   if (isSuccess) {
-    // defaultValues = campaignData;
+    defaultValues = campaignData.data;
+    console.log(defaultValues)
     //Assign the data to a variable
-    defaultValues = {
-      id: campaignData.data.id,
-      key: campaignData.data.key,
-      name: campaignData.data.name,
-      startDate: moment(campaignData.data.startDate).format(' dddd Do, MMMM YYYY'),
-      // startDate: campaignData.data.startDate.replace(/.203Z/g, ''),
-      endDate: moment(campaignData.data.endDate).format(' dddd Do, MMMM YYYY'),
-      advertPlans: campaignData.data.advertPlans,
-    };
+    // defaultValues = {
+    //   id: defaultValues.id,
+    //   key: defaultValues.key,
+    //   name: defaultValues.name,
+    // //   startDate: moment(campaignData.data.schedule.startDate).format(' dddd Do, MMMM YYYY'),
+    // //   // startDate: campaignData.data.startDate.schedule.replace(/.203Z/g, ''),
+    // //   endDate: moment(campaignData.data.schedule.endDate).format(' dddd Do, MMMM YYYY'),
+    // //   advertPlans: campaignData.data.advertPlans,
+    // };
   }
 
-  console.log(defaultValues);
+console.log(defaultValues)
 
   return (
     <div>
@@ -47,7 +48,7 @@ const CampaignDetail = () => {
         parent={'Campaign'}
         child={'Detail'}
         parentLink={'/dashboard/campaign/list'}
-        
+
       />
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12}>
