@@ -3,6 +3,7 @@ import {
   TableCell,
   Collapse,
   Box,
+  TextField,
   Typography,
   Table,
   TableHead,
@@ -23,6 +24,7 @@ import { useFieldArray } from 'react-hook-form';
 
 const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex }: any) => {
   const [open, setOpen] = React.useState(false);
+  const [openSponsorshipFields, setOpenSponsorshipFields] = React.useState('')
   const { fields, remove, append } = useFieldArray({
     control,
     name: `adverts[${nestIndex}].ads`,
@@ -68,12 +70,37 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
                     {...register(`adverts[${nestIndex}].adType` as const)}
                     defaultValue={''}
                     required={open === true ? true : false}
+                    value={openSponsorshipFields}
+                    onChange={(event: any) => {
+                      setOpenSponsorshipFields((event.target.value as string))
+                    }}
                   >
                     <MenuItem value={'Spot'}>Spot</MenuItem>
                     <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
+              {
+                openSponsorshipFields === "Sponsorship"
+                  ?
+                  <Grid container spacing="10" sx={{ pl: 2, pr: 2, mt: 2, mb: 2 }}>
+                    <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+                        <TextField {...register(`adverts[${nestIndex}].sponsorshipLength` as const)} label="Sponsorship Length" type="number" required fullWidth />
+                        </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <TextField {...register(`adverts[${nestIndex}].sponsorshipPrice` as const)} label="Sponsorship Price" type="number" required fullWidth />
+                    </Grid>
+                  </Grid>
+                  :
+                  <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
+                    <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+                    <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, null)} />
+                    </Grid>
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                      <input hidden  {...setValue(`adverts[${nestIndex}].sponsorshipPrice`, null)}/>
+                    </Grid>
+                  </Grid>
+              }
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>

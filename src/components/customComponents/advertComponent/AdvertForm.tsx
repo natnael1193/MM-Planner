@@ -181,20 +181,22 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     let filteredData: any = {
       ads: newData.days.map((day: any) => {
         return {
+          // programId: newData.programId,
+          // stationId: newData.stationId,
+          campainId: newData.campainId,
           advertType: day.adType,
+          sponsorshipLength: day.sponsorshipLength,
+          sponsorshipPrice: day.sponsorshipPrice,
           scheduleId: day.scheduleId,
           adverts: day?.ads?.filter((ad: any) => {
             return ad.adsId !== false;
           }),
-          // programId: newData.programId,
-          // stationId: newData.stationId,
-          campainId: newData.campainId,
         };
       }),
     };
 
     console.log(filteredData)
-    console.log('newData',newData)
+    // console.log('newData',newData)
     addAdvert(filteredData);
   };
 
@@ -223,11 +225,11 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                     }}
                     render={({ field }) => (
                       <div>
-                        <InputLabel id="demo-simple-select-label">Advert Plan</InputLabel>
+                        <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          label="Advert Plan"
+                          label="Campaign"
                           {...field}
                           fullWidth
                         >

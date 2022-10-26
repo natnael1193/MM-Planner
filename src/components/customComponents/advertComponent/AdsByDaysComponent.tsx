@@ -55,10 +55,10 @@ const AdsByDaysComponent = ({ nestIndex, control, register, setValue, item, isCh
             ?
             <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
               <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
-                  <TextField {...register(`adverts[${nestIndex}].sponsorshipLength` as const)} label="Sponsorship Length" type="number" fullWidth />
+                  <TextField {...register(`adverts[${nestIndex}].sponsorshipLength` as const)} label="Sponsorship Length" type="number" required fullWidth />
                   </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField {...register(`adverts[${nestIndex}].sponsorshipPrice` as const)} label="Sponsorship Price" type="number" fullWidth />
+                <TextField {...register(`adverts[${nestIndex}].sponsorshipPrice` as const)} label="Sponsorship Price" type="number" required fullWidth />
               </Grid>
             </Grid>
             :
