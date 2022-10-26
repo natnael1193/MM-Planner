@@ -185,7 +185,8 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
           // stationId: newData.stationId,
           campainId: newData.campainId,
           advertType: day.adType,
-          sponsorshipLength: day.sponsorshipLength,
+          // sponsorshipLength: day.sponsorshipLength,
+          sponsorLength: day.sponsorshipLength,
           sponsorshipPrice: day.sponsorshipPrice,
           scheduleId: day.scheduleId,
           adverts: day?.ads?.filter((ad: any) => {

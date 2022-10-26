@@ -131,21 +131,21 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       startTime: moment.utc(advertPlans.schedule.startTime).format('hh:mm:ss A'),
       endTime: moment.utc(advertPlans.schedule.endTime).format('hh:mm:ss A'),
       program: advertPlans.schedule.program.name,
-      priceClasifcation: advertPlans.schedule.priceClasifcation.name,
-      priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
-      priceConfig: advertPlans.schedule.priceClasifcation.priceConfig.name,
-      priceConfigRate: advertPlans.schedule.priceClasifcation.priceConfig.rate,
-      priceConfigUnit: advertPlans.schedule.priceClasifcation.priceConfig.unit,
+      // priceClasifcation: advertPlans.schedule.priceClasifcation.name,
+      // priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
+      priceConfig: advertPlans.schedule.priceConfig.name,
+      priceConfigRate: advertPlans.schedule.priceConfig.rate,
+      priceConfigUnit: advertPlans.schedule.priceConfig.unit,
       advertType: advertPlans.advertType,
       ad: advertPlans.ads.name,
       contentLength: advertPlans.ads.contentLength,
       quantity: advertPlans.qut,
       totalPrice:
         advertPlans.advertType === 'Spot'
-          ? advertPlans.schedule.priceClasifcation.priceConfig.rate *
+          ? advertPlans.schedule.priceConfig.rate *
             advertPlans.qut *
             advertPlans.ads.contentLength
-          : advertPlans.schedule.priceClasifcation.priceConfig.rate * advertPlans.ads.contentLength,
+          : advertPlans.schedule.priceConfig.rate * advertPlans.ads.contentLength,
     };
   });
 
