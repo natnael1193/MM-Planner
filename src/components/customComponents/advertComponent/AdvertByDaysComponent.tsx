@@ -77,7 +77,7 @@ const AdvertByDaysComponent = ({
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <AdsByDaysComponent
               nestIndex={index}
-              {...{ control, register }}
+              {...{ control, register, setValue }}
               item={row.ads}
               defaultValues={defaultValues}
               isSelected={isSelected}

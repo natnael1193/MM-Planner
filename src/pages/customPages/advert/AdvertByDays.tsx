@@ -184,6 +184,8 @@ const AdvertByDays = () => {
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
         advertType: advert?.adType,
+        sponsorshipPrice: advert?.sponsorshipPrice,
+        sponsorshipLength: advert?.sponsorshipLength,
         ads: advert.ads?.filter((element: any) => {
           return element.field !== false;
         }),
@@ -201,15 +203,17 @@ const AdvertByDays = () => {
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
         advertType: advert?.advertType,
+        sponsorshipPrice: advert?.sponsorshipPrice,
+        sponsorshipLength: advert?.sponsorshipLength,
         adverts: advert.ads?.filter((element: any) => {
           return element.adsId !== false;
         }),
       };
     });
-    addAdvert({ ads: filteredData });
+    // addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
-  console.log('isCheck', programDataByDate);
+  // console.log('isCheck', programDataByDate);
   return (
     <React.Fragment>
       <Card>
