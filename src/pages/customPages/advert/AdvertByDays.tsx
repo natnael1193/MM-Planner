@@ -27,10 +27,10 @@ import { useForm } from 'react-hook-form';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
 import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const AdvertByDays = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [activeDate, setActiveDate] = React.useState('Monday');
   const [isCheck, setIsCheck]: any = React.useState([]);
   const [isCheckAll, setIsCheckAll]: any = React.useState(false);
@@ -129,7 +129,7 @@ const AdvertByDays = () => {
       startTime: program.startTime,
       endTime: program.endTime,
       schedules: program.program.schedules,
-      scheduleId:  program.id,
+      scheduleId: program.id,
       // station: program.station.name,
     };
   });
@@ -169,17 +169,17 @@ const AdvertByDays = () => {
 
   // console.log('campaignData', campaignData.data);
 
-  if (result.isSuccess) {
-    navigate('/dashboard/advert/list');
-  }
-  if (result.isError) { toast.error('Something went wrong, please check all fields are filled');}
 
+  if (result.isError) {
+    toast.error('Something went wrong, please check all fields are filled');
+  }
 
   const onSubmit = (data: any) => {
     // console.log(data)
     const newData = data.adverts.map(function (advert: any) {
       return {
         // day: activeDate,
+        id: advert?.id,
         name: advert?.name,
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
@@ -199,7 +199,7 @@ const AdvertByDays = () => {
     filteredData = filteredData.map(function (advert: any) {
       return {
         // day: activeDate,
-        // name: advert?.name,
+        id: advert?.id,
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
         advertType: advert?.advertType,
@@ -210,6 +210,10 @@ const AdvertByDays = () => {
         }),
       };
     });
+
+    if (result.isSuccess) {
+      navigate(`/dashboard/campaign/detail/${filteredData.id}`);
+    }
     // addAdvert({ ads: filteredData });
     console.log(filteredData);
   };

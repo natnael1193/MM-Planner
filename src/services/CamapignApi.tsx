@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { VoidFunctionComponent } from 'react';
 import { Campaign } from '../interfaces/Campaign.interface';
+
 
 // const baseURL = `http://localhost:4000`;
 
@@ -20,16 +20,16 @@ export const campaignApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Campaign'],
+  tagTypes: ['Campaign', 'Advert'],
   endpoints: (builder) => ({
     campaigns: builder.query<Campaign[], void>({
       // query: () => 'Campaign',
       query: () => 'ModifiedCampain',
-      providesTags: ['Campaign'],
+      providesTags: ['Campaign', 'Advert'],
     }),
     campaign: builder.query<Campaign, string>({
       query: (id) => `ModifiedCampain/${id}`,
-      providesTags: ['Campaign'],
+      providesTags: ['Campaign', 'Advert'],
     }),
     addCampaign: builder.mutation<void, Campaign>({
       query: (campaign) => ({
@@ -53,7 +53,7 @@ export const campaignApi = createApi({
         url: `ModifiedCampain/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Campaign'],
+      invalidatesTags: ['Campaign', 'Advert'],
     }),
   }),
 });

@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import { Advert, Adverts } from '../interfaces/Advert.interface';
+
+
 // const baseURL = `http://localhost:4000`;
 
 const baseURL = `${process.env.REACT_APP_API_SERVER}`;
@@ -29,11 +32,11 @@ export const advertApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Advert'],
+  tagTypes: ['Advert', 'Campaign'],
   endpoints: (builder) => ({
     adverts: builder.query<ListResponse<Advert>, number | void>({
       query: () => `/ModifiedAdvertPlan`,
-      providesTags: ['Advert'],
+      providesTags: ['Advert', 'Campaign'],
     }),
     advert: builder.query<Advert, string>({
       query: (id) => `/ModifiedAdvertPlan/${id}`,
@@ -68,7 +71,7 @@ export const advertApi = createApi({
         url: `/ModifiedAdvertPlan/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Advert'],
+      invalidatesTags: ['Advert', 'Campaign'],
     }),
   }),
 });

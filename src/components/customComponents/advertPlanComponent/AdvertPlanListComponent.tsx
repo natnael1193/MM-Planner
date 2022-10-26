@@ -4,13 +4,25 @@ import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PreviewIcon from '@mui/icons-material/Preview';
-import { useDeleteAdvertPlanMutation } from 'src/services/AdvertPlanApi';
-import moment from 'moment'
+import CircularProgress from '@mui/material/CircularProgress';
+import moment from 'moment';
 
-const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
+import { useDeleteAdvertPlanMutation } from 'src/services/AdvertPlanApi';
+
+import { useDeleteAdvertMutation } from '../../../services/AdvertApi';
+import { AnyAction } from '@reduxjs/toolkit';
+
+const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any) => {
   let advertPlansData: any = [];
   //Delete Spot
-  const [deleteAdvertPlan] = useDeleteAdvertPlanMutation();
+  const [deleteAdvert, result] = useDeleteAdvertMutation();
+
+  const removeAdvert = (id: any) => {
+    deleteAdvert(id);
+    setTimeout(() => {
+      refetch();
+    });
+  };
 
   //Data Grid Header
   const columns: GridColumns = [
@@ -97,47 +109,51 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle }: any) => {
               <EditIcon />
             </Button>
           </Link>
-          <Button color="error" onClick={() => deleteAdvertPlan(cellValues.id)}>
-            <DeleteIcon />
+          <Button
+            color="error"
+            onClick={() => {
+              removeAdvert(cellValues.id);
+            }}
+          >
+            {result.isLoading ? <CircularProgress /> : <DeleteIcon />}
           </Button>
         </>
       ),
     },
   ];
 
-advertPlansData = advertPlanData.map(function(advertPlans: any){
-  return{
-    id: advertPlans.id,
-    month: moment.utc(advertPlans.schedule.startTime).format('MMMM'),
-    date: moment.utc(advertPlans.schedule.startTime).format('DD'),
-    day: moment.utc(advertPlans.schedule.startTime).format('dddd'),
-    startTime: moment.utc(advertPlans.schedule.startTime).format('hh:mm:ss A'),
-    endTime: moment.utc(advertPlans.schedule.endTime).format('hh:mm:ss A'),
-    program: advertPlans.schedule.program.name,
-    priceClasifcation: advertPlans.schedule.priceClasifcation.name,
-    priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
-    priceConfig: advertPlans.schedule.priceClasifcation.priceConfig.name,
-    priceConfigRate: advertPlans.schedule.priceClasifcation.priceConfig.rate,
-    priceConfigUnit: advertPlans.schedule.priceClasifcation.priceConfig.unit,
-    advertType: advertPlans.advertType,
-    ad: advertPlans.ads.name,
-    contentLength: advertPlans.ads.contentLength,
-    quantity: advertPlans.qut,
-    totalPrice: advertPlans.advertType === "Spot"
-    ?
-      advertPlans.schedule.priceClasifcation.priceConfig.rate * advertPlans.qut * advertPlans.ads.contentLength
-      :
-      advertPlans.schedule.priceClasifcation.priceConfig.rate * advertPlans.ads.contentLength
+  advertPlansData = advertPlanData.map(function (advertPlans: any) {
+    return {
+      id: advertPlans.id,
+      month: moment.utc(advertPlans.schedule.startTime).format('MMMM'),
+      date: moment.utc(advertPlans.schedule.startTime).format('DD'),
+      day: moment.utc(advertPlans.schedule.startTime).format('dddd'),
+      startTime: moment.utc(advertPlans.schedule.startTime).format('hh:mm:ss A'),
+      endTime: moment.utc(advertPlans.schedule.endTime).format('hh:mm:ss A'),
+      program: advertPlans.schedule.program.name,
+      priceClasifcation: advertPlans.schedule.priceClasifcation.name,
+      priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
+      priceConfig: advertPlans.schedule.priceClasifcation.priceConfig.name,
+      priceConfigRate: advertPlans.schedule.priceClasifcation.priceConfig.rate,
+      priceConfigUnit: advertPlans.schedule.priceClasifcation.priceConfig.unit,
+      advertType: advertPlans.advertType,
+      ad: advertPlans.ads.name,
+      contentLength: advertPlans.ads.contentLength,
+      quantity: advertPlans.qut,
+      totalPrice:
+        advertPlans.advertType === 'Spot'
+          ? advertPlans.schedule.priceClasifcation.priceConfig.rate *
+            advertPlans.qut *
+            advertPlans.ads.contentLength
+          : advertPlans.schedule.priceClasifcation.priceConfig.rate * advertPlans.ads.contentLength,
+    };
+  });
 
-  }
-})
-
-
-console.log(advertPlansData)
+  // console.log('result', advertPlanData)
 
   return (
     <div>
-      <Typography variant="h3" sx={{ mb: 1, }}>
+      <Typography variant="h3" sx={{ mb: 1 }}>
         {dataGridTitle}
       </Typography>
       <div style={{ height: '400px', width: '100%' }}>

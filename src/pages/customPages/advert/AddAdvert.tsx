@@ -20,9 +20,9 @@ const AddAdvert = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      console.log(response.isSuccess);
+      console.log(response);
       toast("Success!");
-      navigate('/dashboard/advert/list');
+      // navigate('/dashboard/advert/list');
     }
     if (response.isError) {
       console.log(response);

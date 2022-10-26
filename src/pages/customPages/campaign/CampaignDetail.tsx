@@ -16,17 +16,24 @@ const CampaignDetail = () => {
   var defaultValues: any = {};
 
   //Get Campaign By Id
-  const { data: campaignData, error, isLoading, isSuccess }: any = useCampaignQuery(paramsId);
+  const {
+    data: campaignData,
+    error,
+    isLoading,
+    isSuccess,
+    isFetching,
+    refetch,
+  }: any = useCampaignQuery(paramsId, { refetchOnMountOrArgChange: true });
 
   //Loading State
-  if (isLoading) return <Loading />;
+  if (isLoading || isFetching) return <Loading />;
 
   // Return an error if there is an error
   if (error) return <Error />;
 
   if (isSuccess) {
     defaultValues = campaignData.data;
-    console.log(defaultValues)
+    console.log(defaultValues);
     //Assign the data to a variable
     // defaultValues = {
     //   id: defaultValues.id,
@@ -39,16 +46,15 @@ const CampaignDetail = () => {
     // };
   }
 
-console.log(defaultValues)
+  console.log(defaultValues);
 
   return (
     <div>
-          <BreadCrumb
+      <BreadCrumb
         main={'Dashboard'}
         parent={'Campaign'}
         child={'Detail'}
         parentLink={'/dashboard/campaign/list'}
-
       />
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -64,6 +70,7 @@ console.log(defaultValues)
           <AdvertPlanListComponent
             advertPlanData={defaultValues.advertPlans}
             dataGridTitle={'Advert Plans'}
+            refetch={refetch}
           />
         </Grid>
       </Grid>

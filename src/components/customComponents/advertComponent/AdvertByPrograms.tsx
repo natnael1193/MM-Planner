@@ -94,10 +94,10 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
                   :
                   <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
                     <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
-                    <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, null)} />
+                    <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, 0)} />
                     </Grid>
                     <Grid item lg={6} md={6} sm={12} xs={12}>
-                      <input hidden  {...setValue(`adverts[${nestIndex}].sponsorshipPrice`, null)}/>
+                      <input hidden  {...setValue(`adverts[${nestIndex}].sponsorshipPrice`, 0)}/>
                     </Grid>
                   </Grid>
               }
