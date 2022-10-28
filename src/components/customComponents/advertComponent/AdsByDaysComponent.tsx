@@ -29,7 +29,8 @@ const AdsByDaysComponent = ({ nestIndex, control, register, setValue, item, isCh
   return (
     <div>
       <Collapse in={isChecked || isCheckAll}>
-        <Grid item style={{ marginLeft: 20, marginBottom: 20 }} lg={4} md={6} sm={12} xs={12}>
+        <Grid container spacing={4}>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
             <Select
@@ -50,6 +51,50 @@ const AdsByDaysComponent = ({ nestIndex, control, register, setValue, item, isCh
             </Select>
           </FormControl>
         </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Price Category"
+              displayEmpty
+              // {...register(`adverts[${nestIndex}].adType` as const)}
+              defaultValue={''}
+              required={isChecked === true ? true : false}
+              // value={openSponsorshipFields}
+              // onChange={(event: any) => {
+              //   setOpenSponsorshipFields((event.target.value as string))
+              // }}
+            >
+              <MenuItem value={'Spot'}>Spot</MenuItem>
+              <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Price Config"
+              displayEmpty
+              {...register(`adverts[${nestIndex}].priceConfigId` as const)}
+              defaultValue={''}
+              required={isChecked === true ? true : false}
+              // value={openSponsorshipFields}
+              // onChange={(event: any) => {
+              //   setOpenSponsorshipFields((event.target.value as string))
+              // }}
+            >
+              <MenuItem value={'Spot'}>Spot</MenuItem>
+              <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        </Grid>
+       
         {
           openSponsorshipFields === "Sponsorship"
             ?
