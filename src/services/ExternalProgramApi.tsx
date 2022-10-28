@@ -39,4 +39,4 @@ export const externalProgramApi = createApi({
   }),
 });
 
-export const { useExternalProgramsQuery, useExternalProgramsByDaysQuery } = externalProgramApi;
+export const { useExternalProgramsQuery, useExternalProgramsByDaysQuery, useExternalPriceCategoriesQuery } = externalProgramApi;

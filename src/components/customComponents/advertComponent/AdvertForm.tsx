@@ -37,6 +37,7 @@ import AdvertModal from './AdvertModal';
 import AdvertByPrograms from './AdvertByPrograms';
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
+import { useExternalPriceCategoriesQuery } from 'src/services/ExternalProgramApi';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -113,14 +114,13 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     error: adsError,
   }: any = useSpotsQuery();
 
-
-  // const {
-  //   data: priceConfig,
-  //   isLoading: priceConfigLoading,
-  //   isFetching: priceConfigFetching,
-  //   isSuccess: priceConfigSuccess,
-  //   error: priceConfigError,
-  // }: any = useProgramByStationQuery(stationId);
+  const {
+    data: priceConfig,
+    isLoading: priceConfigLoading,
+    isFetching: priceConfigFetching,
+    isSuccess: priceConfigSuccess,
+    error: priceConfigError,
+  }: any = useExternalPriceCategoriesQuery(stationId);
 
   const [addAdvert, result]: any = useAddMultipleAdvertMutation();
 
@@ -132,10 +132,9 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     programLoading ||
     scheduleLoading ||
     adsLoading ||
-    adsFetching 
-    // ||
-    // priceConfigLoading ||
-    // priceConfigFetching
+    adsFetching ||
+    priceConfigLoading ||
+    priceConfigFetching
   )
     return <Loading />;
 
@@ -168,11 +167,11 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     });
   }
 
-  // if (priceConfigSuccess) {
-  //   priceCategoryData = priceConfig;
-  // }
+  if (priceConfigSuccess) {
+    priceCategoryData = priceConfig;
+  }
 
-  if (error || stationError || adsError ) return <Error />;
+  if (error || stationError || adsError) return <Error />;
 
   if (result.isSuccess) {
     console.log(result);
@@ -202,6 +201,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
           // stationId: newData.stationId,
           campainId: newData.campainId,
           advertType: day.adType,
+          priceConfigId: day.priceConfigId,
           // sponsorshipLength: day.sponsorshipLength,
           sponsorLength: day.sponsorshipLength,
           sponsorshipPrice: day.sponsorshipPrice,
@@ -215,8 +215,10 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
     console.log(filteredData);
     // console.log('newData',newData)
-    addAdvert(filteredData);
+    // addAdvert(filteredData);
   };
+
+  // console.log(priceCategoryData);
 
   return (
     <div>
@@ -359,6 +361,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                           key={schedules.id}
                           nestIndex={index}
                           setValue={setValue}
+                          priceCategoryData={priceCategoryData}
                         />
                       );
                     })}
