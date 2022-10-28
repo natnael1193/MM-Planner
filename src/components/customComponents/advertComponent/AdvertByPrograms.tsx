@@ -59,6 +59,7 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
+              <Grid container spacing="5">
               <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
@@ -80,6 +81,50 @@ const AdvertByPrograms = ({ register, control, setValue, scheduleData, nestIndex
                   </Select>
                 </FormControl>
               </Grid>
+              <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Price Category"
+                    displayEmpty
+                    // {...register(`adverts[${nestIndex}].adType` as const)}
+                    defaultValue={''}
+                    required={open === true ? true : false}
+                    value={openSponsorshipFields}
+                    // onChange={(event: any) => {
+                    //   setOpenSponsorshipFields((event.target.value as string))
+                    // }}
+                  >
+                    <MenuItem value={'Spot'}>Spot</MenuItem>
+                    <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Price Config"
+                    displayEmpty
+                    // {...register(`adverts[${nestIndex}].adType` as const)}
+                    defaultValue={''}
+                    required={open === true ? true : false}
+                    value={openSponsorshipFields}
+                    // onChange={(event: any) => {
+                    //   setOpenSponsorshipFields((event.target.value as string))
+                    // }}
+                  >
+                    <MenuItem value={'Spot'}>Spot</MenuItem>
+                    <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              </Grid>
+         
               {
                 openSponsorshipFields === "Sponsorship"
                   ?

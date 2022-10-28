@@ -56,6 +56,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   let stationsData: any = [];
   let programsData: any = [];
   let schedulesData: any = [];
+  let priceCategoryData: any = [];
   let stationId: any = 1;
   let programId: any = 1;
   const [selectedSchedules, setSelectedSchedules] = useState([]);
@@ -84,7 +85,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     data: station,
     isLoading: stationLoading,
     isFetching: stationFetching,
-    isSuccess: stationSucess,
+    isSuccess: stationSuccess,
     error: stationError,
   } = useStationsQuery();
 
@@ -93,7 +94,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     data: program,
     isLoading: programLoading,
     isFetching: programFetching,
-    isSuccess: programSucess,
+    isSuccess: programSuccess,
     error: programError,
   }: any = useProgramByStationQuery(stationId);
 
@@ -101,7 +102,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     data: schedule,
     isLoading: scheduleLoading,
     isFetching: scheduleFetching,
-    isSuccess: scheduleSucess,
+    isSuccess: scheduleSuccess,
     error: scheduleError,
   }: any = useScheduleByProgramQuery(programId);
 
@@ -111,6 +112,15 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     isFetching: adsFetching,
     error: adsError,
   }: any = useSpotsQuery();
+
+
+  // const {
+  //   data: priceConfig,
+  //   isLoading: priceConfigLoading,
+  //   isFetching: priceConfigFetching,
+  //   isSuccess: priceConfigSuccess,
+  //   error: priceConfigError,
+  // }: any = useProgramByStationQuery(stationId);
 
   const [addAdvert, result]: any = useAddMultipleAdvertMutation();
 
@@ -122,7 +132,10 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     programLoading ||
     scheduleLoading ||
     adsLoading ||
-    adsFetching
+    adsFetching 
+    // ||
+    // priceConfigLoading ||
+    // priceConfigFetching
   )
     return <Loading />;
 
@@ -130,15 +143,15 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     campaignsData = campaign;
   }
 
-  if (stationSucess) {
+  if (stationSuccess) {
     stationsData = station;
   }
 
-  if (programSucess) {
+  if (programSuccess) {
     programsData = program.data.programs;
   }
 
-  if (scheduleSucess) {
+  if (scheduleSuccess) {
     schedulesData = schedule.data.schedules;
     schedulesData = schedulesData?.filter((schedules: any) => {
       return schedules !== null;
@@ -155,7 +168,11 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     });
   }
 
-  if (error || stationError || adsError) return <Error />;
+  // if (priceConfigSuccess) {
+  //   priceCategoryData = priceConfig;
+  // }
+
+  if (error || stationError || adsError ) return <Error />;
 
   if (result.isSuccess) {
     console.log(result);
