@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ExternalProgramInterface } from 'src/interfaces/ExternalProgram.interface';
+import { ExternalProgramInterface, ExternalPriceCategory } from 'src/interfaces/ExternalProgram.interface';
 
 // const baseURL = `http://localhost:4000`;
 
@@ -30,6 +30,10 @@ export const externalProgramApi = createApi({
     }),
     externalProgramsByDays: builder.query<ExternalProgramInterface, string>({
       query: (day) => `/Schedule/${day}/Programs`,
+      providesTags: ['ExternalProgramInterface'],
+    }),
+    externalPriceCategories: builder.query<ExternalPriceCategory, string>({
+      query: (stationId) => `/PriceCategory/${stationId}/Prices`,
       providesTags: ['ExternalProgramInterface'],
     }),
   }),
