@@ -145,9 +145,9 @@ const AdvertByPrograms = ({
                   </FormControl>
                 </Grid>
               </Grid>
-              {/* 
+              
               {openSponsorshipFields === 'Sponsorship' ? (
-                <Grid container spacing="10" sx={{ pl: 2, pr: 2, mt: 2, mb: 2 }}>
+                <Grid container spacing="10" sx={{ mb: 2, mt: 1 }}>
                   <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
                     <TextField
                       {...register(`adverts[${nestIndex}].sponsorshipLength` as const)}
@@ -157,7 +157,7 @@ const AdvertByPrograms = ({
                       fullWidth
                     />
                   </Grid>
-                  <Grid item lg={6} md={6} sm={12} xs={12}>
+                  {/* <Grid item lg={6} md={6} sm={12} xs={12}>
                     <TextField
                       {...register(`adverts[${nestIndex}].sponsorshipPrice` as const)}
                       label="Sponsorship Price"
@@ -165,18 +165,18 @@ const AdvertByPrograms = ({
                       required
                       fullWidth
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               ) : (
                 <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
                   <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
                     <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, 0)} />
                   </Grid>
-                  <Grid item lg={6} md={6} sm={12} xs={12}>
+                  {/* <Grid item lg={6} md={6} sm={12} xs={12}>
                     <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipPrice`, 0)} />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
-              )} */}
+              )}
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>

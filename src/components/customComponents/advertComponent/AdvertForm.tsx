@@ -199,12 +199,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
         return {
           // programId: newData.programId,
           // stationId: newData.stationId,
-          campainId: newData.campainId,
+          ModifiedCampainId: newData.campainId,
           advertType: day.adType,
           priceConfigId: day.priceConfigId,
           // sponsorshipLength: day.sponsorshipLength,
           sponsorLength: day.sponsorshipLength,
-          sponsorshipPrice: day.sponsorshipPrice,
+          // sponsorshipPrice: day.sponsorshipPrice,
           scheduleId: day.scheduleId,
           adverts: day?.ads?.filter((ad: any) => {
             return ad.adsId !== false;
@@ -215,7 +215,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
 
     console.log(filteredData);
     // console.log('newData',newData)
-    // addAdvert(filteredData);
+    addAdvert(filteredData);
   };
 
   // console.log(priceCategoryData);

@@ -16,8 +16,6 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   const [spotContent, setSpotContent] = React.useState<string[]>([]);
   let spotContentData: any = [];
 
-  //Spot Content Data
-  const { data, isLoading, error, isSuccess }: any = useSpotContentsQuery();
 
   const handleChange = (event: SelectChangeEvent<typeof spotContent>) => {
     const {
@@ -34,19 +32,6 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     defaultValues,
   });
 
-  if (isLoading) return <Loading />;
-
-  if (isSuccess) {
-    spotContentData = data.data?.map(function (spotContents: any) {
-      return {
-        id: spotContents.id,
-        name: spotContents.name,
-        value: spotContents.name,
-      };
-    });
-  }
-
-  if (error) return <Error />;
 
   // console.log(spotContentData);
   return (
