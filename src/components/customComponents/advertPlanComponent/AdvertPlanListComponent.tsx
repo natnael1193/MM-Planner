@@ -140,12 +140,14 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       ad: advertPlans.ads.name,
       contentLength: advertPlans.ads.contentLength,
       quantity: advertPlans.qut,
+      sponsorLength: advertPlans.sponsorLength,
+      sponsorshipPrice: advertPlans.sponsorshipPrice,
       totalPrice:
         advertPlans.advertType === 'Spot'
           ? advertPlans.schedule.priceConfig.rate *
             advertPlans.qut *
             advertPlans.ads.contentLength
-          : advertPlans.schedule.priceConfig.rate * advertPlans.ads.contentLength,
+          : advertPlans.schedule.priceConfig.rate * (advertPlans.sponsorLength/advertPlans.ads.contentLength),
     };
   });
 

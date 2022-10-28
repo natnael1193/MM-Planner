@@ -3,16 +3,12 @@ import { Grid, Box, Paper, Card, Typography, Divider } from '@mui/material';
 // import MovingIcon from '@mui/icons-material/Moving';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import NextPlanIcon from '@mui/icons-material/NextPlan';
-import SourceIcon from '@mui/icons-material/Source';
 import DetailsIcon from '@mui/icons-material/Details';
 import { styled } from '@mui/material/styles';
 import Loading from '../shared/Loading';
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
-import { useSpotContentsQuery } from 'src/services/SpotContentApi';
 import { useAdvertsQuery } from 'src/services/AdvertApi';
-import { useAdvertPlansQuery } from 'src/services/AdvertPlanApi';
-import { useAdvertDetailsQuery } from 'src/services/AdvertDetailApi';
 import Error from '../shared/Error';
 import BarChart from './BarChart';
 
@@ -45,49 +41,12 @@ const Dashboard = () => {
     isLoading: campaignLoading,
   }: any = useCampaignsQuery();
 
-  //Get All Spot Contents
-  const {
-    data: spotContentData,
-    error: spotContentError,
-    isLoading: spotContentLoading,
-  }: any = useSpotContentsQuery();
-
   //Ger All Advert
   const { data: advertData, error: advertError, isLoading: advertLoading }: any = useAdvertsQuery();
 
-  //Get all advert plans
-  const {
-    data: advertPlanData,
-    error: advertPlanError,
-    isLoading: advertPlanLoading,
-  }: any = useAdvertPlansQuery();
+  if (spotLoading || campaignLoading || advertLoading) return <Loading />;
 
-  //Get All Advert Details
-  const {
-    data: advertDetailData,
-    error: advertDetailError,
-    isLoading: advertDetailLoading,
-  }: any = useAdvertDetailsQuery();
-
-  if (
-    spotLoading ||
-    campaignLoading ||
-    spotContentLoading ||
-    advertLoading ||
-    advertPlanLoading ||
-    advertDetailLoading
-  )
-    return <Loading />;
-
-  if (
-    spotError ||
-    campaignError ||
-    spotContentError ||
-    advertError ||
-    advertPlanError ||
-    advertDetailError
-  )
-    return <Error />;
+  if (spotError || campaignError || advertError) return <Error />;
 
   //  Returns campaign name only
   campaignChartData = campaignData.data.map(function (campaigns: any) {
@@ -98,18 +57,6 @@ const Dashboard = () => {
   advertPlansChartData = campaignData.data.map(function (advertPlans: any) {
     return advertPlans?.advertPlans?.length;
   });
-
-  // Returns the name of advert plans
-  advertPlanChartData = advertPlanData.data.map(function (advertPlans: any) {
-    return advertPlans.name;
-  });
-
-  // Returns the number of adverts
-  advertChartData = advertPlanData.data.map(function (adverts: any) {
-    return adverts.adverts.length;
-  });
-
-console.log(advertChartData)
 
   return (
     <div>
@@ -149,39 +96,8 @@ console.log(advertChartData)
               </Item>
             </Card>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
-            <Card sx={{ boxShadow: 5 }}>
-              <Item>
-                <Typography variant="h6">
-                  Total Advert Plan <SourceIcon color="warning" />
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="h4">{advertPlanData.data.length}</Typography>
-              </Item>
-            </Card>
-          </Grid>
+
           <Divider />
-          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
-            <Card sx={{ boxShadow: 5 }}>
-              <Item>
-                <Typography variant="h6">Total Advert Detail</Typography>
-              </Item>
-              <Item>
-                <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="h4">{advertDetailData.data.length}</Typography>
-              </Item>
-            </Card>
-          </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
             <Card sx={{ boxShadow: 5 }}>
               <Item>
@@ -199,23 +115,6 @@ console.log(advertChartData)
               </Item>
             </Card>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
-            <Card sx={{ boxShadow: 5 }}>
-              <Item>
-                <Typography variant="h6">
-                  Total Spot <DetailsIcon color="error" />
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="h4">{spotContentData.data.length}</Typography>
-              </Item>
-            </Card>
-          </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
             <Typography variant="h3">Campaign with Advert Plans</Typography>
             <BarChart
@@ -227,11 +126,7 @@ console.log(advertChartData)
 
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
             <Typography variant="h3">Advert Plans with Adverts</Typography>
-            <BarChart
-              xData={advertPlanChartData}
-              yData={advertChartData}
-              label={'Adverts'}
-            />
+            <BarChart xData={advertPlanChartData} yData={advertChartData} label={'Adverts'} />
           </Grid>
         </Grid>
       </Box>
