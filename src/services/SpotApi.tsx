@@ -22,16 +22,16 @@ export const spotApi = createApi({
   tagTypes: ['Spot'],
   endpoints: (builder) => ({
     spots: builder.query<Spot[], void>({
-      query: () => '/Ads',
+      query: () => '/AdvertDetail',
       providesTags: ['Spot'],
     }),
     spot: builder.query<Spot, string>({
-      query: (id) => `Ads/${id}`,
+      query: (id) => `AdvertDetail/${id}`,
       providesTags: ['Spot'],
     }),
     addSpot: builder.mutation<void, Spot>({
       query: (spot) => ({
-        url: '/Ads',
+        url: '/AdvertDetail',
         method: 'POST',
         body: spot,
       }),
@@ -39,7 +39,7 @@ export const spotApi = createApi({
     }),
     updateSpot: builder.mutation<void, Spot>({
       query: ({ ...rest }) => ({
-        url: `Ads/${rest.id}`,
+        url: `AdvertDetail/${rest.id}`,
         method: 'PUT',
         body: rest,
       }),
@@ -47,7 +47,7 @@ export const spotApi = createApi({
     }),
     deleteSpot: builder.mutation<void, string>({
       query: (id) => ({
-        url: `Ads/${id}`,
+        url: `AdvertDetail/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Spot'],
