@@ -78,7 +78,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     },
     {
       field: 'priceConfigRate',
-      headerName: 'Price Per Second',
+      headerName: 'Price',
       width: 200,
     },
     {
@@ -102,7 +102,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
             </Button>
           </Link>
           <Link
-            to={`/dashboard/advert-plan/edit/${cellValues.id}`}
+            to={`/dashboard/advert/edit/${cellValues.id}`}
             style={{ textDecoration: 'none' }}
           >
             <Button sx={{ mr: 2 }}>
@@ -133,9 +133,9 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       program: advertPlans.schedule.program.name,
       // priceClasifcation: advertPlans.schedule.priceClasifcation.name,
       // priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
-      priceConfig: advertPlans.schedule.priceConfig.name,
-      priceConfigRate: advertPlans.schedule.priceConfig.rate,
-      priceConfigUnit: advertPlans.schedule.priceConfig.unit,
+      priceConfig: advertPlans.priceConfig.name,
+      priceConfigRate: advertPlans.priceConfig.rate,
+      priceConfigUnit: advertPlans.priceConfig.unit,
       advertType: advertPlans.advertType,
       ad: advertPlans.ads.name,
       contentLength: advertPlans.ads.contentLength,
@@ -144,10 +144,10 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       sponsorshipPrice: advertPlans.sponsorshipPrice,
       totalPrice:
         advertPlans.advertType === 'Spot'
-          ? advertPlans.schedule.priceConfig.rate *
+          ? (advertPlans.priceConfig.rate /advertPlans.priceConfig.unit ) *
             advertPlans.qut *
             advertPlans.ads.contentLength
-          : advertPlans.schedule.priceConfig.rate * (advertPlans.sponsorLength/advertPlans.ads.contentLength),
+          : advertPlans.sponsorLength * (advertPlans.priceConfig.rate/advertPlans.priceConfig.unit),
     };
   });
 

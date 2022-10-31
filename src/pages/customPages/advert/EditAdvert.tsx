@@ -37,9 +37,20 @@ const EditAdvert = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
-  defaultValues = advertData.data
+  defaultValues = {
+    adsId: advertData.data.adsId,
+    advertType: advertData.data.advertType,
+    endTime: advertData.data.endTime.replace(/Z/, ''),
+    startTime: advertData.data.startTime.replace(/Z/, ''),
+    id: advertData.data.id,
+    modifiedCampainId: advertData.data.modifiedCampainId,
+    qut: advertData.data.qut,
+    scheduleId: advertData.data.scheduleId,
+    sponsorLength: advertData.data.sponsorLength,
+    priceConfigId: advertData.data.priceConfigId,
+  };
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
     updateAdvert(data);
     return toast.success('Updated Successfully');
   };

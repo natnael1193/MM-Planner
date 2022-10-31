@@ -17,11 +17,10 @@ const AdvertByDaysComponent = ({
   register,
   defaultValues,
   row,
-  reset,
-  setOpen,
   setValue,
   index,
   newProgramData,
+  priceCateogryData
 }: any) => {
   const { fields, remove } = useFieldArray({
     control,
@@ -34,7 +33,7 @@ const AdvertByDaysComponent = ({
     setIsChecked((prev) => !prev);
   };
 
-  console.log(newProgramData);
+  // console.log('stationData', priceCateogryData);
 
   return (
     <React.Fragment>
@@ -64,13 +63,13 @@ const AdvertByDaysComponent = ({
               checked={isCheck.length > 0 ? true : isChecked === true ? true : false}
             />
           </TableCell>
-          <TableCell style={{ fontSize: '24px'}}>{newProgramData[index].name}</TableCell>
-          <TableCell style={{ fontSize: '24px'}}>
+          <TableCell style={{ fontSize: '24px' }}>{newProgramData[index].name}</TableCell>
+          <TableCell style={{ fontSize: '24px' }}>
             {moment.utc(row.startTime).format('h:mm A')} -{' '}
             {moment.utc(row.endTime).format('h:mm A')}
           </TableCell>
-          <TableCell style={{ fontSize: '24px'}}>{row.key}</TableCell>
-          <TableCell style={{ fontSize: '24px'}}>{row.programType}</TableCell>
+          <TableCell style={{ fontSize: '24px' }}>{row.key}</TableCell>
+          <TableCell style={{ fontSize: '24px' }}>{row.programType}</TableCell>
         </TableRow>
 
         <TableRow>
@@ -84,8 +83,11 @@ const AdvertByDaysComponent = ({
               handleSelectClick={handleSelectClick}
               isChecked={isChecked}
               isCheckAll={isCheckAll}
+              priceCateogryData={priceCateogryData}
             />
           </TableCell>
+        </TableRow>
+        <TableRow>
         </TableRow>
       </React.Fragment>
     </React.Fragment>

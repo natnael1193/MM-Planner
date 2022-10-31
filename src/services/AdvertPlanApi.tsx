@@ -22,16 +22,16 @@ export const advertPlanApi = createApi({
   tagTypes: ['AdvertPlan'],
   endpoints: (builder) => ({
     advertPlans: builder.query<AdvertPlan[], void>({
-      query: () => '/AdvertPlan',
+      query: () => '/ModifiedAdvertPlan',
       providesTags: ['AdvertPlan'],
     }),
     advertPlan: builder.query<AdvertPlan, string>({
-      query: (id) => `/AdvertPlan/${id}`,
+      query: (id) => `/ModifiedAdvertPlan/${id}`,
       providesTags: ['AdvertPlan'],
     }),
     addAdvertPlan: builder.mutation<void, AdvertPlan>({
       query: (advert) => ({
-        url: '/AdvertPlan',
+        url: '/ModifiedAdvertPlan',
         method: 'POST',
         body: advert,
       }),

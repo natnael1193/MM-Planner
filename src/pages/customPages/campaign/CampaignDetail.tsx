@@ -63,7 +63,7 @@ const CampaignDetail = () => {
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 1 }}>
           <Typography variant="h5">
             {' '}
-            {defaultValues.startDate} - {defaultValues.endDate}{' '}
+            {moment.utc(defaultValues.startDate).format('MMMM DD, YYYY')} - {moment.utc(defaultValues.endDate).format('MMMM DD, YYYY')}{' '}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 3 }}>

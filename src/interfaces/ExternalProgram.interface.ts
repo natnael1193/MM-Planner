@@ -10,3 +10,7 @@ export interface ExternalPriceCategory{
     name: string,
     priceConfigs: []
 }
+
+export interface ExternalPriceConfig{
+    id: any,
+}

@@ -130,7 +130,7 @@ const AdvertByDays = () => {
       endTime: program.endTime,
       schedules: program.program.schedules,
       scheduleId: program.id,
-      // station: program.station.name,
+      station: program.program.station,
     };
   });
 
@@ -169,7 +169,6 @@ const AdvertByDays = () => {
 
   // console.log('campaignData', campaignData.data);
 
-
   if (result.isError) {
     toast.error('Something went wrong, please check all fields are filled');
   }
@@ -184,7 +183,8 @@ const AdvertByDays = () => {
         scheduleId: advert?.scheduleId,
         campainId: data.campaignId,
         advertType: advert?.adType,
-        sponsorshipPrice: advert?.sponsorshipPrice,
+        priceConfigId: advert?.priceConfigId,
+        // sponsorshipPrice: advert?.sponsorshipPrice,
         sponsorshipLength: advert?.sponsorshipLength,
         ads: advert.ads?.filter((element: any) => {
           return element.field !== false;
@@ -201,9 +201,10 @@ const AdvertByDays = () => {
         // day: activeDate,
         id: advert?.id,
         scheduleId: advert?.scheduleId,
-        campainId: data.campaignId,
+        ModifiedCampainId: data.campaignId,
         advertType: advert?.advertType,
-        sponsorshipPrice: advert?.sponsorshipPrice,
+        priceConfigId: advert?.priceConfigId,
+        // sponsorshipPrice: advert?.sponsorshipPrice,
         sponsorshipLength: advert?.sponsorshipLength,
         adverts: advert.ads?.filter((element: any) => {
           return element.adsId !== false;
@@ -214,10 +215,10 @@ const AdvertByDays = () => {
     if (result.isSuccess) {
       navigate(`/dashboard/campaign/detail/${filteredData.id}`);
     }
-    // addAdvert({ ads: filteredData });
+    addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
-  // console.log('isCheck', programDataByDate);
+
   return (
     <React.Fragment>
       <Card>
@@ -294,6 +295,7 @@ const AdvertByDays = () => {
                       index={index}
                       key={index}
                       newProgramData={newProgramData}
+                      priceCateogryData={row?.station?.priceCategories}
                     />
                   );
                 })}
