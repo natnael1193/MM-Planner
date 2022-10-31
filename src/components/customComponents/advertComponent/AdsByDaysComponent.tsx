@@ -16,6 +16,7 @@ import {
   TableRow,
   TableBody,
   TableContainer,
+  InputAdornment,
 } from '@mui/material';
 
 const AdsByDaysComponent = ({
@@ -124,6 +125,9 @@ const AdsByDaysComponent = ({
                 type="number"
                 required
                 fullWidth
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
+                }}
               />
             </Grid>
           </Grid>

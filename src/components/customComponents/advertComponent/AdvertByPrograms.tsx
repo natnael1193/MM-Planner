@@ -15,6 +15,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  InputAdornment,
 } from '@mui/material';
 import React from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -155,6 +156,9 @@ const AdvertByPrograms = ({
                       type="number"
                       required
                       fullWidth
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
+                      }}
                     />
                   </Grid>
                   {/* <Grid item lg={6} md={6} sm={12} xs={12}>
