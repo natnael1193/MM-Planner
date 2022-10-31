@@ -26,7 +26,7 @@ export const spotApi = createApi({
       providesTags: ['Spot'],
     }),
     spot: builder.query<Spot, string>({
-      query: (id) => `Spot/${id}`,
+      query: (id) => `Ads/${id}`,
       providesTags: ['Spot'],
     }),
     addSpot: builder.mutation<void, Spot>({

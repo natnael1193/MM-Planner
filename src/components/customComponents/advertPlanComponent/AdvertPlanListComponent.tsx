@@ -77,6 +77,11 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       width: 200,
     },
     {
+      field: 'sponsorLength',
+      headerName: 'Sponsor Length',
+      width: 200,
+    },
+    {
       field: 'priceConfigRate',
       headerName: 'Price',
       width: 200,
@@ -93,14 +98,14 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       width: 250,
       renderCell: (cellValues: any) => (
         <>
-          <Link
+          {/* <Link
             to={`/dashboard/advert-plan/detail/${cellValues.id}`}
             style={{ textDecoration: 'none' }}
           >
             <Button sx={{ mr: 2 }}>
               <PreviewIcon />
             </Button>
-          </Link>
+          </Link> */}
           <Link
             to={`/dashboard/advert/edit/${cellValues.id}`}
             style={{ textDecoration: 'none' }}
