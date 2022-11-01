@@ -36,13 +36,19 @@ const AdsByDaysComponent = ({
   const [priceCategoryId, setPriceCategoryId] = useState('');
   const [campaignId, setCampaignId] = useState('');
   const [filteredCampaignData, setFilteredCampaignData] = useState([]);
+  let filteredPriceCategory: any = [];
   let priceConfigData: any = [];
   const { fields, remove, append } = useFieldArray({
     control,
     name: `adverts[${nestIndex}].ads`,
   });
 
-  priceConfigData = priceCateogryData.filter((priceCategory: any) => {
+
+  filteredPriceCategory = priceCateogryData.filter((priceCategory: any) => {
+    return priceCategory.priceType === openSponsorshipFields;
+  });
+
+  priceConfigData = filteredPriceCategory.filter((priceCategory: any) => {
     return priceCategory.id === priceCategoryId;
   });
 
@@ -114,7 +120,7 @@ const AdsByDaysComponent = ({
                   setPriceCategoryId(event.target.value as string);
                 }}
               >
-                {priceCateogryData.map((priceCategory: any) => (
+                {filteredPriceCategory.map((priceCategory: any) => (
                   <MenuItem value={priceCategory.id} key={priceCategory.id}>
                     {priceCategory.name}
                   </MenuItem>
