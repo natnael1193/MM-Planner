@@ -20,7 +20,8 @@ const AdvertByDaysComponent = ({
   setValue,
   index,
   newProgramData,
-  priceCateogryData
+  priceCateogryData,
+  campaignData
 }: any) => {
   const { fields, remove } = useFieldArray({
     control,
@@ -33,7 +34,7 @@ const AdvertByDaysComponent = ({
     setIsChecked((prev) => !prev);
   };
 
-  // console.log('stationData', priceCateogryData);
+  console.log('isChecked', isChecked);
 
   return (
     <React.Fragment>
@@ -84,6 +85,8 @@ const AdvertByDaysComponent = ({
               isChecked={isChecked}
               isCheckAll={isCheckAll}
               priceCateogryData={priceCateogryData}
+              campaignData={campaignData}
+              programId={newProgramData[index].id}
             />
           </TableCell>
         </TableRow>

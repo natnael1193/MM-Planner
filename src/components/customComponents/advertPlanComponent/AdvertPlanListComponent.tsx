@@ -130,11 +130,11 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
   advertPlansData = advertPlanData.map(function (advertPlans: any) {
     return {
       id: advertPlans.id,
-      month: moment.utc(advertPlans.schedule.startTime).format('MMMM'),
-      date: moment.utc(advertPlans.schedule.startTime).format('DD'),
+      month: moment.utc(advertPlans.startTime).format('MMMM'),
+      date: moment.utc(advertPlans.startTime).format('DD'),
       day: moment.utc(advertPlans.schedule.startTime).format('dddd'),
-      startTime: moment.utc(advertPlans.schedule.startTime).format('hh:mm:ss A'),
-      endTime: moment.utc(advertPlans.schedule.endTime).format('hh:mm:ss A'),
+      startTime: moment.utc(advertPlans.startTime).format('hh:mm:ss A'),
+      endTime: moment.utc(advertPlans.endTime).format('hh:mm:ss A'),
       program: advertPlans.schedule.program.name,
       // priceClasifcation: advertPlans.schedule.priceClasifcation.name,
       // priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,

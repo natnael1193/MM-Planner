@@ -199,6 +199,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
         return {
           // programId: newData.programId,
           // stationId: newData.stationId,
+          day: day.name,
           ModifiedCampainId: newData.campainId,
           advertType: day.adType,
           priceConfigId: day.priceConfigId,

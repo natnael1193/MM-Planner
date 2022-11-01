@@ -46,11 +46,11 @@ const EditSpot = () => {
     <div>
       <BreadCrumb
         main={'Dashboard'}
-        parent={'Spot'}
+        parent={'Ads'}
         child={'Edit'}
         parentLink={'/dashboard/spot/list'}
       />
-      <SpotForm formTitle={'Edit Spot'} defaultValues={defaultValues.data} onFormSubmit={onSubmit} />
+      <SpotForm formTitle={'Edit Ads'} defaultValues={defaultValues.data} onFormSubmit={onSubmit} />
     </div>
   );
 };

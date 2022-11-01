@@ -35,6 +35,7 @@ const AdvertByDays = () => {
   const [isCheck, setIsCheck]: any = React.useState([]);
   const [isCheckAll, setIsCheckAll]: any = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [campaignId, setCampaignId] = React.useState('')
   const [isSelected, setIsSelected]: any = React.useState({
     name: '',
     ads: [],
@@ -173,15 +174,20 @@ const AdvertByDays = () => {
     toast.error('Something went wrong, please check all fields are filled');
   }
 
+  if (result.isSuccess) {
+    navigate(`/dashboard/campaign/advert/list`);
+  }
+
+
   const onSubmit = (data: any) => {
-    // console.log(data)
+    console.log(data)
     const newData = data.adverts.map(function (advert: any) {
       return {
         // day: activeDate,
         id: advert?.id,
         name: advert?.name,
         scheduleId: advert?.scheduleId,
-        campainId: data.campaignId,
+        ModifiedCampainId: advert?.ModifiedCampainId,
         advertType: advert?.adType,
         priceConfigId: advert?.priceConfigId,
         // sponsorshipPrice: advert?.sponsorshipPrice,
@@ -198,10 +204,10 @@ const AdvertByDays = () => {
 
     filteredData = filteredData.map(function (advert: any) {
       return {
-        // day: activeDate,
+        day: activeDate.toLowerCase(),
         id: advert?.id,
         scheduleId: advert?.scheduleId,
-        ModifiedCampainId: data.campaignId,
+        ModifiedCampainId: advert?.ModifiedCampainId,
         advertType: advert?.advertType,
         priceConfigId: advert?.priceConfigId,
         // sponsorshipPrice: advert?.sponsorshipPrice,
@@ -212,12 +218,12 @@ const AdvertByDays = () => {
       };
     });
 
-    if (result.isSuccess) {
-      navigate(`/dashboard/campaign/detail/${filteredData.id}`);
-    }
     addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
+
+ 
+
 
   return (
     <React.Fragment>
@@ -247,27 +253,7 @@ const AdvertByDays = () => {
                     onClick={() => {
                       setOpen(true);
                     }}
-                  /> */}
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Campaign"
-                        defaultValue=""
-                        displayEmpty
-                        required
-                        {...register('campaignId')}
-                      >
-                        {campaignData.data?.map((campaigns: any) => {
-                          return (
-                            <MenuItem value={campaigns.id} key={campaigns.id}>
-                              {campaigns.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
+                  /> */} 
                   </TableCell>
                   <TableCell>Program Name</TableCell>
                   <TableCell>Time</TableCell>
@@ -296,6 +282,7 @@ const AdvertByDays = () => {
                       key={index}
                       newProgramData={newProgramData}
                       priceCateogryData={row?.station?.priceCategories}
+                      campaignData={campaignData}
                     />
                   );
                 })}

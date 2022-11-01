@@ -46,6 +46,8 @@ const AdvertByPrograms = ({
   });
   priceConfigs = priceConfigs[0]?.priceConfigs;
 
+  console.log('open', open)
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -55,11 +57,11 @@ const AdvertByPrograms = ({
             size="small"
             onClick={() => {
               setOpen(!open);
-              open === false
+              open === true
                 ? (setValue(`adverts[${nestIndex}].name`, scheduleData?.day),
                   setValue(`adverts[${nestIndex}].scheduleId`, scheduleData?.id))
-                : (setValue(`adverts[${nestIndex}].name`, ''),
-                  setValue(`adverts[${nestIndex}].scheduleId`, ''));
+                : (setValue(`adverts[${nestIndex}].name`, scheduleData?.day),
+                  setValue(`adverts[${nestIndex}].scheduleId`, scheduleData?.id));
             }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}

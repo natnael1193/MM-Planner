@@ -29,9 +29,13 @@ const AdsByDaysComponent = ({
   isCheckAll,
   defaultValues,
   priceCateogryData,
+  campaignData,
+  programId,
 }: any) => {
   const [openSponsorshipFields, setOpenSponsorshipFields] = useState('');
   const [priceCategoryId, setPriceCategoryId] = useState('');
+  const [campaignId, setCampaignId] = useState('');
+  const [filteredCampaignData, setFilteredCampaignData] = useState([]);
   let priceConfigData: any = [];
   const { fields, remove, append } = useFieldArray({
     control,
@@ -44,12 +48,36 @@ const AdsByDaysComponent = ({
 
   priceConfigData = priceConfigData?.[0]?.priceConfigs;
 
-  console.log('defaultValues?.station?.name', priceConfigData);
+  console.log('programId', campaignData.data);
   return (
     <div>
       <Collapse in={isChecked || isCheckAll}>
         <Grid container spacing={4}>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+        <Grid item lg={6} md={6} sm={12} xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Campaign"
+                displayEmpty
+                {...register(`adverts[${nestIndex}].ModifiedCampainId` as const)}
+                defaultValue={''}
+                required={isChecked === true ? true : false}
+                value={campaignId}
+                onChange={(event: any) => {
+                  setCampaignId(event.target.value as string);
+                }}
+              >
+               {campaignData?.data?.map((campaings: any) => (
+                  <MenuItem value={campaings.id} key={campaings.id}>
+                    {campaings.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
               <Select
@@ -70,7 +98,7 @@ const AdsByDaysComponent = ({
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
               <Select
@@ -94,7 +122,7 @@ const AdsByDaysComponent = ({
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
               <Select
