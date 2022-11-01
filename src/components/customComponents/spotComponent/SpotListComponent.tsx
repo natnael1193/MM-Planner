@@ -13,8 +13,13 @@ const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
   //Data Grid Header
   const columns: GridColumns = [
     {
+      field: 'key',
+      headerName: 'Alias',
+      width: 300,
+    },
+    {
       field: 'name',
-      headerName: 'Spot Name',
+      headerName: 'Ads Name',
       width: 300,
     },
     // {
