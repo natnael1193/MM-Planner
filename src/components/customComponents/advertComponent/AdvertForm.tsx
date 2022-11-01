@@ -215,7 +215,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     addAdvert(filteredData);
   };
 
-  // console.log(priceCategoryData);
+  console.log(priceCategoryData);
 
   return (
     <div>

@@ -34,6 +34,7 @@ const AdvertByPrograms = ({
   const [open, setOpen] = React.useState(false);
   const [openSponsorshipFields, setOpenSponsorshipFields] = React.useState('');
   const [priceCategoryId, setPriceCategoryId] = React.useState('');
+  let filteredPriceCategory = [];
   // const [priceConfigs, setPriceConfigs] = React.useState([])
   let priceConfigs: any = [];
   const { fields, remove, append } = useFieldArray({
@@ -41,12 +42,17 @@ const AdvertByPrograms = ({
     name: `adverts[${nestIndex}].ads`,
   });
 
-  priceConfigs = priceCategoryData?.data?.filter((priceCategory: any) => {
+  filteredPriceCategory = priceCategoryData?.data?.filter((priceCategory: any) => {
+    return openSponsorshipFields === priceCategory.priceType;
+  });
+
+  priceConfigs = filteredPriceCategory?.filter((priceCategory: any) => {
     return priceCategoryId === priceCategory.id;
   });
   priceConfigs = priceConfigs[0]?.priceConfigs;
 
-  console.log('open', open)
+  console.log('open', priceCategoryData);
+  console.log(filteredPriceCategory);
 
   return (
     <React.Fragment>
@@ -119,7 +125,7 @@ const AdvertByPrograms = ({
                         setPriceCategoryId(event.target.value as string);
                       }}
                     >
-                      {priceCategoryData?.data?.map((priceCategory: any) => (
+                      {filteredPriceCategory?.map((priceCategory: any) => (
                         <MenuItem value={priceCategory.id} key={priceCategory.id}>
                           {priceCategory.name}
                         </MenuItem>
@@ -148,7 +154,7 @@ const AdvertByPrograms = ({
                   </FormControl>
                 </Grid>
               </Grid>
-              
+
               {/* {openSponsorshipFields === 'Sponsorship' ? (
                 <Grid container spacing="10" sx={{ mb: 2, mt: 1 }}>
                   <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
