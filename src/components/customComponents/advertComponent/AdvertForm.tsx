@@ -197,15 +197,11 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     let filteredData: any = {
       ads: newData.days.map((day: any) => {
         return {
-          // programId: newData.programId,
-          // stationId: newData.stationId,
           day: day.name,
           ModifiedCampainId: newData.campainId,
           advertType: day.adType,
           priceConfigId: day.priceConfigId,
-          // sponsorshipLength: day.sponsorshipLength,
           sponsorLength: day.sponsorshipLength,
-          // sponsorshipPrice: day.sponsorshipPrice,
           scheduleId: day.scheduleId,
           adverts: day?.ads?.filter((ad: any) => {
             return ad.adsId !== false;

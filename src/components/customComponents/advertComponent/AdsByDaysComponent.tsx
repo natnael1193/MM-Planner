@@ -144,7 +144,7 @@ const AdsByDaysComponent = ({
           </Grid>
         </Grid>
 
-        {openSponsorshipFields === 'Sponsorship' ? (
+        {/* {openSponsorshipFields === 'Sponsorship' ? (
           <Grid container spacing="10" sx={{ pr: 2, mt: 2 }}>
             <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
               <TextField
@@ -165,7 +165,7 @@ const AdsByDaysComponent = ({
               <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, null)} />
             </Grid>
           </Grid>
-        )}
+        )} */}
       </Collapse>
       <Collapse in={isChecked || isCheckAll}>
         {/* <Typography variant="h4" sx={{ m: 2, mb: 0 }}>
