@@ -44,7 +44,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField fullWidth label="Key" {...register('key', {required: true})} sx={{ mt: 1 }} />
+                <TextField fullWidth label="Alias" {...register('key', {required: true})} sx={{ mt: 1 }} />
                 <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12} xs={12}>

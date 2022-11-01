@@ -15,7 +15,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
             <Typography variant="h3">{formTitle}</Typography>
             <Grid container spacing={3} sx={{ mt: 4 }}>
               <Grid item lg={6} md={6} sm={12}>
-                <TextField label="Key" fullWidth {...register('key', { required: true })} />
+                <TextField label="Alias" fullWidth {...register('key', { required: true })} />
                 <Typography color="red">{ errors.key && "This is required"}</Typography>
               </Grid>
               <Grid item lg={6} md={6} sm={12}>
