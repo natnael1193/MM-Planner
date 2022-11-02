@@ -63,11 +63,11 @@ const AdvertByPrograms = ({
             size="small"
             onClick={() => {
               setOpen(!open);
-              open === true
+              open === false
                 ? (setValue(`adverts[${nestIndex}].name`, scheduleData?.day),
                   setValue(`adverts[${nestIndex}].scheduleId`, scheduleData?.id))
-                : (setValue(`adverts[${nestIndex}].name`, scheduleData?.day),
-                  setValue(`adverts[${nestIndex}].scheduleId`, scheduleData?.id));
+                : (setValue(`adverts[${nestIndex}].name`, ''),
+                  setValue(`adverts[${nestIndex}].scheduleId`, ''));
             }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}

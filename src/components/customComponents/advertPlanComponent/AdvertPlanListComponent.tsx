@@ -14,6 +14,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 
 const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any) => {
   let advertPlansData: any = [];
+  const totalPriceInitialValue = 0;
   //Delete Spot
   const [deleteAdvert, result] = useDeleteAdvertMutation();
 
@@ -23,6 +24,10 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       refetch();
     });
   };
+
+  function add(accumulator: any, a: any) {
+    return accumulator + a;
+  }
 
   //Data Grid Header
   const columns: GridColumns = [
@@ -56,29 +61,34 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       headerName: 'Program',
       width: 200,
     },
+    // {
+    //   field: 'advertType',
+    //   headerName: 'AdvertType',
+    //   width: 200,
+    // },
+    // {
+    //   field: 'ad',
+    //   headerName: 'Ad',
+    //   width: 200,
+    // },
     {
-      field: 'advertType',
-      headerName: 'AdvertType',
+      field: 'totalContentLength',
+      headerName: 'Total Content Length',
       width: 200,
     },
-    {
-      field: 'ad',
-      headerName: 'Ad',
-      width: 200,
-    },
-    {
-      field: 'contentLength',
-      headerName: 'Content Length',
-      width: 200,
-    },
+    // {
+    //   field: 'totalAdvertQuantity',
+    //   headerName: 'Total Advert quantity',
+    //   width: 200,
+    // },
     {
       field: 'quantity',
-      headerName: 'Spot Quantity',
+      headerName: 'Quantity',
       width: 200,
     },
     {
-      field: 'sponsorLength',
-      headerName: 'Sponsor Length',
+      field: 'priceType',
+      headerName: 'Price Type',
       width: 200,
     },
     {
@@ -106,10 +116,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
               <PreviewIcon />
             </Button>
           </Link> */}
-          <Link
-            to={`/dashboard/advert/edit/${cellValues.id}`}
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to={`/dashboard/advert/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />
             </Button>
@@ -129,34 +136,70 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
 
   advertPlansData = advertPlanData.map(function (advertPlans: any) {
     return {
-      id: advertPlans.id,
-      month: moment.utc(advertPlans.startTime).format('MMMM'),
-      date: moment.utc(advertPlans.startTime).format('DD'),
-      day: moment.utc(advertPlans.schedule.startTime).format('dddd'),
-      startTime: moment.utc(advertPlans.startTime).format('hh:mm:ss A'),
-      endTime: moment.utc(advertPlans.endTime).format('hh:mm:ss A'),
-      program: advertPlans.schedule.program.name,
-      // priceClasifcation: advertPlans.schedule.priceClasifcation.name,
-      // priceCategory: advertPlans.schedule.priceClasifcation.priceCategory.name,
-      priceConfig: advertPlans.priceConfig.name,
-      priceConfigRate: advertPlans.priceConfig.rate,
-      priceConfigUnit: advertPlans.priceConfig.unit,
-      advertType: advertPlans.advertType,
-      ad: advertPlans.ads.name,
-      contentLength: advertPlans.ads.contentLength,
-      quantity: advertPlans.qut,
-      sponsorLength: advertPlans.sponsorLength,
-      sponsorshipPrice: advertPlans.sponsorshipPrice,
+      id: advertPlans?.id,
+      month: moment.utc(advertPlans?.startTime).format('MMMM'),
+      date: moment.utc(advertPlans?.startTime).format('DD'),
+      day: moment.utc(advertPlans?.schedule.startTime).format('dddd'),
+      startTime: moment.utc(advertPlans?.startTime).format('hh:mm:ss A'),
+      endTime: moment.utc(advertPlans?.endTime).format('hh:mm:ss A'),
+      program: advertPlans?.schedule.program.name,
+      priceType: advertPlans?.priceConfig?.priceCategory?.priceType,
+      priceConfig: advertPlans?.priceConfig.name,
+      priceConfigRate: advertPlans?.priceConfig.rate,
+      priceConfigUnit: advertPlans?.priceConfig.unit,
+      advertType: advertPlans?.advertType,
+      ad: advertPlans?.ads?.name,
+      contentLength: advertPlans?.ads?.contentLength,
+      quantity: advertPlans?.adverts?.map(function (advert: any) {
+        return advert.qut;
+      }),
+      sponsorLength: advertPlans?.sponsorLength,
+      sponsorshipPrice: advertPlans?.sponsorshipPrice,
+      // totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
+      //   return advert.qut;
+      // }),
+      // totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
+      //   return advert?.ads?.contentLength;
+      // }),
+          totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
+        return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
+      }),
+      totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
+        return advert?.ads?.contentLength;
+      }),
+      totalPrice:advertPlans?.adverts?.map(function (advert: any) {
+        return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
+      })
+  }
+  });
+
+  advertPlansData = advertPlansData.map(function (advertPlans: any) {
+    return {
+      id: advertPlans?.id,
+      month: advertPlans?.month,
+      day: advertPlans?.day,
+      date: advertPlans?.date,
+      startTime: advertPlans?.startTime,
+      endTime: advertPlans?.endTime,
+      program: advertPlans?.program,
+      priceType: advertPlans?.priceType,
+      priceConfig: advertPlans?.priceConfig,
+      priceConfigRate: advertPlans?.priceConfigRate,
+      priceConfigUnit: advertPlans?.priceConfigUnit,
+      advertType: advertPlans?.advertType,
+      ad: advertPlans?.ad,
+      contentLength: advertPlans?.contentLength,
+      quantity: advertPlans?.quantity,
+      totalContentLength: advertPlans?.totalContentLength,
+      totalAdvertQuantity: advertPlans?.totalAdvertQuantity,
       totalPrice:
-        advertPlans.advertType === 'Spot'
-          ? (advertPlans.priceConfig.rate /advertPlans.priceConfig.unit ) *
-            advertPlans.qut *
-            advertPlans.ads.contentLength
-          : advertPlans.sponsorLength * (advertPlans.priceConfig.rate/advertPlans.priceConfig.unit),
+        advertPlans?.priceType === 'Spot'
+          ? advertPlans?.totalPrice.reduce(add, 0)
+          : advertPlans?.priceConfigRate ,
     };
   });
 
-  // console.log('result', advertPlanData)
+  console.log('result', advertPlansData);
 
   return (
     <div>

@@ -182,7 +182,7 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
   }
 
   const onSubmit = (data: any) => {
-    // console.log(data);
+    console.log(data);
     const newData: any = {
       name: data.name,
       key: data.key,
@@ -210,9 +210,10 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
       }),
     };
 
+    filteredData = filteredData?.ads.filter((adverts: any) => adverts.adverts.length !== 0);
     console.log(filteredData);
     // console.log('newData',newData)
-    addAdvert(filteredData);
+    addAdvert({ ads: filteredData });
   };
 
   console.log(priceCategoryData);
