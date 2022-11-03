@@ -29,6 +29,8 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     return accumulator + a;
   }
 
+  console.log(advertPlansData)
+
   //Data Grid Header
   const columns: GridColumns = [
     {
@@ -88,7 +90,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     },
     {
       field: 'priceType',
-      headerName: 'Price Type',
+      headerName: 'Advert Type',
       width: 200,
     },
     {
@@ -134,7 +136,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     },
   ];
 
-  advertPlansData = advertPlanData.map(function (advertPlans: any) {
+  advertPlansData = advertPlanData?.map(function (advertPlans: any) {
     return {
       id: advertPlans?.id,
       month: moment.utc(advertPlans?.startTime).format('MMMM'),
@@ -173,7 +175,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
   }
   });
 
-  advertPlansData = advertPlansData.map(function (advertPlans: any) {
+  advertPlansData = advertPlansData?.map(function (advertPlans: any) {
     return {
       id: advertPlans?.id,
       month: advertPlans?.month,

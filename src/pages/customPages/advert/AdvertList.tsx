@@ -5,6 +5,7 @@ import Error from '../shared/Error';
 import AdvertListComponent from '../../../components/customComponents/advertComponent/AdvertListComponent';
 import moment from 'moment';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import AdvertPlanListComponent from 'src/components/customComponents/advertPlanComponent/AdvertPlanListComponent';
 
 const AdvertList = () => {
   let advertData: any = [];
@@ -16,16 +17,7 @@ const AdvertList = () => {
   if (isLoading || isFetching) return <Loading />;
 
   if (isSuccess) {
-    advertData = data.data?.map(function (adverts: any) {
-      return {
-        id: adverts.id,
-        key: adverts.ads.key,
-        name: adverts.ads.name,
-        startTime: moment.utc(adverts.schedule.startTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
-        endTime: moment.utc(adverts.schedule.endTime).format(' dddd Do, MMMM YYYY, h:mm:ss a'),
-        advertPlanId: adverts.advertPlanId,
-      };
-    });
+    advertData = data.data
 
     //   {
     //     "id": "b15ac2cc-1344-4b53-8cd4-48e785bba112",
@@ -39,7 +31,7 @@ const AdvertList = () => {
 
   if (error) return <Error />;
 
-  console.log(data)
+  // console.log(advertData);
 
   return (
     <div>
@@ -49,8 +41,8 @@ const AdvertList = () => {
         child={'List'}
         parentLink={'/dashboard/advert/list'}
       />
-      <AdvertListComponent
-        advertData={advertData}
+      <AdvertPlanListComponent
+        advertPlanData={advertData}
         dataGridTitle={'Advert List'}
         page={page}
         setPage={setPage}
