@@ -46,6 +46,8 @@ const AdvertByDays = () => {
   var campaignData: any = [];
   let defaultValues: any = {};
 
+  // React.
+
   const {
     control,
     register,
@@ -89,11 +91,13 @@ const AdvertByDays = () => {
 
   if (
     programByDateLoading ||
-    programByDateFetching ||
+    // programByDateFetching ||
     spotLoading ||
-    spotFetching ||
-    campaignLoading ||
-    campaignFetching
+    // spotFetching ||
+    campaignLoading 
+    
+    // ||
+    // campaignFetching
   )
     return (
       <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -120,7 +124,7 @@ const AdvertByDays = () => {
       </Grid>
     );
 
-  newProgramData = programDataByDate.data.programs.map(function (program: any) {
+  newProgramData = programDataByDate?.data?.programs?.map(function (program: any) {
     return {
       id: program.program.id,
       name: program.program.name,
@@ -263,7 +267,7 @@ const AdvertByDays = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {defaultValues.adverts.map((row: any, index: any) => {
+                {defaultValues?.adverts?.map((row: any, index: any) => {
                   return (
                     <AdvertByDaysComponent
                       {...{ control, register, defaultValues, getValues, setValue, errors }}
