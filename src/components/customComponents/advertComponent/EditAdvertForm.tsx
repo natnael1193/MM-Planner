@@ -8,6 +8,11 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Table,
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableBody,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import React from 'react';
@@ -17,6 +22,8 @@ import { useSpotsQuery } from '../../../services/SpotApi';
 import Error from '../../../pages/customPages/shared/Error';
 import Loading from '../../../pages/customPages/shared/Loading';
 import { useExtenalPriceConfigsQuery } from 'src/services/ExternalProgramApi';
+import { TableRow } from '@mui/material';
+import EditAdvertAds from './EditAdvertAds';
 
 const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   let campaignsData: any = [];
@@ -63,7 +70,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
             <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
               <Typography variant="h3">Edit Advert</Typography>
             </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Grid item lg={4} md={4} sm={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
                 <Select
@@ -87,7 +94,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                 </Typography>
               </FormControl>
             </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Grid item lg={4} md={4} sm={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Advert Type</InputLabel>
                 <Select
@@ -106,7 +113,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                 </Typography>
               </FormControl>
             </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Grid item lg={4} md={4} sm={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
                 <Select
@@ -130,7 +137,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                 </Typography>
               </FormControl>
             </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
+            {/* <Grid item lg={6} md={6} sm={12} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Ads</InputLabel>
                 <Select
@@ -175,15 +182,15 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
               <Typography variant="inherit" color="red">
                 {errors.sponsorLength && 'This is required'}
               </Typography>
-            </Grid>
+            </Grid> */}
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextField
-            InputLabelProps={{ shrink: true }}
-            label="Start Date"
-            // inputProps={{ step: 1 }}
-            {...register('startTime', { required: true })}
-            type="datetime-local"
-            fullWidth
+                InputLabelProps={{ shrink: true }}
+                label="Start Date"
+                // inputProps={{ step: 1 }}
+                {...register('startTime', { required: true })}
+                type="datetime-local"
+                fullWidth
               />
               <Typography variant="inherit" color="red">
                 {errors.qut && 'This is required'}
@@ -210,6 +217,32 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
           </Grid>
         </Card>
       </form>
+      <Card sx={{ p: 3, mt: 3 }}>
+        <Grid container spacing={2}>
+          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
+            <Typography variant="h3">Ads</Typography>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                // size={dense ? 'small' : 'medium'}
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell>Ads Name</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <EditAdvertAds defaultValues={defaultValues} />
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      </Card>
     </div>
   );
 };

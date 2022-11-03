@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Advert, Adverts } from '../interfaces/Advert.interface';
-
+import { Advert, Adverts, AdvertAds } from '../interfaces/Advert.interface';
 
 // const baseURL = `http://localhost:4000`;
 
@@ -32,7 +31,7 @@ export const advertApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Advert', 'Campaign'],
+  tagTypes: ['Advert', 'Campaign', 'AdvertAds'],
   endpoints: (builder) => ({
     adverts: builder.query<ListResponse<Advert>, number | void>({
       query: () => `/ModifiedAdvertPlan`,
@@ -66,6 +65,21 @@ export const advertApi = createApi({
       }),
       invalidatesTags: ['Advert'],
     }),
+    updateAdvertAds: builder.mutation<void, Advert>({
+      query: ({ ...rest }) => ({
+        url: `/ModifiedAdvertPlan/advert/${rest.id}`,
+        method: 'PUT',
+        body: rest,
+      }),
+      invalidatesTags: ['AdvertAds','Advert', 'Campaign'],
+    }),
+    deleteAdvertAds: builder.mutation<void, Advert>({
+      query: (id) => ({
+        url: `/ModifiedAdvertPlan/advert/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['AdvertAds','Advert', 'Campaign'],
+    }),
     deleteAdvert: builder.mutation<void, string>({
       query: (id) => ({
         url: `/ModifiedAdvertPlan/${id}`,
@@ -82,5 +96,7 @@ export const {
   useAddAdvertMutation,
   useAddMultipleAdvertMutation,
   useUpdateAdvertMutation,
+  useUpdateAdvertAdsMutation,
+  useDeleteAdvertAdsMutation,
   useDeleteAdvertMutation,
 } = advertApi;

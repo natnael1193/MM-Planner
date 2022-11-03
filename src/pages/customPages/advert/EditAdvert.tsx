@@ -15,7 +15,7 @@ const EditAdvert = () => {
   var defaultValues: any = {};
 
   //Get Advert By Id
-  const { data: advertData, error, isLoading }: any = useAdvertQuery(paramsId);
+  const { data: advertData, error, isLoading, isFetching }: any = useAdvertQuery(paramsId);
 
   //Update the data
   const [updateAdvert, result] = useUpdateAdvertMutation();
@@ -32,14 +32,14 @@ const EditAdvert = () => {
   }, [response]);
 
   //Loading State
-  if (isLoading) return <Loading />;
+  if (isLoading || isFetching) return <Loading />;
 
   // Return an error if there is an error
   if (error) return <Error />;
 
   defaultValues = {
     adsId: advertData.data.adsId,
-    advertType: advertData.data.advertType,
+    advertType: advertData.data.priceConfig.priceCategory.priceType,
     endTime: advertData.data.endTime.replace(/Z/, ''),
     startTime: advertData.data.startTime.replace(/Z/, ''),
     id: advertData.data.id,
@@ -47,7 +47,8 @@ const EditAdvert = () => {
     qut: advertData.data.qut,
     scheduleId: advertData.data.scheduleId,
     sponsorLength: advertData.data.sponsorLength,
-    priceConfigId: advertData.data.priceConfigId,
+    priceConfigId: advertData.data.priceConfig.id,
+    adverts: advertData.data.adverts,
   };
   const onSubmit = (data: any) => {
     console.log(data);
@@ -55,7 +56,7 @@ const EditAdvert = () => {
     return toast.success('Updated Successfully');
   };
 
-  // console.log(defaultValues);
+  console.log(defaultValues);
 
   return (
     <div>
