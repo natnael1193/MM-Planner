@@ -28,14 +28,24 @@ import { useCampaignsQuery } from 'src/services/CamapignApi';
 import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../shared/Loading';
 
 const AdvertByDays = () => {
+  //
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => 
+      setLoading(false)
+    , 2000);
+  }, []);
+  // loading === true ? window.location.reload() : null;
   const navigate = useNavigate();
   const [activeDate, setActiveDate] = React.useState('Monday');
   const [isCheck, setIsCheck]: any = React.useState([]);
   const [isCheckAll, setIsCheckAll]: any = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [campaignId, setCampaignId] = React.useState('')
+  const [campaignId, setCampaignId] = React.useState('');
   const [isSelected, setIsSelected]: any = React.useState({
     name: '',
     ads: [],
@@ -85,19 +95,25 @@ const AdvertByDays = () => {
     isSuccess: programByDateSuccess,
     isLoading: programByDateLoading,
     isFetching: programByDateFetching,
+    refetch: programByDateRefetch,
   } = useExternalProgramsByDaysQuery(activeDate);
 
   const [addAdvert, result] = useAddMultipleAdvertMutation();
 
+  // programByDateRefetch()
+
+  // if(loading === true ){
+  //   window.location.reload()
+  // }
+
   if (
+    // loading ||
     programByDateLoading ||
-    // programByDateFetching ||
+    programByDateFetching ||
     spotLoading ||
-    // spotFetching ||
-    campaignLoading 
-    
-    // ||
-    // campaignFetching
+    spotFetching ||
+    campaignLoading ||
+    campaignFetching
   )
     return (
       <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -182,9 +198,8 @@ const AdvertByDays = () => {
     navigate(`/dashboard/campaign/advert/list`);
   }
 
-
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
     const newData = data.adverts.map(function (advert: any) {
       return {
         // day: activeDate,
@@ -226,9 +241,6 @@ const AdvertByDays = () => {
     console.log(filteredData);
   };
 
- 
-
-
   return (
     <React.Fragment>
       <Card>
@@ -257,7 +269,7 @@ const AdvertByDays = () => {
                     onClick={() => {
                       setOpen(true);
                     }}
-                  /> */} 
+                  /> */}
                   </TableCell>
                   <TableCell>Program Name</TableCell>
                   <TableCell>Time</TableCell>
@@ -267,29 +279,30 @@ const AdvertByDays = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {defaultValues?.adverts?.map((row: any, index: any) => {
-                  return (
-                    <AdvertByDaysComponent
-                      {...{ control, register, defaultValues, getValues, setValue, errors }}
-                      defaultValues={defaultValues.adverts}
-                      handleSelectAll={handleSelectAll}
-                      isCheck={isCheck}
-                      setIsCheck={setIsCheck}
-                      isCheckAll={isCheckAll}
-                      setIsCheckAll={setIsCheckAll}
-                      handleClick={handleClick}
-                      isSelected={isSelected}
-                      handleSelectClick={handleSelectClick}
-                      setOpen={setOpen}
-                      row={row}
-                      index={index}
-                      key={index}
-                      newProgramData={newProgramData}
-                      priceCateogryData={row?.station?.priceCategories}
-                      campaignData={campaignData}
-                    />
-                  );
-                })}
+                {loading ? (
+                  <Loading />
+                ) : (
+                  defaultValues?.adverts?.map((row: any, index: any) => {
+                    return (
+                      <AdvertByDaysComponent
+                        {...{ control, register, defaultValues, getValues, setValue, errors }}
+                        defaultValues={defaultValues.adverts}
+                        handleSelectAll={handleSelectAll}
+                        isCheck={isCheck}
+                        setIsCheckAll={setIsCheckAll}
+                        isSelected={isSelected}
+                        handleSelectClick={handleSelectClick}
+                        setOpen={setOpen}
+                        row={row}
+                        index={index}
+                        key={index}
+                        newProgramData={newProgramData}
+                        priceCateogryData={row?.station?.priceCategories}
+                        campaignData={campaignData}
+                      />
+                    );
+                  })
+                )}
               </TableBody>
             </Table>
           </TableContainer>

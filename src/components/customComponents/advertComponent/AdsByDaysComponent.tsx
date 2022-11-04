@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
 import {
-  Typography,
   Grid,
   TableCell,
   Input,
   Collapse,
-  TextField,
   FormControl,
   MenuItem,
   InputLabel,
-  SelectChangeEvent,
   Select,
   TableHead,
   TableRow,
@@ -23,38 +20,37 @@ const AdsByDaysComponent = ({
   nestIndex,
   control,
   register,
-  setValue,
   item,
   isChecked,
   isCheckAll,
-  defaultValues,
   priceCateogryData,
   campaignData,
-  programId,
 }: any) => {
+  
   const [openSponsorshipFields, setOpenSponsorshipFields] = useState('');
   const [priceCategoryId, setPriceCategoryId] = useState('');
   const [campaignId, setCampaignId] = useState('');
-  const [filteredCampaignData, setFilteredCampaignData] = useState([]);
   let filteredPriceCategory: any = [];
   let priceConfigData: any = [];
+  
   const { fields, remove, append } = useFieldArray({
     control,
     name: `adverts[${nestIndex}].ads`,
   });
 
 
-  filteredPriceCategory = priceCateogryData.filter((priceCategory: any) => {
+  filteredPriceCategory = priceCateogryData?.filter((priceCategory: any) => {
     return priceCategory.priceType === openSponsorshipFields;
   });
 
-  priceConfigData = filteredPriceCategory.filter((priceCategory: any) => {
+  priceConfigData = filteredPriceCategory?.filter((priceCategory: any) => {
     return priceCategory.id === priceCategoryId;
   });
 
   priceConfigData = priceConfigData?.[0]?.priceConfigs;
 
-  console.log('programId', campaignData.data);
+  console.log('campaignData', campaignData.data);
+  
   return (
     <div>
       <Collapse in={isChecked || isCheckAll}>
@@ -150,28 +146,6 @@ const AdsByDaysComponent = ({
           </Grid>
         </Grid>
 
-        {/* {openSponsorshipFields === 'Sponsorship' ? (
-          <Grid container spacing="10" sx={{ pr: 2, mt: 2 }}>
-            <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
-              <TextField
-                {...register(`adverts[${nestIndex}].sponsorshipLength` as const)}
-                label="Sponsorship Length"
-                type="number"
-                required
-                fullWidth
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
-                }}
-              />
-            </Grid>
-          </Grid>
-        ) : (
-          <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
-            <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
-              <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, null)} />
-            </Grid>
-          </Grid>
-        )} */}
       </Collapse>
       <Collapse in={isChecked || isCheckAll}>
         {/* <Typography variant="h4" sx={{ m: 2, mb: 0 }}>
