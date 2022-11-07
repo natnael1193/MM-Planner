@@ -14,3 +14,8 @@ export interface ExternalPriceCategory{
 export interface ExternalPriceConfig{
     id: any,
 }
+export interface ExternalStation {
+    id: any,
+    key: string,
+    name: string,
+}

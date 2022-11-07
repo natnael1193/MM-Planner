@@ -1,18 +1,19 @@
 import { Button, Card, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const AdvertByStationAndDaysComponent = () => {
+const AdvertByStationAndDaysComponent = ({ station }: any) => {
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item lg={4} md={6} sm={12} xs={12}>
-          <Card sx={{ p: 2}}>
-            <Typography variant="h5">RBS</Typography>
-            <Button variant="contained" sx={{ mt: 3}}>View</Button>
-          </Card>
-        </Grid>
-      </Grid>
-    </div>
+    <Grid item lg={4} md={6} sm={12} xs={12}>
+      <Card sx={{ p: 2 }}>
+        <Typography variant="h5">{station.name}</Typography>
+        <Link to="/dashboard/advert/advert-by-station-days-detail" style={{ textDecoration: 'none' }}>
+          <Button variant="contained" sx={{ mt: 3 }} color="info">
+            View
+          </Button>
+        </Link>
+      </Card>
+    </Grid>
   );
 };
 

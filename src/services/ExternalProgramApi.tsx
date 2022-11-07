@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ExternalProgramInterface, ExternalPriceCategory, ExternalPriceConfig } from 'src/interfaces/ExternalProgram.interface';
+import {
+  ExternalProgramInterface,
+  ExternalPriceCategory,
+  ExternalPriceConfig,
+  ExternalStation,
+} from 'src/interfaces/ExternalProgram.interface';
 
 // const baseURL = `http://localhost:4000`;
 
@@ -22,7 +27,7 @@ export const externalProgramApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['ExternalProgramInterface','ExternalPriceConfig'],
+  tagTypes: ['ExternalProgramInterface', 'ExternalPriceConfig', 'ExternalStation'],
   endpoints: (builder) => ({
     externalPrograms: builder.query<ExternalProgramInterface[], void>({
       query: () => '/externalPrograms',
@@ -39,8 +44,18 @@ export const externalProgramApi = createApi({
     extenalPriceConfigs: builder.query<ExternalPriceConfig[], void>({
       query: () => `/PriceConfig`,
       providesTags: ['ExternalPriceConfig'],
-  }),
+    }),
+    externalStations: builder.query<ExternalStation[], void>({
+      query: () => `/Station`,
+      providesTags: ['ExternalStation'],
+    }),
   }),
 });
 
-export const { useExternalProgramsQuery, useExternalProgramsByDaysQuery, useExternalPriceCategoriesQuery, useExtenalPriceConfigsQuery } = externalProgramApi;
+export const {
+  useExternalProgramsQuery,
+  useExternalProgramsByDaysQuery,
+  useExternalPriceCategoriesQuery,
+  useExtenalPriceConfigsQuery,
+  useExternalStationsQuery
+} = externalProgramApi;
