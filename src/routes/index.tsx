@@ -82,10 +82,14 @@ export default function Router() {
             { path: '/dashboard/advert/detail/:advertId', element: <AdvertDetail /> },
             { path: '/dashboard/advert/timeline', element: <AdvertTimeline /> },
             { path: '/dashboard/advert/advert-by-date', element: <AdvertByDate /> },
-            { path: '/dashboard/advert/advert-by-station-days', element: <AdvertByStationAndDays /> },
-
-            // AdvertByStationAndDays
-
+            {
+              path: '/dashboard/advert/advert-by-station-days',
+              element: <AdvertByStationAndDays />,
+            },
+            {
+              path: '/dashboard/advert/advert-by-station-days-detail',
+              element: <AdvertByStationAndDaysDetail />,
+            },
           ],
         },
         {
@@ -198,7 +202,12 @@ const EditAdvert = Loadable(lazy(() => import('../pages/customPages/advert/EditA
 const AdvertDetail = Loadable(lazy(() => import('../pages/customPages/advert/AdvertDetail')));
 const AdvertTimeline = Loadable(lazy(() => import('../pages/customPages/advert/AdvertTimeline')));
 const AdvertByDate = Loadable(lazy(() => import('../pages/customPages/advert/AdvertByDays')));
-const AdvertByStationAndDays = Loadable(lazy(() => import('../pages/customPages/advert/AdvertByStationAndDays')));
+const AdvertByStationAndDays = Loadable(
+  lazy(() => import('../pages/customPages/advert/AdvertByStationAndDays'))
+);
+const AdvertByStationAndDaysDetail = Loadable(
+  lazy(() => import('../pages/customPages/advert/AdvertByStationAndDaysDetail'))
+);
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
