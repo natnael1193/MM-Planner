@@ -42,7 +42,7 @@ const ProgramsByDays =  ({ setActiveDate, activeDate, setIsCheck }: any) => {
               color={dates.label === activeDate ? 'warning' : 'primary'}
               onClick={() => {
                 setActiveDate(dates.label);
-                setIsCheck([])
+                // setIsCheck([])
               }}
             >
               <Typography variant="inherit" color="white">
