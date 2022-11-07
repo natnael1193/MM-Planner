@@ -30,14 +30,14 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../shared/Loading';
 
+const MemorizedAdvertByDaysComponent = React.memo(AdvertByDaysComponent);
+
 const AdvertByDays = () => {
   //
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => 
-      setLoading(false)
-    , 2000);
+    setTimeout(() => setLoading(false), 0);
   }, []);
   // loading === true ? window.location.reload() : null;
   const navigate = useNavigate();
@@ -115,11 +115,7 @@ const AdvertByDays = () => {
     campaignLoading ||
     campaignFetching
   )
-    return (
-      <Grid container direction="row" justifyContent="center" alignItems="center">
-        <CircularProgress />
-      </Grid>
-    );
+    return <Loading />;
 
   if (programByDateSuccess) {
     programDataByDate = programByDate;
@@ -284,7 +280,7 @@ const AdvertByDays = () => {
                 ) : (
                   defaultValues?.adverts?.map((row: any, index: any) => {
                     return (
-                      <AdvertByDaysComponent
+                      <MemorizedAdvertByDaysComponent
                         {...{ control, register, defaultValues, getValues, setValue, errors }}
                         defaultValues={defaultValues.adverts}
                         handleSelectAll={handleSelectAll}

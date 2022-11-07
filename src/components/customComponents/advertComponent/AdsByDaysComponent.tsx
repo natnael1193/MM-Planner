@@ -33,10 +33,10 @@ const AdsByDaysComponent = ({
   let filteredPriceCategory: any = [];
   let priceConfigData: any = [];
   
-  const { fields, remove, append } = useFieldArray({
-    control,
-    name: `adverts[${nestIndex}].ads`,
-  });
+  // const { fields, remove, append } = useFieldArray({
+  //   control,
+  //   name: `adverts[${nestIndex}].ads`,
+  // });
 
 
   filteredPriceCategory = priceCateogryData?.filter((priceCategory: any) => {
@@ -49,7 +49,7 @@ const AdsByDaysComponent = ({
 
   priceConfigData = priceConfigData?.[0]?.priceConfigs;
 
-  console.log('campaignData', campaignData.data);
+  // console.log('campaignData', campaignData.data);
   
   return (
     <div>
@@ -108,7 +108,7 @@ const AdsByDaysComponent = ({
                 id="demo-simple-select"
                 label="Price Category"
                 displayEmpty
-                // {...register(`adverts[${nestIndex}].adType` as const)}
+                {...register(`adverts[${nestIndex}].adType` as const)}
                 defaultValue={''}
                 required={isChecked === true ? true : false}
                 value={priceCategoryId}
@@ -148,9 +148,7 @@ const AdsByDaysComponent = ({
 
       </Collapse>
       <Collapse in={isChecked || isCheckAll}>
-        {/* <Typography variant="h4" sx={{ m: 2, mb: 0 }}>
-          Ads
-        </Typography> */}
+
         <TableContainer sx={{ mt: 2, ml: 2 }}>
           <TableHead>
             <TableRow>
@@ -185,6 +183,7 @@ const AdsByDaysComponent = ({
           })}
         </TableContainer>
       </Collapse>
+      {/* kkk */}
     </div>
   );
 };

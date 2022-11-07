@@ -5,6 +5,8 @@ import moment from 'moment';
 import { useFieldArray } from 'react-hook-form';
 import AdsByDaysComponent from './AdsByDaysComponent';
 
+const MemorizedAdsByDaysComponent = React.memo(AdsByDaysComponent)
+
 const AdvertByDaysComponent = ({
   isCheckAll,
   isSelected,
@@ -75,7 +77,8 @@ const AdvertByDaysComponent = ({
 
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <AdsByDaysComponent
+          
+          <MemorizedAdsByDaysComponent
             nestIndex={index}
             {...{ control, register, setValue }}
             item={row.ads}
