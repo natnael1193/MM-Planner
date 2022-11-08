@@ -5,7 +5,6 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  TextField,
   Table,
   TableHead,
   TableCell,
@@ -14,8 +13,44 @@ import {
   Input,
 } from '@mui/material';
 import React from 'react';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
+import Error from 'src/pages/customPages/shared/Error';
+import Loading from 'src/pages/customPages/shared/Loading';
+import { useExternalPriceCategoriesQuery } from 'src/services/ExternalProgramApi';
+import { useSpotsQuery } from 'src/services/SpotApi';
+import Checkbox from '@mui/material/Checkbox';
 
-const AdsBySatationAndDays = () => {
+const AdsByStationAndDays = ({ stationId, register, errors, programs, index, setValue }: any) => {
+  let priceConfigs: any = [];
+  const [priceCategoryId, setPriceCategoryId] = React.useState('');
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
+  const {
+    data: campaignData,
+    isLoading: campaignLoading,
+    error: campaignError,
+  }: any = useCampaignsQuery();
+
+  const {
+    data: priceCategoryData,
+    isLoading: priceCategoryLoading,
+    error: priceCategoryError,
+  }: any = useExternalPriceCategoriesQuery(stationId);
+
+  const { data: spotData, isLoading: spotLoading, error: spotError }: any = useSpotsQuery();
+
+  if (campaignLoading || priceCategoryLoading || spotLoading) return <Loading />;
+  if (campaignError || priceCategoryError || spotError) return <Error />;
+  priceConfigs = priceCategoryData?.data?.filter((priceCategory: any) => {
+    return priceCategory.id === priceCategoryId;
+  });
+  priceConfigs = priceConfigs?.[0]?.priceConfigs;
+
+  console.log('checked', checked);
   return (
     <Grid container sx={{ mt: 3 }} spacing={2}>
       <Grid item lg={6} md={12} sm={12} xs={12}>
@@ -27,8 +62,13 @@ const AdsBySatationAndDays = () => {
             label="Campaign"
             displayEmpty
             defaultValue={''}
+            {...register(`ads[${index}].ModifiedCampainId` as const)}
           >
-            <MenuItem>ppp</MenuItem>
+            {campaignData?.data?.map((campaign: any) => (
+              <MenuItem value={campaign.id} key={campaign.id}>
+                {campaign.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
@@ -41,8 +81,10 @@ const AdsBySatationAndDays = () => {
             label="Ad Type"
             displayEmpty
             defaultValue={''}
+            {...register(`ads[${index}].adType` as const)}
           >
-            <MenuItem>ppp</MenuItem>
+            <MenuItem value="Spot">Spot</MenuItem>
+            <MenuItem value="Sponsorship">Sponsorship</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -53,10 +95,19 @@ const AdsBySatationAndDays = () => {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Price Category"
-            displayEmpty
-            defaultValue={''}
+            // displayEmpty
+            // defaultValue={priceCategoryId}
+            {...register(`ads[${index}].priceCategoryId` as const)}
+            value={priceCategoryId}
+            onChange={(event: any) => {
+              setPriceCategoryId(event.target.value as string);
+            }}
           >
-            <MenuItem>ppp</MenuItem>
+            {priceCategoryData?.data?.map((priceCategory: any) => (
+              <MenuItem value={priceCategory.id} key={priceCategory.id}>
+                {priceCategory.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
@@ -69,8 +120,13 @@ const AdsBySatationAndDays = () => {
             label="Price Config"
             displayEmpty
             defaultValue={''}
+            {...register(`ads[${index}].priceConfigId` as const)}
           >
-            <MenuItem>ppp</MenuItem>
+            {priceConfigs?.map((priceConfig: any) => (
+              <MenuItem key={priceConfig.id} value={priceConfig.id}>
+                {priceConfig.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
@@ -84,13 +140,32 @@ const AdsBySatationAndDays = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <CheckBox />
-              </TableCell>
-              <TableCell>Batele</TableCell>
-              <Input></Input>
-            </TableRow>
+            {spotData?.data?.map((spots: any, nestIndex: any) => {
+              return (
+                <TableRow key={nestIndex}>
+                  <TableCell>
+                    <Input
+                      type="checkbox"
+                      // onClick={() => {
+                      //   checked === true ? setChecked(false) : setChecked(true);
+                      // }}
+                      {...register(`ads[${index}].adverts[${nestIndex}].adsId` as const)}
+                      defaultValue={spots.id}
+                    />
+                  </TableCell>
+                  <TableCell>{spots.name}</TableCell>
+                  <Input
+                    type="hidden"
+                    // defaultValue={
+                    //   checked === true
+                    //     ? setValue(`ads[${index}].adverts[${nestIndex}].adsId`, spots.id)
+                    //     : setValue(`ads[${index}].adverts[${nestIndex}].adsId`, '')
+                    // }
+                  />
+                  <Input {...register(`ads[${index}].adverts[${nestIndex}].qut` as const)} />
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Grid>
@@ -98,4 +173,4 @@ const AdsBySatationAndDays = () => {
   );
 };
 
-export default AdsBySatationAndDays;
+export default AdsByStationAndDays;

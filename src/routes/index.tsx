@@ -87,7 +87,7 @@ export default function Router() {
               element: <AdvertByStationAndDays />,
             },
             {
-              path: '/dashboard/advert/advert-by-station-days-detail',
+              path: '/dashboard/advert/advert-by-station-days-detail/:stationId',
               element: <AdvertByStationAndDaysDetail />,
             },
           ],

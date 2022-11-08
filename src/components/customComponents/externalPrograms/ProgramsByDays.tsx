@@ -5,7 +5,7 @@ const ProgramsByDays = ({
   setActiveDate,
   activeDate,
   setIsCheck,
-  programByDateRefetch,
+  // programByDateRefetch,
   setCurrentPage,
 }: any) => {
   const DatesList: any = [
@@ -50,7 +50,7 @@ const ProgramsByDays = ({
               setActiveDate(dates.label);
               // setIsCheck([])
               setCurrentPage(1);
-              programByDateRefetch();
+              // programByDateRefetch();
             }}
           >
             <Typography variant="inherit" color="white">

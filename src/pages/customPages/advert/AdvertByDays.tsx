@@ -37,9 +37,11 @@ let PageSize = 2;
 const AdvertByDays = () => {
   //
   const [loading, setLoading] = React.useState(true);
+  // const [pageReload, setPageReload] = React.useState(`${window.location.reload()}`);
 
   React.useEffect(() => {
-    setTimeout(() => setLoading(false), 0);
+    setTimeout(() => setLoading(false), 2000);
+    // setTimeout(() => setPageReload(''), 1000);
   }, []);
   // loading === true ? window.location.reload() : null;
   const navigate = useNavigate();
@@ -110,13 +112,7 @@ const AdvertByDays = () => {
   //   window.location.reload()
   // }
 
-  if (
-    spotLoading ||
-    spotFetching ||
-    campaignLoading ||
-    campaignFetching
-  )
-    return <Loading />;
+  if (spotLoading || spotFetching || campaignLoading || campaignFetching) return <Loading />;
 
   if (programByDateSuccess) {
     programDataByDate = programByDate;
@@ -238,7 +234,7 @@ const AdvertByDays = () => {
     console.log(filteredData);
   };
 
-  console.log('currentPage', currentPage)
+  console.log('currentPage', currentPage);
   return (
     <React.Fragment>
       <Card>
@@ -250,7 +246,7 @@ const AdvertByDays = () => {
             activeDate={activeDate}
             setActiveDate={setActiveDate}
             setIsCheck={setIsCheck}
-            programByDateRefetch={programByDateRefetch}
+            // programByDateRefetch={programByDateRefetch}
             setCurrentPage={setCurrentPage}
           />
           <TableContainer component={Paper} sx={{ width: '100%' }}>

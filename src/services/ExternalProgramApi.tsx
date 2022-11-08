@@ -52,6 +52,20 @@ export const externalProgramApi = createApi({
       },
       providesTags: ['ExternalProgramInterface'],
     }),
+    externalProgramsByStationAndDays: builder.query<
+      any,
+      { stationId: any; day: string; page: number }
+    >({
+      query: (arg) => {
+        const { stationId, day, page = 1 } = arg;
+        console.log('arg: ', arg);
+        return {
+          url: `/Schedule/${stationId}/${day}/Programs/?pageNumber=${page}`,
+          params: { stationId, day, page },
+        };
+      },
+      providesTags: ['ExternalProgramInterface'],
+    }),
     // externalProgramsByDays: builder.query<any, { day: string; page: number }>({
     //   query: (arg) => {
     //     const { day, page = 1 } = arg;
@@ -81,6 +95,7 @@ export const externalProgramApi = createApi({
 export const {
   useExternalProgramsQuery,
   useExternalProgramsByDaysQuery,
+  useExternalProgramsByStationAndDaysQuery,
   useExternalPriceCategoriesQuery,
   useExtenalPriceConfigsQuery,
   useExternalStationsQuery,
