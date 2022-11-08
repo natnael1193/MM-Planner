@@ -116,7 +116,7 @@ const AdsByDaysComponent = ({
                   setPriceCategoryId(event.target.value as string);
                 }}
               >
-                {filteredPriceCategory.map((priceCategory: any) => (
+                {filteredPriceCategory?.map((priceCategory: any) => (
                   <MenuItem value={priceCategory.id} key={priceCategory.id}>
                     {priceCategory.name}
                   </MenuItem>

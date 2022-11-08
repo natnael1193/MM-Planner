@@ -14,6 +14,14 @@ const baseURL = `${process.env.REACT_APP_API_SERVER}`;
 const token: any = localStorage.getItem('login_token');
 const baseToken = JSON.parse(token);
 
+interface ListResponse<T> {
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  data: T[];
+}
+
 export const externalProgramApi = createApi({
   reducerPath: 'externalProgramInterface',
   baseQuery: fetchBaseQuery({
@@ -33,10 +41,28 @@ export const externalProgramApi = createApi({
       query: () => '/externalPrograms',
       providesTags: ['ExternalProgramInterface'],
     }),
-    externalProgramsByDays: builder.query<ExternalProgramInterface, string>({
-      query: (day) => `/Schedule/${day}/Programs`,
+    externalProgramsByDays: builder.query<any, { day: string; page: number }>({
+      query: (arg) => {
+        const { day, page = 1 } = arg;
+        console.log('arg: ', arg);
+        return {
+          url: `/Schedule/${day}/Programs/?pageNumber=${page}`,
+          params: { day, page },
+        };
+      },
       providesTags: ['ExternalProgramInterface'],
     }),
+    // externalProgramsByDays: builder.query<any, { day: string; page: number }>({
+    //   query: (arg) => {
+    //     const { day, page = 1 } = arg;
+    //     console.log('arg: ', arg);
+    //     return {
+    //       url: `/Schedule/${day}/Programs/?pageNumber=${page}`,
+    //       params: { day, page },
+    //     };
+    //   },
+    //   providesTags: ['ExternalProgramInterface'],
+    // }),
     externalPriceCategories: builder.query<ExternalPriceCategory, string>({
       query: (stationId) => `/PriceCategory/${stationId}/Prices`,
       providesTags: ['ExternalProgramInterface'],
@@ -57,5 +83,5 @@ export const {
   useExternalProgramsByDaysQuery,
   useExternalPriceCategoriesQuery,
   useExtenalPriceConfigsQuery,
-  useExternalStationsQuery
+  useExternalStationsQuery,
 } = externalProgramApi;

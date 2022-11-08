@@ -4,7 +4,7 @@ import { useListPostsQuery } from 'src/services/Test';
 
 let PageSize = 2;
 
-const pagination = () => {
+const pagination = ( ) => {
   let posts: any = [];
   const [page, setPage]: any = useState(1);
   const [currentPage, setCurrentPage] = useState(1);

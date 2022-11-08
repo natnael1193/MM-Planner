@@ -29,8 +29,10 @@ import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../shared/Loading';
+import Pagination from 'src/components/customComponents/pagination/Pagination';
 
 const MemorizedAdvertByDaysComponent = React.memo(AdvertByDaysComponent);
+let PageSize = 2;
 
 const AdvertByDays = () => {
   //
@@ -50,6 +52,8 @@ const AdvertByDays = () => {
     name: '',
     ads: [],
   });
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   var programDataByDate: any = [];
   var newProgramData: any = [];
   var spotData: any = [];
@@ -96,7 +100,7 @@ const AdvertByDays = () => {
     isLoading: programByDateLoading,
     isFetching: programByDateFetching,
     refetch: programByDateRefetch,
-  } = useExternalProgramsByDaysQuery(activeDate);
+  } = useExternalProgramsByDaysQuery({ day: activeDate, page: currentPage });
 
   const [addAdvert, result] = useAddMultipleAdvertMutation();
 
@@ -107,9 +111,6 @@ const AdvertByDays = () => {
   // }
 
   if (
-    // loading ||
-    programByDateLoading ||
-    programByDateFetching ||
     spotLoading ||
     spotFetching ||
     campaignLoading ||
@@ -136,7 +137,7 @@ const AdvertByDays = () => {
       </Grid>
     );
 
-  newProgramData = programDataByDate?.data?.programs?.map(function (program: any) {
+  newProgramData = programDataByDate?.data?.map(function (program: any) {
     return {
       id: program.program.id,
       name: program.program.name,
@@ -147,7 +148,7 @@ const AdvertByDays = () => {
       endTime: program.endTime,
       schedules: program.program.schedules,
       scheduleId: program.id,
-      station: program.program.station,
+      station: program.program.station.name,
     };
   });
 
@@ -237,6 +238,7 @@ const AdvertByDays = () => {
     console.log(filteredData);
   };
 
+  console.log('currentPage', currentPage)
   return (
     <React.Fragment>
       <Card>
@@ -248,6 +250,8 @@ const AdvertByDays = () => {
             activeDate={activeDate}
             setActiveDate={setActiveDate}
             setIsCheck={setIsCheck}
+            programByDateRefetch={programByDateRefetch}
+            setCurrentPage={setCurrentPage}
           />
           <TableContainer component={Paper} sx={{ width: '100%' }}>
             <Table aria-label="collapsible table">
@@ -275,33 +279,49 @@ const AdvertByDays = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {loading ? (
+                {loading || programByDateLoading || programByDateFetching ? (
                   <Loading />
                 ) : (
                   defaultValues?.adverts?.map((row: any, index: any) => {
                     return (
-                      <MemorizedAdvertByDaysComponent
-                        {...{ control, register, defaultValues, getValues, setValue, errors }}
-                        defaultValues={defaultValues.adverts}
-                        handleSelectAll={handleSelectAll}
-                        isCheck={isCheck}
-                        setIsCheckAll={setIsCheckAll}
-                        isSelected={isSelected}
-                        handleSelectClick={handleSelectClick}
-                        setOpen={setOpen}
-                        row={row}
-                        index={index}
-                        key={index}
-                        newProgramData={newProgramData}
-                        priceCateogryData={row?.station?.priceCategories}
-                        campaignData={campaignData}
-                      />
+                      <>
+                        <MemorizedAdvertByDaysComponent
+                          {...{ control, register, defaultValues, getValues, setValue, errors }}
+                          defaultValues={defaultValues.adverts}
+                          handleSelectAll={handleSelectAll}
+                          isCheck={isCheck}
+                          setIsCheckAll={setIsCheckAll}
+                          isSelected={isSelected}
+                          handleSelectClick={handleSelectClick}
+                          setOpen={setOpen}
+                          row={row}
+                          index={index}
+                          key={index}
+                          newProgramData={newProgramData}
+                          priceCateogryData={row?.station?.priceCategories}
+                          campaignData={campaignData}
+                        />
+                      </>
                     );
                   })
                 )}
               </TableBody>
             </Table>
           </TableContainer>
+          <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
+            {/* <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+            <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button> */}
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              // totalCount={posts.length}
+              totalCount={200}
+              pageSize={PageSize}
+              onPageChange={(page: React.SetStateAction<number>) => {
+                setCurrentPage(page);
+              }}
+            />
+          </Grid>
           <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
             <Button type="submit" variant="contained">
               {result.isLoading ? 'Loading...' : 'Submit'}

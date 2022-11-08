@@ -67,12 +67,12 @@ const AdvertByDaysComponent = ({
             checked={isCheck.length > 0 ? true : isChecked === true ? true : false}
           />
         </TableCell>
-        <TableCell style={{ fontSize: '24px' }}>{newProgramData[index].name}</TableCell>
-        <TableCell style={{ fontSize: '24px' }}>
+        <TableCell style={{ fontSize: '20px' }}>{newProgramData[index].name}</TableCell>
+        <TableCell style={{ fontSize: '20px' }}>
           {moment.utc(row.startTime).format('h:mm A')} - {moment.utc(row.endTime).format('h:mm A')}
         </TableCell>
-        <TableCell style={{ fontSize: '24px' }}>{row.key}</TableCell>
-        <TableCell style={{ fontSize: '24px' }}>{row.programType}</TableCell>
+        <TableCell style={{ fontSize: '20px' }}>{row.station}</TableCell>
+        <TableCell style={{ fontSize: '20px' }}>{row.programType}</TableCell>
       </TableRow>
 
       <TableRow>
@@ -91,7 +91,6 @@ const AdvertByDaysComponent = ({
           />
         </TableCell>
       </TableRow>
-      <TableRow></TableRow>
     </React.Fragment>
   );
 };
