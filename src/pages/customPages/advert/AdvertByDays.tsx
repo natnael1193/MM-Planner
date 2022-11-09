@@ -18,6 +18,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Tooltip,
 } from '@mui/material';
 import AdvertByDaysComponent from 'src/components/customComponents/advertComponent/AdvertByDaysComponent';
 import ProgramsByDays from 'src/components/customComponents/externalPrograms/ProgramsByDays';
@@ -242,13 +243,30 @@ const AdvertByDays = () => {
           Add Advert
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ProgramsByDays
-            activeDate={activeDate}
-            setActiveDate={setActiveDate}
-            setIsCheck={setIsCheck}
-            // programByDateRefetch={programByDateRefetch}
-            setCurrentPage={setCurrentPage}
-          />
+          <Grid container>
+            <Grid item lg={10} md={10} sm={12} xs={12}>
+              <ProgramsByDays
+                activeDate={activeDate}
+                setActiveDate={setActiveDate}
+                setIsCheck={setIsCheck}
+                // programByDateRefetch={programByDateRefetch}
+                setCurrentPage={setCurrentPage}
+              />
+            </Grid>
+            <Grid item lg={2} md={2} sm={12} xs={12}>
+              <Tooltip title="If the page lags, Click here">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
+                  Refresh
+                </Button>
+              </Tooltip>
+            </Grid>
+          </Grid>
+
           <TableContainer component={Paper} sx={{ width: '100%' }}>
             <Table aria-label="collapsible table">
               <TableHead>
