@@ -43,7 +43,7 @@ const AdvertByStationAndDaysDetail = () => {
   if (stationError) return <Error />;
   if (result.isSuccess) {
     toast.success('Advert Plan Generated Successfully');
-    navigate(`/dashboard/campaign/advert/list`);
+    navigate(`/dashboard/advert/list`);
   }
 
   const onSubmit = (data: any) => {
