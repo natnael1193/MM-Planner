@@ -146,22 +146,11 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
                   <TableCell>
                     <Input
                       type="checkbox"
-                      // onClick={() => {
-                      //   checked === true ? setChecked(false) : setChecked(true);
-                      // }}
                       {...register(`ads[${index}].adverts[${nestIndex}].adsId` as const)}
                       defaultValue={spots.id}
                     />
                   </TableCell>
                   <TableCell>{spots.name}</TableCell>
-                  <Input
-                    type="hidden"
-                    // defaultValue={
-                    //   checked === true
-                    //     ? setValue(`ads[${index}].adverts[${nestIndex}].adsId`, spots.id)
-                    //     : setValue(`ads[${index}].adverts[${nestIndex}].adsId`, '')
-                    // }
-                  />
                   <Input {...register(`ads[${index}].adverts[${nestIndex}].qut` as const)} />
                 </TableRow>
               );

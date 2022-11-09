@@ -4,17 +4,19 @@ import React from 'react';
 import ProgramsByDays from 'src/components/customComponents/externalPrograms/ProgramsByDays';
 import { useExternalProgramsByStationAndDaysQuery } from 'src/services/ExternalProgramApi';
 import AdvertByStationAndDaysDetailComponent from '../../../components/customComponents/advertComponent/AdvertByStationAndDaysDetailComponent';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Loading from '../shared/Loading';
 import Pagination from 'src/components/customComponents/pagination/Pagination';
 import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Error from '../shared/Error';
 import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
+import toast from 'react-hot-toast';
 
 let PageSize = 20;
 
 const AdvertByStationAndDaysDetail = () => {
+  const navigate = useNavigate();
   const stationId = useParams();
   const [activeDate, setActiveDate] = React.useState('Monday');
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -39,6 +41,10 @@ const AdvertByStationAndDaysDetail = () => {
 
   if (stationLoading) return <Loading />;
   if (stationError) return <Error />;
+  if (result.isSuccess) {
+    toast.success('Advert Plan Generated Successfully');
+    navigate(`/dashboard/campaign/advert/list`);
+  }
 
   const onSubmit = (data: any) => {
     console.log('data', data);
