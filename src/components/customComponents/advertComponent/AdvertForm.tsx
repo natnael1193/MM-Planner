@@ -38,6 +38,7 @@ import AdvertByPrograms from './AdvertByPrograms';
 import { useSpotsQuery } from 'src/services/SpotApi';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
 import { useExternalPriceCategoriesQuery } from 'src/services/ExternalProgramApi';
+import moment from 'moment';
 
 const columns: GridColDef[] = [
   // { field: 'id', headerName: 'ID', width: 70 },
@@ -163,9 +164,14 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
         endTime: schedules.endTime,
         key: schedules.key,
         ads: adsData?.data,
+        date: moment.utc(schedules.startTime).unix(),
       };
     });
   }
+
+  // schedulesData = schedulesData?.sort(
+  //   (firstItem: any, secondItem: any) => firstItem.date - secondItem.date
+  // );
 
   if (priceConfigSuccess) {
     priceCategoryData = priceConfig;
@@ -211,12 +217,12 @@ const AdvertForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
     };
 
     filteredData = filteredData?.ads.filter((adverts: any) => adverts.adverts.length !== 0);
-    console.log(filteredData);
-    // console.log('newData',newData)
-    addAdvert({ ads: filteredData });
+    // console.log(filteredData);
+    console.log({ ads: filteredData })
+    // addAdvert({ ads: filteredData });
   };
 
-  console.log(priceCategoryData);
+  console.log(schedulesData);
 
   return (
     <div>

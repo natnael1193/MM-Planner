@@ -38,7 +38,7 @@ export const externalProgramApi = createApi({
   tagTypes: ['ExternalProgramInterface', 'ExternalPriceConfig', 'ExternalStation'],
   endpoints: (builder) => ({
     externalPrograms: builder.query<ExternalProgramInterface[], void>({
-      query: () => '/externalPrograms',
+      query: () => '/Program',
       providesTags: ['ExternalProgramInterface'],
     }),
     externalProgramsByDays: builder.query<any, { day: string; page: number }>({

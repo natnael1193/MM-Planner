@@ -30,29 +30,28 @@ const AdvertByPrograms = ({
   scheduleData,
   nestIndex,
   priceCategoryData,
+  adsData,
 }: any) => {
   const [open, setOpen] = React.useState(false);
   const [openSponsorshipFields, setOpenSponsorshipFields] = React.useState('');
-  const [priceCategoryId, setPriceCategoryId] = React.useState('');
-  let filteredPriceCategory = [];
-  // const [priceConfigs, setPriceConfigs] = React.useState([])
-  let priceConfigs: any = [];
+  // const [priceCategoryId, setPriceCategoryId] = React.useState('');
+  // let filteredPriceCategory = [];
+  // let priceConfigs: any = [];
   const { fields, remove, append } = useFieldArray({
     control,
     name: `adverts[${nestIndex}].ads`,
   });
 
-  filteredPriceCategory = priceCategoryData?.data?.filter((priceCategory: any) => {
-    return openSponsorshipFields === priceCategory.priceType;
-  });
+  // filteredPriceCategory = priceCategoryData?.data?.filter((priceCategory: any) => {
+  //   return openSponsorshipFields === priceCategory.priceType;
+  // });
 
-  priceConfigs = filteredPriceCategory?.filter((priceCategory: any) => {
-    return priceCategoryId === priceCategory.id;
-  });
-  priceConfigs = priceConfigs[0]?.priceConfigs;
+  // priceConfigs = filteredPriceCategory?.filter((priceCategory: any) => {
+  //   return priceCategoryId === priceCategory.id;
+  // });
+  // priceConfigs = priceConfigs[0]?.priceConfigs;
 
-  console.log('open', priceCategoryData);
-  console.log(filteredPriceCategory);
+  console.log('scheduleData', adsData);
 
   return (
     <React.Fragment>
@@ -74,7 +73,7 @@ const AdvertByPrograms = ({
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" style={{ fontSize: '24px' }}>
-          {scheduleData?.day}
+          {moment.utc(scheduleData?.startTime).format('dddd')}
         </TableCell>
         <TableCell style={{ fontSize: '24px' }}>
           {moment.utc(scheduleData?.startTime).format('h:mm A')}
@@ -109,7 +108,7 @@ const AdvertByPrograms = ({
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
+                {/* <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
                     <Select
@@ -117,7 +116,6 @@ const AdvertByPrograms = ({
                       id="demo-simple-select"
                       label="Price Category"
                       displayEmpty
-                      // {...register(`adverts[${nestIndex}].adType` as const)}
                       defaultValue={''}
                       required={open === true ? true : false}
                       value={priceCategoryId}
@@ -152,7 +150,7 @@ const AdvertByPrograms = ({
                       ))}
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
               </Grid>
 
               {/* {openSponsorshipFields === 'Sponsorship' ? (
@@ -186,7 +184,7 @@ const AdvertByPrograms = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {scheduleData.ads.map((ads: any, k: any) => (
+                  {adsData?.data?.map((ads: any, k: any) => (
                     <TableRow key={ads.id}>
                       <TableCell>
                         <Input
@@ -205,7 +203,6 @@ const AdvertByPrograms = ({
                           {...register(`adverts[${nestIndex}].ads[${k}].qut` as const)}
                           defaultValue={1}
                           type="number"
-                          // required={open === true ? true : false}
                         />
                       </TableCell>
                     </TableRow>

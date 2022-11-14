@@ -4,6 +4,7 @@ import AdvertForm from '../../../components/customComponents/advertComponent/Adv
 import { useNavigate } from 'react-router-dom';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
 import { toast } from 'react-hot-toast';
+import MultipleAdverForm from 'src/components/customComponents/advertComponent/MultipleAdverForm';
 
 const AddAdvert = () => {
   const navigate = useNavigate();
@@ -21,15 +22,13 @@ const AddAdvert = () => {
   useEffect(() => {
     if (response.isSuccess) {
       console.log(response);
-      toast("Success!");
+      toast('Success!');
       // navigate('/dashboard/advert/list');
     }
     if (response.isError) {
       console.log(response);
     }
   }, [response, navigate]);
-
-
 
   return (
     <div>
@@ -39,7 +38,8 @@ const AddAdvert = () => {
         child={'Add'}
         parentLink={'/dashboard/advert/list'}
       />
-      <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} />
+      {/* <AdvertForm formTitle={'Add Advert'} defaultValues={initialValues} /> */}
+       <MultipleAdverForm />
     </div>
   );
 };
