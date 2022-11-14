@@ -82,6 +82,7 @@ export default function Router() {
             { path: '/dashboard/advert/detail/:advertId', element: <AdvertDetail /> },
             { path: '/dashboard/advert/timeline', element: <AdvertTimeline /> },
             { path: '/dashboard/advert/advert-by-date', element: <AdvertByDate /> },
+            { path: '/dashboard/advert/advert-by-spot-campaign', element: <AdvertBySpotCampaign /> },
             {
               path: '/dashboard/advert/advert-by-station-days',
               element: <AdvertByStationAndDays />,
@@ -208,6 +209,8 @@ const AdvertByStationAndDays = Loadable(
 const AdvertByStationAndDaysDetail = Loadable(
   lazy(() => import('../pages/customPages/advert/AdvertByStationAndDaysDetail'))
 );
+const AdvertBySpotCampaign = Loadable(lazy(() => import('../pages/customPages/advert/AdvertBySpotCampaign')));
+
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
