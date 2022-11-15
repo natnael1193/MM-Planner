@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-const AdvertBySpotCampaignComponent = () => {
+const AdvertBySpotCampaignComponent = ({ campaignData }: any) => {
   const [sponsoredClciked, setSponsoredClicked] = React.useState('');
   console.log('sponsoredClciked', sponsoredClciked);
   return (
@@ -29,8 +29,11 @@ const AdvertBySpotCampaignComponent = () => {
                 defaultValue={''}
                 // {...register(`ads[${index}].ModifiedCampainId` as const)}
               >
-                <MenuItem>1</MenuItem>
-                <MenuItem>2</MenuItem>
+                {campaignData?.map((campaings: any) => (
+                  <MenuItem value={campaings.id} key={campaings.id}>
+                    {campaings.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -59,21 +62,19 @@ const AdvertBySpotCampaignComponent = () => {
               <Grid item lg={2} md={2} sm={2} xs={2}>
                 <Switch />
               </Grid>
-              <Grid item lg={3} md={4} sm={3} xs={3}>
+              <Grid item lg={3} md={3} sm={3} xs={3}>
                 Fana 90
               </Grid>
               <Grid item lg={3} md={3} sm={4} xs={4}>
                 09:00 AM - 12:00 PM
               </Grid>
-              {
-                sponsoredClciked === 'Sponsorship' ?
-                <Grid item lg={3} md={3} sm={3} xs={3} >
-                <TextField label="Sponsored Length"  fullWidth/>
-              </Grid>
-              :
-              ''
-              }
-          
+              {sponsoredClciked === 'Sponsorship' ? (
+                <Grid item lg={3} md={3} sm={3} xs={3}>
+                  <TextField label="Sponsored Length" fullWidth />
+                </Grid>
+              ) : (
+                ''
+              )}
             </Grid>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>

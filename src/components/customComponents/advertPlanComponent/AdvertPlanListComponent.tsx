@@ -29,7 +29,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     return accumulator + a;
   }
 
-  console.log(advertPlansData)
+  console.log(advertPlansData);
 
   //Data Grid Header
   const columns: GridColumns = [
@@ -63,16 +63,22 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       headerName: 'Program',
       width: 200,
     },
-    // {
-    //   field: 'advertType',
-    //   headerName: 'AdvertType',
-    //   width: 200,
-    // },
-    // {
-    //   field: 'ad',
-    //   headerName: 'Ad',
-    //   width: 200,
-    // },
+    {
+      field: 'advertType',
+      headerName: 'AdvertType',
+      width: 200,
+    },
+    {
+      field: 'contentLength',
+      headerName: 'Content Length',
+      width: 200,
+    },
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
+      width: 200,
+    },
+
     {
       field: 'totalContentLength',
       headerName: 'Total Content Length',
@@ -83,16 +89,12 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     //   headerName: 'Total Advert quantity',
     //   width: 200,
     // },
-    {
-      field: 'quantity',
-      headerName: 'Quantity',
-      width: 200,
-    },
-    {
-      field: 'priceType',
-      headerName: 'Advert Type',
-      width: 200,
-    },
+
+    // {
+    //   field: 'priceType',
+    //   headerName: 'Advert Type',
+    //   width: 200,
+    // },
     {
       field: 'priceConfigRate',
       headerName: 'Price',
@@ -135,23 +137,25 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       ),
     },
   ];
-
+  console.log('advertPlanData', advertPlanData);
   advertPlansData = advertPlanData?.map(function (advertPlans: any) {
     return {
       id: advertPlans?.id,
       month: moment.utc(advertPlans?.startTime).format('MMMM'),
       date: moment.utc(advertPlans?.startTime).format('DD'),
       day: moment.utc(advertPlans?.schedule.startTime).format('dddd'),
-      startTime: moment.utc(advertPlans?.startTime).format('hh:mm:ss A'),
-      endTime: moment.utc(advertPlans?.endTime).format('hh:mm:ss A'),
+      startTime: moment.utc(advertPlans?.startTime).format('hh:mm A'),
+      endTime: moment.utc(advertPlans?.endTime).format('hh:mm A'),
       program: advertPlans?.schedule.program.name,
-      priceType: advertPlans?.priceConfig?.priceCategory?.priceType,
-      priceConfig: advertPlans?.priceConfig.name,
-      priceConfigRate: advertPlans?.priceConfig.rate,
-      priceConfigUnit: advertPlans?.priceConfig.unit,
-      advertType: advertPlans?.advertType,
+      advertType: advertPlans?.schedule?.priceConfig?.priceCategory?.priceType,
+      priceConfig: advertPlans?.schedule?.priceConfig.name,
+      priceConfigRate: advertPlans?.schedule?.priceConfig.rate,
+      priceConfigUnit: advertPlans?.schedule?.priceConfig.unit,
+      // advertType: advertPlans?.advertType,
       ad: advertPlans?.ads?.name,
-      contentLength: advertPlans?.ads?.contentLength,
+      contentLength: advertPlans?.adverts?.map(function (advert: any) {
+        return advert.ads.contentLength;
+      }),
       quantity: advertPlans?.adverts?.map(function (advert: any) {
         return advert.qut;
       }),
@@ -163,17 +167,22 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       // totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
       //   return advert?.ads?.contentLength;
       // }),
-          totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
-        return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
+      //     totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
+      //   return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
+      // }),
+      // totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
+      //   return advert?.ads?.contentLength;
+      // }),
+      totalPrice: advertPlans?.adverts?.map(function (advert: any) {
+        return (
+          advert.qut *
+          advert?.ads.contentLength *
+          (advertPlans?.schedule?.priceConfig.rate / advertPlans?.schedule?.priceConfig.unit)
+        );
       }),
-      totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
-        return advert?.ads?.contentLength;
-      }),
-      totalPrice:advertPlans?.adverts?.map(function (advert: any) {
-        return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
-      })
-  }
+    };
   });
+  console.log('result', advertPlansData);
 
   advertPlansData = advertPlansData?.map(function (advertPlans: any) {
     return {
@@ -192,12 +201,17 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       ad: advertPlans?.ad,
       contentLength: advertPlans?.contentLength,
       quantity: advertPlans?.quantity,
-      totalContentLength: advertPlans?.totalContentLength,
+      totalContentLength:
+        advertPlans?.advertType === 'Spot'
+          ? advertPlans?.contentLength.reduce(add, 0)
+          : advertPlans?.contentLength,
       totalAdvertQuantity: advertPlans?.totalAdvertQuantity,
       totalPrice:
-        advertPlans?.priceType === 'Spot'
-          ? advertPlans?.totalPrice.reduce(add, 0)
-          : advertPlans?.priceConfigRate ,
+        advertPlans?.advertType === 'Spot'
+          ? advertPlans?.totalPrice
+              .reduce(add, 0)
+              .toLocaleString(undefined, { maximumFractionDigits: 2 })
+          : advertPlans?.priceConfigRate.toLocaleString(undefined, {maximumFractionDigits:2}) ,
     };
   });
 

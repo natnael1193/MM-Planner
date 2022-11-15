@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import Error from '../shared/Error';
 import { useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 import toast from 'react-hot-toast';
+import moment from 'moment';
 
 let PageSize = 20;
 
@@ -21,6 +22,7 @@ const AdvertByStationAndDaysDetail = () => {
   const [activeDate, setActiveDate] = React.useState('Monday');
   const [currentPage, setCurrentPage] = React.useState(1);
   const [addAdvert, result] = useAddMultipleAdvertMutation();
+  let orderedProgramsData: any = [];
 
   const {
     register,
@@ -46,6 +48,36 @@ const AdvertByStationAndDaysDetail = () => {
     navigate(`/dashboard/advert/list`);
   }
 
+  orderedProgramsData = stationData?.data?.map((programs: any) => {
+    return {
+      id: programs.id,
+      startTime: programs.startTime,
+      endTime: programs.endTime,
+      program: programs.program,
+      key: programs.key,
+      day: programs.day,
+      time: moment.utc(programs.startTime).format('HH'),
+    };
+  });
+
+  console.log('orderedProgramsData', orderedProgramsData);
+
+  // orderedProgramsData = stationData?.data?.map((programs: any) => {
+  //   return {
+  //     id: programs.id,
+  //     startTime: programs.startTime,
+  //     endTime: programs.endTime,
+  //     program: programs.program,
+  //     key: programs.key,
+  //     day: programs.day,
+  //     time: moment.utc(programs.time).unix(),
+  //   };
+  // });
+
+  orderedProgramsData = orderedProgramsData.sort(
+    (firstItem: any, secondItem: any) => firstItem.time - secondItem.time
+  );
+
   const onSubmit = (data: any) => {
     console.log('data', data);
     let filteredData: any = [];
@@ -69,6 +101,8 @@ const AdvertByStationAndDaysDetail = () => {
     addAdvert({ ads: filteredData });
   };
 
+  console.log('stationData', orderedProgramsData);
+
   return (
     <div>
       <Typography variant="h3">{stationData?.data[0]?.program?.station?.name}</Typography>
@@ -80,7 +114,7 @@ const AdvertByStationAndDaysDetail = () => {
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container sx={{ mt: 5 }} spacing={3}>
-          {stationData?.data?.map((programs: any, index: any) => {
+          {orderedProgramsData?.map((programs: any, index: any) => {
             return (
               <AdvertByStationAndDaysDetailComponent
                 key={programs.id}
