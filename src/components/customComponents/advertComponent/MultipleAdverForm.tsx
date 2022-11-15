@@ -34,14 +34,18 @@ import Error from 'src/pages/customPages/shared/Error';
 import Loading from 'src/pages/customPages/shared/Loading';
 import { Typography } from '@mui/material';
 import AdvertByPrograms from './AdvertByPrograms';
+import toast from 'react-hot-toast';
+import { useAddAdvertMutation, useAddMultipleAdvertMutation } from 'src/services/AdvertApi';
 
 type FormValues = {
+  adverts: any;
   firstName: string;
   advert: {
     campaignId: string;
     programId: string;
     stationId: string;
     ads: any;
+    adverts: any;
   }[];
 };
 
@@ -55,6 +59,7 @@ const MultipleAdverForm = () => {
   let priceCategoryData: any = [];
   //   let stationId: any = 1;
   //   let programId: any = 1;
+  // const [campaignId, setCampaignId] = React.useState('');
   const [programId, setProgramId] = React.useState('');
   const [stationId, setStationId] = React.useState('');
   const [schedules, setSchedules]: any = React.useState([]);
@@ -84,6 +89,21 @@ const MultipleAdverForm = () => {
     name: 'advert',
     control,
   });
+
+  const [addAdvert, result] = useAddMultipleAdvertMutation();
+
+  //Check the status
+  const response: any = result;
+  React.useEffect(() => {
+    if (response.isSuccess) {
+      // console.log(response);
+      toast('Success!');
+      // navigate('/dashboard/advert/list');
+    }
+    if (response.isError) {
+      // console.log(response);
+    }
+  }, [response, navigate]);
 
   //   stationId = watch('stationId');
   //   programId = watch('programId');
@@ -174,7 +194,44 @@ const MultipleAdverForm = () => {
 
   if (error || stationError || adsError) return <Error />;
 
-  const onSubmit = (data: FormValues) => console.log(data);
+  const onSubmit = (data: FormValues) => {
+    // console.log(data);
+    let newData: any = data.advert;
+    console.log(newData);
+    newData = newData?.map((adverts: any) => {
+      return {
+        stationId: adverts.stationId,
+        campaignId: adverts.campaignId,
+        programId: adverts.programId,
+        adverts: adverts.adverts?.filter((ads: any) => {
+          return ads.open === true;
+        }),
+      };
+    });
+    newData = newData?.map((adverts: any) => {
+      return {
+        adverts: adverts.adverts.map((ads: any) => {
+          return {
+            stationId: adverts.stationId,
+            modifiedCampainId: adverts.campaignId,
+            programId: adverts.programId,
+            day: ads.day,
+            open: ads.open,
+            scheduleId: ads.scheduleId,
+            adverts: ads.ads.filter((ad: any) => {
+              return ad.adsId !== false;
+            }),
+          };
+        }),
+      };
+    });
+    newData = newData?.map((adverts: any) => {
+      return adverts.adverts;
+    });
+    newData = newData.flat();
+    addAdvert({ ads: newData });
+    console.log(newData);
+  };
 
   let advertPrograms: any = watch('advert');
   let advertSchedules: any = watch('advert');
@@ -183,6 +240,7 @@ const MultipleAdverForm = () => {
 
   advertPrograms = advertPrograms.map(function (programs: any) {
     return {
+      campaignId: programs.campaignId,
       stationId: programs.stationId,
       programId: programs.programId,
       programs: program?.data,
@@ -191,6 +249,7 @@ const MultipleAdverForm = () => {
 
   advertPrograms = advertPrograms.map(function (programs: any) {
     return {
+      campaignId: programs.campaignId,
       stationId: programs.stationId,
       programId: programs.programId,
       programs: programs?.programs.filter((prog: any) => {
@@ -202,6 +261,7 @@ const MultipleAdverForm = () => {
 
   advertSchedules = advertPrograms.map(function (schedules: any) {
     return {
+      campaignId: schedules.campaignId,
       stationId: schedules.stationId,
       programId: schedules.programId,
       //   schedules: schedulesData === undefined ? [] : [...schedulesData],
@@ -219,6 +279,7 @@ const MultipleAdverForm = () => {
 
   advertSchedules = advertSchedules.map(function (schedules: any) {
     return {
+      campaignId: schedules.campaignId,
       stationId: schedules.stationId,
       programId: schedules.programId,
       programs: schedules.programs,
@@ -228,11 +289,7 @@ const MultipleAdverForm = () => {
     };
   });
 
-
-  console.log('advertPrograms 2', advertPrograms);
-  //   console.log('advert 1', schedulesData === undefined ? [] : [schedulesData, ...schedulesData]);
-  console.log('program?.data', program);
-  console.log('advert 3', advertSchedules);
+  // console.log('mm', advertSchedules)
 
   return (
     <div>
@@ -338,49 +395,48 @@ const MultipleAdverForm = () => {
                   </FormControl>
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                  {advertSchedules?.[index]?.schedules?.map((schedules: any) => {
-                    return (
-                      <Grid key={schedules.id}>
-                        {/* {programId === schedules.id ? schedules.name : ''} */}
-                        {schedules.id}
-                        {/* {schedules?.schedules?.map((schedule: any) => {
-                          return (
-                            <Typography variant="inherit" key={schedule.id}>
-                              {schedule.startTime}
-                            </Typography>
-                          );
-                        })} */}
-                        {/* <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell></TableCell>
-                              <TableCell>Day</TableCell>
-                              <TableCell>Start Time</TableCell>
-                              <TableCell>End Time</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {schedules?.schedules?.map((schedules: any, index: any) => {
-                              return (
-                                <AdvertByPrograms
-                                  {...{ register, control }}
-                                  scheduleData={schedules}
-                                  key={schedules.id}
-                                  nestIndex={index}
-                                  setValue={setValue}
-                                  priceCategoryData={priceCategoryData}
-                                  adsData={adsData}
-                                />
-                              );
-                            })}
-                          </TableBody>
-                        </Table> */}
-                      </Grid>
-                    );
-                  })}
+                  {advertSchedules?.[index]?.schedules?.map(
+                    (schedules: any, scheduleIndex: any) => {
+                      return (
+                        <Grid key={schedules.id}>
+                          <Table>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell>Day</TableCell>
+                                <TableCell>Start Time</TableCell>
+                                <TableCell>End Time</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {/* <Input {...register(`advert.${index}.ads.${scheduleIndex}.ads` as const)} /> */}
+                              {schedules?.schedules?.map(
+                                (schedules: any, scheduleNestedIndex: any) => {
+                                  return (
+                                    <AdvertByPrograms
+                                      {...{ register, control }}
+                                      scheduleData={schedules}
+                                      key={schedules.id}
+                                      nestIndex={scheduleNestedIndex}
+                                      setValue={setValue}
+                                      priceCategoryData={priceCategoryData}
+                                      adsData={adsData}
+                                      campaignId={advertSchedules.campaignId}
+                                      index={index}
+                                      advert={advert}
+                                    />
+                                  );
+                                }
+                              )}
+                            </TableBody>
+                          </Table>
+                        </Grid>
+                      );
+                    }
+                  )}
                 </Grid>
 
-                <Collapse
+                {/* <Collapse
                   in={open}
                   timeout="auto"
                   unmountOnExit
@@ -402,7 +458,7 @@ const MultipleAdverForm = () => {
                       </Grid>
                     );
                   })}
-                </Collapse>
+                </Collapse> */}
                 <Grid item lg={3} md={3} sm={12} xs={12}>
                   <Button
                     type="button"
@@ -416,7 +472,7 @@ const MultipleAdverForm = () => {
                 </Grid>
                 {/* <Collapse>
                 </Collapse> */}
-                <Collapse
+                {/* <Collapse
                   in={open}
                   timeout="auto"
                   unmountOnExit
@@ -438,7 +494,7 @@ const MultipleAdverForm = () => {
                       </Grid>
                     );
                   })}
-                </Collapse>
+                </Collapse> */}
                 <Divider />
               </Grid>
             );

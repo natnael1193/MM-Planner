@@ -7,10 +7,13 @@ import {
   MenuItem,
   Select,
   Switch,
+  TextField,
 } from '@mui/material';
 import React from 'react';
 
 const AdvertBySpotCampaignComponent = () => {
+  const [sponsoredClciked, setSponsoredClicked] = React.useState('');
+  console.log('sponsoredClciked', sponsoredClciked);
   return (
     <div>
       <Card sx={{ p: 5 }}>
@@ -40,7 +43,11 @@ const AdvertBySpotCampaignComponent = () => {
                 label="Campaign"
                 displayEmpty
                 defaultValue={''}
+                value={sponsoredClciked}
                 // {...register(`ads[${index}].ModifiedCampainId` as const)}
+                onChange={(e: any) => {
+                  setSponsoredClicked(e.target.value);
+                }}
               >
                 <MenuItem value="Spot">Spot</MenuItem>
                 <MenuItem value="Sponsorship">Sponsorship</MenuItem>
@@ -52,34 +59,21 @@ const AdvertBySpotCampaignComponent = () => {
               <Grid item lg={2} md={2} sm={2} xs={2}>
                 <Switch />
               </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
-                Fana 120
-              </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
-                09:00 AM - 12:00 PM
-              </Grid>
-            </Grid>
-            <Grid container sx={{ mb: 5 }}>
-              <Grid item lg={2} md={2} sm={2} xs={2}>
-                <Switch />
-              </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
+              <Grid item lg={3} md={4} sm={3} xs={3}>
                 Fana 90
               </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
+              <Grid item lg={3} md={3} sm={4} xs={4}>
                 09:00 AM - 12:00 PM
               </Grid>
-            </Grid>
-            <Grid container sx={{ mb: 5 }}>
-              <Grid item lg={2} md={2} sm={2} xs={2}>
-                <Switch />
+              {
+                sponsoredClciked === 'Sponsorship' ?
+                <Grid item lg={3} md={3} sm={3} xs={3} >
+                <TextField label="Sponsored Length"  fullWidth/>
               </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
-                Sport Zone
-              </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={5}>
-                09:00 AM - 12:00 PM
-              </Grid>
+              :
+              ''
+              }
+          
             </Grid>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>

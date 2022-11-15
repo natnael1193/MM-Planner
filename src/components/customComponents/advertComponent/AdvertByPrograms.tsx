@@ -31,6 +31,8 @@ const AdvertByPrograms = ({
   nestIndex,
   priceCategoryData,
   adsData,
+  index,
+  campaignId,
 }: any) => {
   const [open, setOpen] = React.useState(false);
   const [openSponsorshipFields, setOpenSponsorshipFields] = React.useState('');
@@ -51,7 +53,7 @@ const AdvertByPrograms = ({
   // });
   // priceConfigs = priceConfigs[0]?.priceConfigs;
 
-  console.log('scheduleData', adsData);
+  // console.log('scheduleData', scheduleData);
 
   return (
     <React.Fragment>
@@ -63,10 +65,14 @@ const AdvertByPrograms = ({
             onClick={() => {
               setOpen(!open);
               open === false
-                ? (setValue(`adverts[${nestIndex}].name`, scheduleData?.day),
-                  setValue(`adverts[${nestIndex}].scheduleId`, scheduleData?.id))
-                : (setValue(`adverts[${nestIndex}].name`, ''),
-                  setValue(`adverts[${nestIndex}].scheduleId`, ''));
+                ? (setValue(`advert[${index}].adverts[${nestIndex}].day`, scheduleData?.day),
+                  setValue(`advert[${index}].adverts[${nestIndex}].scheduleId`, scheduleData?.id),
+                  // setValue(`adverts[${nestIndex}].adverts[${nestIndex}].campaignId`, campaignId),
+                  setValue(`advert[${index}].adverts[${nestIndex}].open`, true))
+                : (setValue(`advert[${index}].adverts[${nestIndex}].day`, ''),
+                  setValue(`advert[${index}].adverts[${nestIndex}].scheduleId`, ''),
+                  // setValue(`adverts[${nestIndex}].adverts[${nestIndex}].campaignId`, ''),
+                  setValue(`advert[${index}].adverts[${nestIndex}].open`, false));
             }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -188,7 +194,7 @@ const AdvertByPrograms = ({
                     <TableRow key={ads.id}>
                       <TableCell>
                         <Input
-                          {...register(`adverts[${nestIndex}].ads[${k}].adsId` as const)}
+                          {...register(`advert[${index}].adverts[${nestIndex}].ads[${k}].adsId` as const)}
                           defaultValue={ads.id}
                           type="checkbox"
                           // required={open === true ? true : false}
@@ -200,7 +206,7 @@ const AdvertByPrograms = ({
                       <TableCell>
                         {' '}
                         <Input
-                          {...register(`adverts[${nestIndex}].ads[${k}].qut` as const)}
+                          {...register(`advert[${index}].adverts[${nestIndex}].ads[${k}].qut` as const)}
                           defaultValue={1}
                           type="number"
                         />

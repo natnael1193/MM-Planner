@@ -15,20 +15,7 @@ const AddAdvert = () => {
     advertPlanId: '',
   };
 
-  const [addAdvert, result] = useAddAdvertMutation();
 
-  //Check the status
-  const response: any = result;
-  useEffect(() => {
-    if (response.isSuccess) {
-      console.log(response);
-      toast('Success!');
-      // navigate('/dashboard/advert/list');
-    }
-    if (response.isError) {
-      console.log(response);
-    }
-  }, [response, navigate]);
 
   return (
     <div>

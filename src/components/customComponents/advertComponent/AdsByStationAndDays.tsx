@@ -88,7 +88,7 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg={6} md={12} sm={12} xs={12}>
+      {/* <Grid item lg={6} md={12} sm={12} xs={12}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
           <Select
@@ -129,7 +129,7 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
             ))}
           </Select>
         </FormControl>
-      </Grid>
+      </Grid> */}
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <Table>
           <TableHead>
