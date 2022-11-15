@@ -93,7 +93,7 @@ const AdvertByPrograms = ({
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Grid container spacing="5">
-                <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
+                <Grid item style={{ marginBottom: 5 }} lg={6} md={6} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
                     <Select
@@ -108,6 +108,7 @@ const AdvertByPrograms = ({
                       onChange={(event: any) => {
                         setOpenSponsorshipFields(event.target.value as string);
                       }}
+                      fullWidth
                     >
                       <MenuItem value={'Spot'}>Spot</MenuItem>
                       <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
@@ -157,11 +158,8 @@ const AdvertByPrograms = ({
                     </Select>
                   </FormControl>
                 </Grid> */}
-              </Grid>
-
-              {/* {openSponsorshipFields === 'Sponsorship' ? (
-                <Grid container spacing="10" sx={{ mb: 2, mt: 1 }}>
-                  <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+                <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+                  {openSponsorshipFields === 'Sponsorship' ? (
                     <TextField
                       {...register(`adverts[${nestIndex}].sponsorshipLength` as const)}
                       label="Sponsorship Length"
@@ -172,15 +170,12 @@ const AdvertByPrograms = ({
                         startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
                       }}
                     />
-                  </Grid>
-                </Grid>
-              ) : (
-                <Grid container spacing="10" sx={{ pl: 2, pr: 2 }}>
-                  <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+                  ) : (
                     <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, 0)} />
-                  </Grid>
+                  )}
                 </Grid>
-              )} */}
+              </Grid>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -194,7 +189,9 @@ const AdvertByPrograms = ({
                     <TableRow key={ads.id}>
                       <TableCell>
                         <Input
-                          {...register(`advert[${index}].adverts[${nestIndex}].ads[${k}].adsId` as const)}
+                          {...register(
+                            `advert[${index}].adverts[${nestIndex}].ads[${k}].adsId` as const
+                          )}
                           defaultValue={ads.id}
                           type="checkbox"
                           // required={open === true ? true : false}
@@ -206,7 +203,9 @@ const AdvertByPrograms = ({
                       <TableCell>
                         {' '}
                         <Input
-                          {...register(`advert[${index}].adverts[${nestIndex}].ads[${k}].qut` as const)}
+                          {...register(
+                            `advert[${index}].adverts[${nestIndex}].ads[${k}].qut` as const
+                          )}
                           defaultValue={1}
                           type="number"
                         />

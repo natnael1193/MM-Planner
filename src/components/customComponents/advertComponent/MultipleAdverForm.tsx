@@ -97,11 +97,11 @@ const MultipleAdverForm = () => {
   React.useEffect(() => {
     if (response.isSuccess) {
       // console.log(response);
-      toast('Success!');
-      // navigate('/dashboard/advert/list');
+      toast.success('Success!');
+      navigate('/dashboard/advert/list');
     }
     if (response.isError) {
-      // console.log(response);
+      toast.error(response?.error?.data?.Message);
     }
   }, [response, navigate]);
 
@@ -195,7 +195,7 @@ const MultipleAdverForm = () => {
   if (error || stationError || adsError) return <Error />;
 
   const onSubmit = (data: FormValues) => {
-    // console.log(data);
+    console.log(data);
     let newData: any = data.advert;
     console.log(newData);
     newData = newData?.map((adverts: any) => {
@@ -210,7 +210,7 @@ const MultipleAdverForm = () => {
     });
     newData = newData?.map((adverts: any) => {
       return {
-        adverts: adverts.adverts.map((ads: any) => {
+        adverts: adverts.adverts?.map((ads: any) => {
           return {
             stationId: adverts.stationId,
             modifiedCampainId: adverts.campaignId,
@@ -229,6 +229,7 @@ const MultipleAdverForm = () => {
       return adverts.adverts;
     });
     newData = newData.flat();
+    if (newData.length === 0) return toast.error('Error, Something went wrong!');
     addAdvert({ ads: newData });
     console.log(newData);
   };

@@ -11,6 +11,7 @@ import {
   TableRow,
   TableBody,
   Input,
+  TextField,
 } from '@mui/material';
 import React from 'react';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
@@ -23,11 +24,7 @@ import Checkbox from '@mui/material/Checkbox';
 const AdsByStationAndDays = ({ stationId, register, errors, programs, index, setValue }: any) => {
   let priceConfigs: any = [];
   const [priceCategoryId, setPriceCategoryId] = React.useState('');
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
+  const [checked, setChecked] = React.useState('');
 
   const {
     data: campaignData,
@@ -72,7 +69,7 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg={6} md={12} sm={12} xs={12}>
+      <Grid item lg={6} md={6} sm={12} xs={12}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
           <Select
@@ -82,12 +79,39 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
             displayEmpty
             defaultValue={''}
             {...register(`ads[${index}].adType` as const)}
+            fullWidth
           >
-            <MenuItem value="Spot">Spot</MenuItem>
-            <MenuItem value="Sponsorship">Sponsorship</MenuItem>
+            <MenuItem
+              value="Spot"
+              onClick={() => {
+                setChecked('Spot');
+              }}
+            >
+              Spot
+            </MenuItem>
+            <MenuItem
+              value="Sponsorship"
+              onClick={() => {
+                setChecked('Sponsorship');
+              }}
+            >
+              Sponsorship
+            </MenuItem>
           </Select>
         </FormControl>
       </Grid>
+
+      <Grid item lg={6} md={6} sm={12} xs={12}>
+        {checked === 'Sponsorship' && (
+          <TextField
+            type="number"
+            label="Sponsor Length"
+            fullWidth
+            {...register(`ads[${index}].sponsorshipLength` as const)}
+          />
+        )}
+      </Grid>
+
       {/* <Grid item lg={6} md={12} sm={12} xs={12}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
