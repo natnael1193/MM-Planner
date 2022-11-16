@@ -12,12 +12,12 @@ const AdvertList = () => {
   const [page, setPage]: any = useState(1);
 
   //Ger All Advert
-  const { data, error, isLoading, isSuccess, isFetching }: any = useAdvertsQuery(page);
+  const { data, error, isLoading, isSuccess, isFetching, refetch }: any = useAdvertsQuery(page);
 
   if (isLoading || isFetching) return <Loading />;
 
   if (isSuccess) {
-    advertData = data.data
+    advertData = data.data;
 
     //   {
     //     "id": "b15ac2cc-1344-4b53-8cd4-48e785bba112",
@@ -46,6 +46,7 @@ const AdvertList = () => {
         dataGridTitle={'Advert List'}
         page={page}
         setPage={setPage}
+        refetch={refetch}
       />
     </div>
   );

@@ -203,6 +203,7 @@ const MultipleAdverForm = () => {
         stationId: adverts.stationId,
         campaignId: adverts.campaignId,
         programId: adverts.programId,
+        sponsoredLength: adverts.sponsoredLength,
         adverts: adverts.adverts?.filter((ads: any) => {
           return ads.open === true;
         }),
@@ -215,6 +216,7 @@ const MultipleAdverForm = () => {
             stationId: adverts.stationId,
             modifiedCampainId: adverts.campaignId,
             programId: adverts.programId,
+            sponsoredLength: adverts.sponsoredLength,
             day: ads.day,
             open: ads.open,
             scheduleId: ads.scheduleId,
@@ -299,7 +301,7 @@ const MultipleAdverForm = () => {
           {fields.map((field, index) => {
             return (
               <Grid container spacing={2} sx={{ p: 2 }} key={field.id}>
-                <Grid item lg={3} md={3} sm={12} xs={12}>
+                <Grid item lg={4} md={4} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Campaign</InputLabel>
                     <Select
@@ -325,7 +327,7 @@ const MultipleAdverForm = () => {
                     </Typography>
                   </FormControl>
                 </Grid>
-                <Grid item lg={3} md={3} sm={12} xs={12}>
+                <Grid item lg={4} md={4} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Station</InputLabel>
                     <Select
@@ -357,7 +359,7 @@ const MultipleAdverForm = () => {
                     </Typography>
                   </FormControl>
                 </Grid>
-                <Grid item lg={3} md={3} sm={12} xs={12}>
+                <Grid item lg={4} md={4} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Program</InputLabel>
                     <Select
@@ -436,30 +438,6 @@ const MultipleAdverForm = () => {
                     }
                   )}
                 </Grid>
-
-                {/* <Collapse
-                  in={open}
-                  timeout="auto"
-                  unmountOnExit
-                  sx={{ display: { xs: 'block', lg: 'none', md: 'none' } }}
-                >
-                  {adsData?.data?.map((ads: any, nestedIndex: any) => {
-                    return (
-                      <Grid container key={ads.id} sx={{ m: 2 }}>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Input
-                            type="checkbox"
-                            {...register(`advert.${index}.ads.${nestedIndex}.ads` as const)}
-                            value={ads.id}
-                          />
-                        </Grid>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="inherit">{ads.name}</Typography>
-                        </Grid>
-                      </Grid>
-                    );
-                  })}
-                </Collapse> */}
                 <Grid item lg={3} md={3} sm={12} xs={12}>
                   <Button
                     type="button"
@@ -471,31 +449,6 @@ const MultipleAdverForm = () => {
                     DELETE
                   </Button>
                 </Grid>
-                {/* <Collapse>
-                </Collapse> */}
-                {/* <Collapse
-                  in={open}
-                  timeout="auto"
-                  unmountOnExit
-                  sx={{ display: { xs: 'none', lg: 'block', md: 'block' } }}
-                >
-                  {adsData?.data?.map((ads: any, nestedIndex: any) => {
-                    return (
-                      <Grid container key={ads.id} sx={{ m: 2 }}>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Input
-                            type="checkbox"
-                            {...register(`advert.${index}.ads.${nestedIndex}.ads` as const)}
-                            value={ads.id}
-                          />
-                        </Grid>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="inherit">{ads.name}</Typography>
-                        </Grid>
-                      </Grid>
-                    );
-                  })}
-                </Collapse> */}
                 <Divider />
               </Grid>
             );

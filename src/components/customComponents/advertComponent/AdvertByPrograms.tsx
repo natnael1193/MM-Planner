@@ -115,53 +115,10 @@ const AdvertByPrograms = ({
                     </Select>
                   </FormControl>
                 </Grid>
-                {/* <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Price Category"
-                      displayEmpty
-                      defaultValue={''}
-                      required={open === true ? true : false}
-                      value={priceCategoryId}
-                      onChange={(event) => {
-                        setPriceCategoryId(event.target.value as string);
-                      }}
-                    >
-                      {filteredPriceCategory?.map((priceCategory: any) => (
-                        <MenuItem value={priceCategory.id} key={priceCategory.id}>
-                          {priceCategory.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item style={{ marginBottom: 5 }} lg={4} md={6} sm={12} xs={12}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Price Config"
-                      displayEmpty
-                      {...register(`adverts[${nestIndex}].priceConfigId` as const)}
-                      defaultValue={''}
-                      required={open === true ? true : false}
-                    >
-                      {priceConfigs?.map((priceConfig: any) => (
-                        <MenuItem value={priceConfig.id} key={priceConfig.id}>
-                          {priceConfig.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid> */}
                 <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
                   {openSponsorshipFields === 'Sponsorship' ? (
                     <TextField
-                      {...register(`adverts[${nestIndex}].sponsorshipLength` as const)}
+                      {...register(`advert[${index}].sponsoredLength` as const)}
                       label="Sponsorship Length"
                       type="number"
                       required
@@ -171,7 +128,7 @@ const AdvertByPrograms = ({
                       }}
                     />
                   ) : (
-                    <input hidden {...setValue(`adverts[${nestIndex}].sponsorshipLength`, 0)} />
+                    <input hidden {...setValue(`advert[${index}].sponsoredLength`, 0)} />
                   )}
                 </Grid>
               </Grid>

@@ -107,53 +107,11 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
             type="number"
             label="Sponsor Length"
             fullWidth
-            {...register(`ads[${index}].sponsorshipLength` as const)}
+            {...register(`ads[${index}].sponsoredLength` as const)}
           />
         )}
       </Grid>
 
-      {/* <Grid item lg={6} md={12} sm={12} xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Price Category</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Price Category"
-            // displayEmpty
-            // defaultValue={priceCategoryId}
-            {...register(`ads[${index}].priceCategoryId` as const)}
-            value={priceCategoryId}
-            onChange={(event: any) => {
-              setPriceCategoryId(event.target.value as string);
-            }}
-          >
-            {priceCategoryData?.data?.map((priceCategory: any) => (
-              <MenuItem value={priceCategory.id} key={priceCategory.id}>
-                {priceCategory.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item lg={6} md={12} sm={12} xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Price Config</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Price Config"
-            displayEmpty
-            defaultValue={''}
-            {...register(`ads[${index}].priceConfigId` as const)}
-          >
-            {priceConfigs?.map((priceConfig: any) => (
-              <MenuItem key={priceConfig.id} value={priceConfig.id}>
-                {priceConfig.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid> */}
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <Table>
           <TableHead>

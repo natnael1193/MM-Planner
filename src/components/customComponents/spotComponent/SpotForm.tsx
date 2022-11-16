@@ -89,7 +89,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 />
                 <Typography color="red">{errors.name && 'This is required'}</Typography>
               </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Content Type"
@@ -98,7 +98,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 />
                 <Typography color="red">{errors.contentType && 'This is required'}</Typography>
               </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
                 <TextField
                   fullWidth
                   type="number"
@@ -107,6 +107,16 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                   sx={{ mt: 1 }}
                 />
                 <Typography color="red">{errors.contentLength && 'This is required'}</Typography>
+              </Grid>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
+                <TextField
+                  fullWidth
+                  type="number"
+                  label="Content Url"
+                  {...register('contentUrl')}
+                  sx={{ mt: 1 }}
+                />
+                <Typography color="red">{errors.contentUrl && 'This is required'}</Typography>
               </Grid>
               {/* <Grid>
                 <FormControl>

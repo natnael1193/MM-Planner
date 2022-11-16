@@ -88,6 +88,7 @@ const AdvertByStationAndDaysDetail = () => {
       return {
         day: activeDate,
         ModifiedCampainId: filtered.ModifiedCampainId,
+        sponsoredLength: filtered.sponsoredLength,
         priceCategoryId: filtered.priceCategoryId,
         priceConfigId: filtered.priceConfigId,
         scheduleId: filtered.scheduleId,

@@ -159,7 +159,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       quantity: advertPlans?.adverts?.map(function (advert: any) {
         return advert.qut;
       }),
-      sponsorLength: advertPlans?.sponsorLength,
+      sponsoredLength: advertPlans?.sponsoredLength,
       sponsorshipPrice: advertPlans?.sponsorshipPrice,
       // totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
       //   return advert.qut;
@@ -211,7 +211,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
           ? advertPlans?.totalPrice
               .reduce(add, 0)
               .toLocaleString(undefined, { maximumFractionDigits: 2 })
-          : advertPlans?.priceConfigRate.toLocaleString(undefined, {maximumFractionDigits:2}) ,
+          : (advertPlans?.priceConfigRate  * advertPlans?.sponsoredLength / advertPlans?.priceConfigUnit ).toLocaleString(undefined, {maximumFractionDigits:2}) ,
     };
   });
 
