@@ -39,15 +39,15 @@ const EditAdvert = () => {
 
   defaultValues = {
     adsId: advertData.data.adsId,
-    advertType: advertData.data.priceConfig.priceCategory.priceType,
-    endTime: advertData.data.endTime.replace(/Z/, ''),
-    startTime: advertData.data.startTime.replace(/Z/, ''),
+    advertType: advertData.data?.schedule.priceConfig?.priceCategory?.priceType,
+    endTime: advertData.data.schedule.endTime.replace(/Z/, ''),
+    startTime: advertData.data.schedule.startTime.replace(/Z/, ''),
     id: advertData.data.id,
     modifiedCampainId: advertData.data.modifiedCampainId,
     qut: advertData.data.qut,
-    scheduleId: advertData.data.scheduleId,
+    scheduleId: advertData.data.schedule.id,
     sponsorLength: advertData.data.sponsorLength,
-    priceConfigId: advertData.data.priceConfig.id,
+    priceConfigId: advertData?.data?.schedule.priceConfig?.id,
     adverts: advertData.data.adverts,
   };
   const onSubmit = (data: any) => {
@@ -56,7 +56,7 @@ const EditAdvert = () => {
     return toast.success('Updated Successfully');
   };
 
-  console.log(defaultValues);
+  console.log(advertData);
 
   return (
     <div>

@@ -102,7 +102,7 @@ const AdvertByStationAndDaysDetail = () => {
     addAdvert({ ads: filteredData });
   };
 
-  console.log('stationData', orderedProgramsData);
+  console.log('stationData', stationData  );
 
   return (
     <div>
