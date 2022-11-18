@@ -190,6 +190,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       month: advertPlans?.month,
       day: advertPlans?.day,
       date: advertPlans?.date,
+      dates: moment.utc(advertPlans.startTime).unix(),
       startTime: advertPlans?.startTime,
       endTime: advertPlans?.endTime,
       program: advertPlans?.program,
@@ -215,6 +216,9 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     };
   });
 
+  advertPlansData = advertPlansData.sort(
+    (firstItem: any, secondItem: any) => firstItem.date - secondItem.date
+  );
   console.log('result', advertPlansData);
 
   return (

@@ -35,25 +35,12 @@ const AdvertByPrograms = ({
   campaignId,
 }: any) => {
   const [open, setOpen] = React.useState(false);
-  const [openSponsorshipFields, setOpenSponsorshipFields] = React.useState('');
-  // const [priceCategoryId, setPriceCategoryId] = React.useState('');
-  // let filteredPriceCategory = [];
-  // let priceConfigs: any = [];
+
   const { fields, remove, append } = useFieldArray({
     control,
     name: `adverts[${nestIndex}].ads`,
   });
 
-  // filteredPriceCategory = priceCategoryData?.data?.filter((priceCategory: any) => {
-  //   return openSponsorshipFields === priceCategory.priceType;
-  // });
-
-  // priceConfigs = filteredPriceCategory?.filter((priceCategory: any) => {
-  //   return priceCategoryId === priceCategory.id;
-  // });
-  // priceConfigs = priceConfigs[0]?.priceConfigs;
-
-  // console.log('scheduleData', scheduleData);
 
   return (
     <React.Fragment>
@@ -93,7 +80,7 @@ const AdvertByPrograms = ({
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Grid container spacing="5">
-                <Grid item style={{ marginBottom: 5 }} lg={6} md={6} sm={12} xs={12}>
+                {/* <Grid item style={{ marginBottom: 5 }} lg={6} md={6} sm={12} xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
                     <Select
@@ -114,9 +101,9 @@ const AdvertByPrograms = ({
                       <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
                 <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
-                  {openSponsorshipFields === 'Sponsorship' ? (
+                  {scheduleData?.priceConfig?.priceCategory?.priceType === 'Sponsorship' ? (
                     <TextField
                       {...register(`advert[${index}].sponsoredLength` as const)}
                       label="Sponsorship Length"
@@ -126,6 +113,7 @@ const AdvertByPrograms = ({
                       InputProps={{
                         startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
                       }}
+                      // defaultValue={3600}
                     />
                   ) : (
                     <input hidden {...setValue(`advert[${index}].sponsoredLength`, 0)} />

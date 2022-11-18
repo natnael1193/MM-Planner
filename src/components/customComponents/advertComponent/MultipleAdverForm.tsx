@@ -133,13 +133,6 @@ const MultipleAdverForm = () => {
     //   useProgramByStationQuery(stationId);
     useExternalProgramsQuery();
 
-  const {
-    data: schedule,
-    isLoading: scheduleLoading,
-    isFetching: scheduleFetching,
-    isSuccess: scheduleSuccess,
-    error: scheduleError,
-  }: any = useScheduleByProgramQuery(programId);
 
   const {
     data: adsData,
@@ -162,7 +155,7 @@ const MultipleAdverForm = () => {
     stationLoading ||
     stationFetching ||
     programLoading ||
-    scheduleLoading ||
+    // scheduleLoading ||
     adsLoading ||
     adsFetching ||
     priceConfigLoading ||
@@ -239,7 +232,7 @@ const MultipleAdverForm = () => {
   let advertPrograms: any = watch('advert');
   let advertSchedules: any = watch('advert');
 
-  // console.log('programsData', advertPrograms);
+  console.log(program);
 
   advertPrograms = advertPrograms.map(function (programs: any) {
     return {
@@ -249,6 +242,8 @@ const MultipleAdverForm = () => {
       programs: program?.data,
     };
   });
+
+  console.log('advertPrograms', advertPrograms);
 
   advertPrograms = advertPrograms.map(function (programs: any) {
     return {
@@ -292,7 +287,8 @@ const MultipleAdverForm = () => {
     };
   });
 
-  // console.log('mm', advertSchedules)
+  console.log('priceConfig', advertSchedules);
+  // console.log('programsData', programsData)
 
   return (
     <div>
