@@ -60,7 +60,10 @@ const AdvertByStationAndDaysDetail = () => {
       program: programs.program,
       key: programs.key,
       day: programs.day,
-      time: moment.utc(programs.startTime).format('HH'),
+      time: moment
+        .utc(programs.startTime)
+        .format('HH')
+        .concat(moment.utc(programs.startTime).format('mm')),
       priceConfig: programs.priceConfig,
     };
   });
@@ -107,7 +110,7 @@ const AdvertByStationAndDaysDetail = () => {
     addAdvert({ ads: filteredData });
   };
 
-  console.log('stationData', stationData  );
+  console.log('stationData', orderedProgramsData);
 
   return (
     <div>
