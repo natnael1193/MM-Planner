@@ -19,7 +19,7 @@ const AdvertByStationAndDaysDetailComponent = ({
         setValue(`ads[${index}].scheduleId`, programs.id))
       : (setValue(`ads[${index}].isClicked`, false), setValue(`ads[${index}].scheduleId`, null));
   };
-  // console.log('showAds', showAds);
+  console.log('showAds', programs);
   return (
     <Grid item lg={12} md={12} sm={12} xs={12}>
       <Card sx={{ p: 5 }}>
@@ -32,6 +32,9 @@ const AdvertByStationAndDaysDetailComponent = ({
             <Typography variant="h5">
               {moment.utc(programs.startTime).format('hh:mm A')}-{' '}
               {moment.utc(programs.endTime).format('hh:mm A')}
+            </Typography>
+            <Typography variant="inherit" sx={{ mt: 1}}>
+            {programs.priceConfig.name}
             </Typography>
           </Grid>
         </Grid>

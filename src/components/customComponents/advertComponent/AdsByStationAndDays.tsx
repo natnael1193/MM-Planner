@@ -12,6 +12,7 @@ import {
   TableBody,
   Input,
   TextField,
+  InputAdornment,
 } from '@mui/material';
 import React from 'react';
 import { useCampaignsQuery } from 'src/services/CamapignApi';
@@ -47,7 +48,7 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
   });
   priceConfigs = priceConfigs?.[0]?.priceConfigs;
 
-  console.log('checked', checked);
+  // console.log('checked', programs);
   return (
     <Grid container sx={{ mt: 3 }} spacing={2}>
       <Grid item lg={6} md={12} sm={12} xs={12}>
@@ -69,48 +70,22 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
           </Select>
         </FormControl>
       </Grid>
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Ad Type"
-            displayEmpty
-            defaultValue={''}
-            {...register(`ads[${index}].adType` as const)}
-            fullWidth
-          >
-            <MenuItem
-              value="Spot"
-              onClick={() => {
-                setChecked('Spot');
-              }}
-            >
-              Spot
-            </MenuItem>
-            <MenuItem
-              value="Sponsorship"
-              onClick={() => {
-                setChecked('Sponsorship');
-              }}
-            >
-              Sponsorship
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
 
-      <Grid item lg={6} md={6} sm={12} xs={12}>
-        {checked === 'Sponsorship' && (
+      {/* <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
+        {programs?.priceConfig?.priceCategory?.priceType === 'Sponsorship' ? (
           <TextField
+            label="Sponsorship Length"
             type="number"
-            label="Sponsor Length"
             fullWidth
+            InputProps={{
+              startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
+            }}
             {...register(`ads[${index}].sponsoredLength` as const)}
           />
+        ) : (
+          <input hidden {...setValue(`advert[${index}].sponsoredLength`, 0)} />
         )}
-      </Grid>
+      </Grid> */}
 
       <Grid item lg={12} md={12} sm={12} xs={12}>
         <Table>
@@ -133,7 +108,10 @@ const AdsByStationAndDays = ({ stationId, register, errors, programs, index, set
                     />
                   </TableCell>
                   <TableCell>{spots.name}</TableCell>
-                  <Input {...register(`ads[${index}].adverts[${nestIndex}].qut` as const)} />
+                  <Input
+                    {...register(`ads[${index}].adverts[${nestIndex}].qut` as const)}
+                    defaultValue={1}
+                  />
                 </TableRow>
               );
             })}

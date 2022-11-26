@@ -152,6 +152,8 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       priceConfigRate: advertPlans?.schedule?.priceConfig.rate,
       priceConfigUnit: advertPlans?.schedule?.priceConfig.unit,
       // advertType: advertPlans?.advertType,
+      priceType: advertPlans?.priceType,
+      price: advertPlans?.price,
       ad: advertPlans?.ads?.name,
       contentLength: advertPlans?.adverts?.map(function (advert: any) {
         return advert.ads.contentLength;
@@ -161,18 +163,6 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       }),
       sponsoredLength: advertPlans?.sponsoredLength,
       sponsorshipPrice: advertPlans?.sponsorshipPrice,
-      // totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
-      //   return advert.qut;
-      // }),
-      // totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
-      //   return advert?.ads?.contentLength;
-      // }),
-      //     totalAdvertQuantity: advertPlans?.adverts?.map(function (advert: any) {
-      //   return advert.qut * advert?.ads.contentLength * (advertPlans?.priceConfig.rate/advertPlans?.priceConfig.unit);
-      // }),
-      // totalContentLength: advertPlans?.adverts?.map(function (advert: any) {
-      //   return advert?.ads?.contentLength;
-      // }),
       totalPrice: advertPlans?.adverts?.map(function (advert: any) {
         return (
           advert.qut *
@@ -208,11 +198,12 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
           : advertPlans?.contentLength,
       totalAdvertQuantity: advertPlans?.totalAdvertQuantity,
       totalPrice:
-        advertPlans?.advertType === 'Spot'
+        advertPlans?.priceType === 'Spot'
           ? advertPlans?.totalPrice
               .reduce(add, 0)
               .toLocaleString(undefined, { maximumFractionDigits: 2 })
-          : (advertPlans?.priceConfigRate  * advertPlans?.sponsoredLength / advertPlans?.priceConfigUnit ).toLocaleString(undefined, {maximumFractionDigits:2}) ,
+          : // (advertPlans?.priceConfigRate  * advertPlans?.sponsoredLength / advertPlans?.priceConfigUnit )
+            advertPlans?.price.toLocaleString(undefined, { maximumFractionDigits: 2 }),
     };
   });
 

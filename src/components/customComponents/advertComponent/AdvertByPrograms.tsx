@@ -41,6 +41,7 @@ const AdvertByPrograms = ({
     name: `adverts[${nestIndex}].ads`,
   });
 
+  console.log('scheduleData', scheduleData)
 
   return (
     <React.Fragment>

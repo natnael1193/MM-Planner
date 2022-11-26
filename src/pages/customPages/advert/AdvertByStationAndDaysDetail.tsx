@@ -47,6 +47,10 @@ const AdvertByStationAndDaysDetail = () => {
     toast.success('Advert Plan Generated Successfully');
     navigate(`/dashboard/advert/list`);
   }
+  if (result.isError) {
+    toast.error('Please check all fields are filled');
+    // navigate(`/dashboard/advert/list`);
+  }
 
   orderedProgramsData = stationData?.data?.map((programs: any) => {
     return {
@@ -57,6 +61,7 @@ const AdvertByStationAndDaysDetail = () => {
       key: programs.key,
       day: programs.day,
       time: moment.utc(programs.startTime).format('HH'),
+      priceConfig: programs.priceConfig,
     };
   });
 
@@ -130,7 +135,7 @@ const AdvertByStationAndDaysDetail = () => {
         <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
           {/* <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
             <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button> */}
-          <Pagination
+          {/* <Pagination
             className="pagination-bar"
             currentPage={currentPage}
             // totalCount={posts.length}
@@ -139,7 +144,7 @@ const AdvertByStationAndDaysDetail = () => {
             onPageChange={(page: React.SetStateAction<number>) => {
               setCurrentPage(page);
             }}
-          />
+          /> */}
         </Grid>
         <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
           <Button type="submit" variant="contained">
