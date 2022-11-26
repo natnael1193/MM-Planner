@@ -275,6 +275,8 @@ const MultipleAdverForm = () => {
     };
   });
 
+  console.log('priceConfig', advertSchedules);
+
   advertSchedules = advertSchedules.map(function (schedules: any) {
     return {
       campaignId: schedules.campaignId,
@@ -365,10 +367,6 @@ const MultipleAdverForm = () => {
                       {...register(`advert.${index}.programId` as const, {
                         required: true,
                       })}
-                      //   value={programId}
-                      //   onChange={() => {
-                      //     setOpen(true);
-                      //   }}
                       defaultValue={''}
                       displayEmpty
                     >
@@ -379,8 +377,6 @@ const MultipleAdverForm = () => {
                             value={program.id}
                             onClick={() => {
                               setProgramId(program.id);
-                              //   setSchedules((oldArray: any) => [...oldArray, program.id]);
-                              //   setMyArray(oldArray => [...oldArray, newElement]);
                             }}
                           >
                             {program.name}
@@ -405,6 +401,7 @@ const MultipleAdverForm = () => {
                                 <TableCell>Day</TableCell>
                                 <TableCell>Start Time</TableCell>
                                 <TableCell>End Time</TableCell>
+                                <TableCell>Sponsorship</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>

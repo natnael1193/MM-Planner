@@ -68,19 +68,6 @@ const AdvertByStationAndDaysDetail = () => {
     };
   });
 
-  console.log('orderedProgramsData', orderedProgramsData);
-
-  // orderedProgramsData = stationData?.data?.map((programs: any) => {
-  //   return {
-  //     id: programs.id,
-  //     startTime: programs.startTime,
-  //     endTime: programs.endTime,
-  //     program: programs.program,
-  //     key: programs.key,
-  //     day: programs.day,
-  //     time: moment.utc(programs.time).unix(),
-  //   };
-  // });
 
   orderedProgramsData = orderedProgramsData.sort(
     (firstItem: any, secondItem: any) => firstItem.time - secondItem.time

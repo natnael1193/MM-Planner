@@ -75,34 +75,15 @@ const AdvertByPrograms = ({
         <TableCell style={{ fontSize: '24px' }}>
           {moment.utc(scheduleData?.endTime).format('h:mm A')}
         </TableCell>
+        <TableCell style={{ fontSize: '24px' }}>
+          {moment.utc(scheduleData?.endTime).format('h:mm A')}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Grid container spacing="5">
-                {/* <Grid item style={{ marginBottom: 5 }} lg={6} md={6} sm={12} xs={12}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Ad Type</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      label="Ad Type"
-                      displayEmpty
-                      {...register(`adverts[${nestIndex}].adType` as const)}
-                      defaultValue={''}
-                      required={open === true ? true : false}
-                      value={openSponsorshipFields}
-                      onChange={(event: any) => {
-                        setOpenSponsorshipFields(event.target.value as string);
-                      }}
-                      fullWidth
-                    >
-                      <MenuItem value={'Spot'}>Spot</MenuItem>
-                      <MenuItem value={'Sponsorship'}>Sponsorship</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid> */}
+              {/* <Grid container spacing="5">
                 <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
                   {scheduleData?.priceConfig?.priceCategory?.priceType === 'Sponsorship' ? (
                     <TextField
@@ -114,13 +95,12 @@ const AdvertByPrograms = ({
                       InputProps={{
                         startAdornment: <InputAdornment position="start">Sec</InputAdornment>,
                       }}
-                      // defaultValue={3600}
                     />
                   ) : (
                     <input hidden {...setValue(`advert[${index}].sponsoredLength`, 0)} />
                   )}
                 </Grid>
-              </Grid>
+              </Grid> */}
 
               <Table size="small" aria-label="purchases">
                 <TableHead>
@@ -140,7 +120,6 @@ const AdvertByPrograms = ({
                           )}
                           defaultValue={ads.id}
                           type="checkbox"
-                          // required={open === true ? true : false}
                         />
                       </TableCell>
                       <TableCell component="th" scope="row">
