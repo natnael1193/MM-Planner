@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AdvertForm from 'src/components/customComponents/advertComponent/AdvertForm';
 import { useAdvertQuery, useUpdateAdvertMutation } from 'src/services/AdvertApi';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
@@ -24,10 +23,10 @@ const EditAdvert = () => {
   const response: any = result;
   useEffect(() => {
     if (response.isSuccess) {
-      //  toast.success(response.data.status)
+      toast.success(response.data.status);
     }
     if (response.isError) {
-      //  toast.error(response.error.data.error)
+      toast.error('Error '+ response.error.data.error);
     }
   }, [response]);
 
@@ -37,6 +36,7 @@ const EditAdvert = () => {
   // Return an error if there is an error
   if (error) return <Error />;
 
+  // console.log(advertData)
   defaultValues = {
     adsId: advertData.data.adsId,
     advertType: advertData.data?.schedule.priceConfig?.priceCategory?.priceType,
@@ -49,11 +49,20 @@ const EditAdvert = () => {
     sponsorLength: advertData.data.sponsorLength,
     priceConfigId: advertData?.data?.schedule.priceConfig?.id,
     adverts: advertData.data.adverts,
+    programId: advertData.data?.schedule.programId,
   };
   const onSubmit = (data: any) => {
     console.log(data);
-    updateAdvert(data);
-    return toast.success('Updated Successfully');
+    const newData: any = {
+      id: data.id,
+      startTime: data.startTime.concat('Z'),
+      endTime: data.endTime.concat('Z'),
+      advertType: data.advertType,
+      modifiedCampainId: data.modifiedCampainId,
+      scheduleId: data.scheduleId,
+      priceConfigId: data.priceConfigId,
+    };
+    updateAdvert(newData);
   };
 
   console.log(advertData);

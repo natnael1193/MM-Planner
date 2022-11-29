@@ -84,17 +84,6 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       headerName: 'Total Content Length',
       width: 200,
     },
-    // {
-    //   field: 'totalAdvertQuantity',
-    //   headerName: 'Total Advert quantity',
-    //   width: 200,
-    // },
-
-    // {
-    //   field: 'priceType',
-    //   headerName: 'Advert Type',
-    //   width: 200,
-    // },
     {
       field: 'priceConfigRate',
       headerName: 'Price',
@@ -112,14 +101,6 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       width: 250,
       renderCell: (cellValues: any) => (
         <>
-          {/* <Link
-            to={`/dashboard/advert-plan/detail/${cellValues.id}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button sx={{ mr: 2 }}>
-              <PreviewIcon />
-            </Button>
-          </Link> */}
           <Link to={`/dashboard/advert/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />
@@ -143,9 +124,12 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       id: advertPlans?.id,
       month: moment.utc(advertPlans?.startTime).format('MMMM'),
       date: moment.utc(advertPlans?.startTime).format('DD'),
-      day: moment.utc(advertPlans?.schedule.startTime).format('dddd'),
-      startTime: moment.utc(advertPlans?.startTime).format('hh:mm A'),
-      endTime: moment.utc(advertPlans?.endTime).format('hh:mm A'),
+      day: moment.utc(advertPlans?.startTime).format('dddd'),
+      dates: moment.utc(advertPlans.startTime).unix(),
+      // date: advertPlans?.startTime,
+      // day: advertPlans?.startTime,
+      startTime: moment.utc(advertPlans?.schedule?.startTime).format('hh:mm A'),
+      endTime: moment.utc(advertPlans?.schedule?.endTime).format('hh:mm A'),
       program: advertPlans?.schedule.program.name,
       advertType: advertPlans?.schedule?.priceConfig?.priceCategory?.priceType,
       priceConfig: advertPlans?.schedule?.priceConfig.name,
@@ -180,7 +164,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       month: advertPlans?.month,
       day: advertPlans?.day,
       date: advertPlans?.date,
-      dates: moment.utc(advertPlans.startTime).unix(),
+      dates: advertPlans?.dates,
       startTime: advertPlans?.startTime,
       endTime: advertPlans?.endTime,
       program: advertPlans?.program,
@@ -208,7 +192,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
   });
 
   advertPlansData = advertPlansData.sort(
-    (firstItem: any, secondItem: any) => firstItem.date - secondItem.date
+    (firstItem: any, secondItem: any) => firstItem.dates - secondItem.dates
   );
   console.log('result', advertPlansData);
 

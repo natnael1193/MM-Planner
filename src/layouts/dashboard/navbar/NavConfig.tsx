@@ -84,7 +84,7 @@ const navConfig = [
           { title: 'Add Advert By Program', path: '/dashboard/advert/add' },
           // { title: 'Add Advert By Days', path: '/dashboard/advert/advert-by-date' },
           { title: 'Add Advert By Station', path: '/dashboard/advert/advert-by-station-days' },
-          { title: 'Advert Timeline', path: '/dashboard/advert/timeline' },
+          // { title: 'Advert Timeline', path: '/dashboard/advert/timeline' },
           // advert-by-station-days
         ],
       },

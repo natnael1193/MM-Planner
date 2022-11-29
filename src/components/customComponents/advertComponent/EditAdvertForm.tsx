@@ -58,9 +58,13 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   campaignsData = campaignData;
   adsData = adData;
   priceConfigsData = priceConfigData;
+   priceConfigsData = priceConfigsData?.data?.filter((priceConfig: any) => {
+    return priceConfig.priceCategory.program.id === defaultValues.programId;
+  });
 
-  console.log(campaignData);
-  console.log(defaultValues);
+
+  console.log(priceConfigsData);
+  console.log(defaultValues.programId);
 
   return (
     <div>
@@ -124,7 +128,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                   displayEmpty
                   {...register('priceConfigId', { required: true })}
                 >
-                  {priceConfigsData?.data?.map((priceConfigs: any) => {
+                  {priceConfigsData?.map((priceConfigs: any) => {
                     return (
                       <MenuItem value={priceConfigs.id} key={priceConfigs.id}>
                         {priceConfigs.name}

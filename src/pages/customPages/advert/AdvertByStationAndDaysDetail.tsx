@@ -45,7 +45,7 @@ const AdvertByStationAndDaysDetail = () => {
   if (stationError) return <Error />;
   if (result.isSuccess) {
     toast.success('Advert Plan Generated Successfully');
-    navigate(`/dashboard/advert/list`);
+    // navigate(`/dashboard/advert/list`);
   }
   if (result.isError) {
     toast.error('Please check all fields are filled');
@@ -68,7 +68,6 @@ const AdvertByStationAndDaysDetail = () => {
     };
   });
 
-
   orderedProgramsData = orderedProgramsData.sort(
     (firstItem: any, secondItem: any) => firstItem.time - secondItem.time
   );
@@ -81,7 +80,7 @@ const AdvertByStationAndDaysDetail = () => {
     });
     filteredData = filteredData.map((filtered: any) => {
       return {
-        day: activeDate,
+        day: activeDate.toLowerCase(),
         ModifiedCampainId: filtered.ModifiedCampainId,
         sponsoredLength: filtered.sponsoredLength,
         priceCategoryId: filtered.priceCategoryId,
