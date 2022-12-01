@@ -141,52 +141,6 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                 </Typography>
               </FormControl>
             </Grid>
-            {/* <Grid item lg={6} md={6} sm={12} xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Ads</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="Ads"
-                  defaultValue={defaultValues?.adsId}
-                  displayEmpty
-                  {...register('adsId', { required: true })}
-                >
-                  {adsData?.data?.map((ads: any) => {
-                    return (
-                      <MenuItem value={ads.id} key={ads.id}>
-                        {ads.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <Typography variant="inherit" color="red">
-                  {errors.adsId && 'This is required'}
-                </Typography>
-              </FormControl>
-            </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <TextField
-                label="Quantity"
-                {...register('qut', { required: true })}
-                type="number"
-                fullWidth
-              />
-              <Typography variant="inherit" color="red">
-                {errors.qut && 'This is required'}
-              </Typography>
-            </Grid>
-            <Grid item lg={6} md={6} sm={12} xs={12}>
-              <TextField
-                label="Sponsor Length"
-                {...register('sponsorLength', { required: true })}
-                type="number"
-                fullWidth
-              />
-              <Typography variant="inherit" color="red">
-                {errors.sponsorLength && 'This is required'}
-              </Typography>
-            </Grid> */}
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextField
                 InputLabelProps={{ shrink: true }}
@@ -228,7 +182,7 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
             <Typography variant="h3">Edit Advert Prices</Typography>
           </Grid>
 
-          <EditAdvertPrice />
+          <EditAdvertPrice {...{ defaultValues, priceConfigsData }}/>
         </Grid>
       </Card>
 

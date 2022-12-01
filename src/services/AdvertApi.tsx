@@ -41,6 +41,10 @@ export const advertApi = createApi({
       query: (id) => `/ModifiedAdvertPlan/${id}`,
       providesTags: ['Advert'],
     }),
+    advertPrices: builder.query<Advert, string>({
+      query: (id) => `/ModifiedAdvertPlan/${id}/adverts`,
+      providesTags: ['Advert'],
+    }),
     addAdvert: builder.mutation<void, Advert>({
       query: (advert) => ({
         url: '/Advert',
@@ -93,6 +97,7 @@ export const advertApi = createApi({
 export const {
   useAdvertsQuery,
   useAdvertQuery,
+  useAdvertPricesQuery,
   useAddAdvertMutation,
   useAddMultipleAdvertMutation,
   useUpdateAdvertMutation,
