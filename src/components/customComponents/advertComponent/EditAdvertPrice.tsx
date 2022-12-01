@@ -1,27 +1,73 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
 import { Grid } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import Error from 'src/pages/customPages/shared/Error';
 import Loading from 'src/pages/customPages/shared/Loading';
-import { useAdvertPricesQuery } from 'src/services/AdvertApi';
+import { useAdvertPricesQuery, useUpdateAdvertPricesMutation } from 'src/services/AdvertApi';
 
 const EditAdvertPrice = ({ defaultValues, priceConfigsData }: any) => {
   const programId: any = defaultValues?.programId;
   const { data, isLoading, isFetching, isError }: any = useAdvertPricesQuery(programId);
-//   const { register, handleSubmit, formState: { errors }} =   
+  const [updateAdvertPrices, result] = useUpdateAdvertPricesMutation();
+  const response: any = result;
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
 
+  React.useEffect(() => {
+    if (response.isSuccess) {
+      toast.success("Updated Successfully");
+      reset()
+    }
+    if (response.isError) {
+      toast.error('Error ' + response.error.data.error);
+    }
+  }, [response]);
 
   if (isLoading || isFetching) return <Loading />;
   if (isError) return <Error />;
 
-  console.log(defaultValues);
+  const onSubmit = (data: any) => {
+    console.log(data);
+    const newData: any = {
+      programId: defaultValues.programId,
+      modifiedCampainId: defaultValues.modifiedCampainId,
+      priceConfigs: data.priceConfigs,
+    };
+    console.log(newData);
+    updateAdvertPrices(newData);
+  };
+
+  console.log(result);
+  //   console.log(data);
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} sx={{ mt: 2, ml: 3 }}>
-        {data?.data?.map((adverts: any) => {
+        {data?.data?.map((adverts: any, index: any) => {
           return (
             <Grid container sx={{ p: 3 }} key={adverts.id}>
+              <Input
+                type="hidden"
+                {...setValue(
+                  `priceConfigs.${index}.day`,
+                  moment.utc(adverts.schedule.startTime).format('dddd').toLowerCase()
+                )}
+              />
               <Grid item lg={3} md={4} sm={12} xs={12}>
                 <Typography variant="h4">
                   {moment.utc(adverts.schedule.startTime).format('dddd')}
@@ -34,6 +80,7 @@ const EditAdvertPrice = ({ defaultValues, priceConfigsData }: any) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={Price Config}
+                    {...register(`priceConfigs.${index}.priceConfigId`)}
                     label="Price Config"
                     defaultValue={adverts.priceConfigId}
                     // onChange={handleChange}

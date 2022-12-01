@@ -14,8 +14,15 @@ export interface Adverts {
   ads: Array<Ads>;
 }
 
-export interface AdvertAds{
+export interface AdvertAds {
   id: string;
   modifiedAdvertPlanId: string;
   qut: string;
+}
+
+export interface AdvertPrices {
+  id: any;
+  programId: any;
+  priceConfigs: any;
+  modifiedCampainId: any;
 }

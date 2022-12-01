@@ -63,8 +63,8 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
     return priceConfig.priceCategory.program.id === defaultValues.programId;
   });
 
-  console.log(priceConfigsData);
-  console.log(defaultValues.programId);
+  // console.log(priceConfigsData);
+  // console.log(defaultValues.programId);
 
   return (
     <div>
