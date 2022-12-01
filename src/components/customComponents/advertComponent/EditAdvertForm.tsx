@@ -25,11 +25,13 @@ import { useExtenalPriceConfigsQuery } from 'src/services/ExternalProgramApi';
 import { TableRow } from '@mui/material';
 import EditAdvertAds from './EditAdvertAds';
 import EditAdvertPrice from './EditAdvertPrice';
+import AddAdvertsAds from './AddAdvertsAds';
 
 const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   let campaignsData: any = [];
   let adsData: any = [];
   let priceConfigsData: any = [];
+  const [openAddAds, setOpenAddAds] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -181,15 +183,19 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Typography variant="h3">Edit Advert Prices</Typography>
           </Grid>
-
-          <EditAdvertPrice {...{ defaultValues, priceConfigsData }}/>
+          <EditAdvertPrice {...{ defaultValues, priceConfigsData }} />
         </Grid>
       </Card>
 
       <Card sx={{ p: 3, mt: 3 }}>
         <Grid container spacing={2}>
-          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
+          <Grid item lg={8} md={8} sm={12} xs={12} sx={{ mb: 2 }}>
             <Typography variant="h3">Ads</Typography>
+          </Grid>
+          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 2 }}>
+            <Button variant="contained" onClick={() => {
+              setOpenAddAds(true)
+            }}>Add Ads</Button>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
             <TableContainer>
@@ -212,6 +218,8 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
           </Grid>
         </Grid>
       </Card>
+
+      <AddAdvertsAds {...{openAddAds, setOpenAddAds, defaultValues}}/>
     </div>
   );
 };

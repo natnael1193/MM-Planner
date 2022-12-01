@@ -7,6 +7,7 @@ import BreadCrumb from '../breadCrumb/BreadCrumb';
 import EditAdvertForm from 'src/components/customComponents/advertComponent/EditAdvertForm';
 import toast from 'react-hot-toast';
 import moment from 'moment';
+import { Typography } from '@mui/material';
 
 const EditAdvert = () => {
   const params = useParams();
@@ -26,7 +27,7 @@ const EditAdvert = () => {
       toast.success(response.data.status);
     }
     if (response.isError) {
-      toast.error('Error '+ response.error.data.error);
+      toast.error('Error ' + response.error.data.error);
     }
   }, [response]);
 
@@ -50,6 +51,7 @@ const EditAdvert = () => {
     priceConfigId: advertData?.data?.schedule.priceConfig?.id,
     adverts: advertData.data.adverts,
     programId: advertData.data?.schedule.programId,
+    programName: advertData.data?.schedule.program?.name,
   };
   const onSubmit = (data: any) => {
     console.log(data);
@@ -75,6 +77,9 @@ const EditAdvert = () => {
         child={'Edit'}
         parentLink={'/dashboard/advert/list'}
       />
+      <Typography variant="h4" sx={{ mb: 2 }}>
+        {defaultValues.programName}
+      </Typography>
       <EditAdvertForm defaultValues={defaultValues} onFormSubmit={onSubmit} />
     </div>
   );

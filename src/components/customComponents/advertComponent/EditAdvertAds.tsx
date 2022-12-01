@@ -14,27 +14,35 @@ import {
   FormControl,
   InputLabel,
   Input,
+  SelectChangeEvent,
+  OutlinedInput,
+  Checkbox,
+  ListItemText,
 } from '@mui/material';
 import React from 'react';
 import { useDeleteAdvertAdsMutation, useUpdateAdvertAdsMutation } from 'src/services/AdvertApi';
 import { useForm } from 'react-hook-form';
 import { useSpotsQuery } from 'src/services/SpotApi';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  //   border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
 const EditAdvertAds = ({ defaultValues }: any) => {
   const [open, setOpen] = React.useState(false);
   const [adsId, setAdsId] = React.useState('');
+
+  const [days, setDays] = React.useState<string[]>([
+    'sunday',
+    'monday',
+    'tuesday'
+  ]);
+
+  const handleChange = (event: SelectChangeEvent<typeof days>) => {
+    const {
+      target: { value },
+    } = event;
+    setDays(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value
+    );
+  };
 
   const {
     register,
@@ -61,9 +69,28 @@ const EditAdvertAds = ({ defaultValues }: any) => {
   filteredAds = filteredAds?.[0];
 
   const onSubmit = (data: any) => {
-    updateAds(data);
-    reset();
-    setOpen(false);
+    // console.log(data);
+    const newData = days?.map(function (day: any) {
+      return {
+        day: day,
+        id: data.id,
+        adsId: data.adsId,
+        qut: data.qut,
+        modifiedAdvertPlanId: data.modifiedAdvertPlanId,
+      };
+    });
+
+    // {
+    //   id: data.id,
+    //   adsId: data.adsId,
+    //   qut: data.qut,
+    //   modifiedAdvertPlanId: data.modifiedAdvertPlanId,
+    //   days: days
+    // };
+    console.log(newData);
+    // updateAds(data);
+    // reset();
+    // setOpen(false);
   };
 
   console.log(result);
@@ -145,6 +172,30 @@ const EditAdvertAds = ({ defaultValues }: any) => {
                   fullWidth
                 />
               </Grid>
+              <Grid item lg={12} md={12} sm={12} xs={12}>
+                <FormControl sx={{ m: 1, width: '100%' }}>
+                  <InputLabel id="demo-multiple-checkbox-label">Days</InputLabel>
+                  <Select
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={days}
+                    onChange={handleChange}
+                    input={<OutlinedInput label="Days" />}
+                    renderValue={(selected) => selected.join(', ')}
+                    MenuProps={MenuProps}
+                    fullWidth
+                    // defaultValue={'monday'}
+                  >
+                    {daysList.map((name) => (
+                      <MenuItem key={name} value={name}>
+                        <Checkbox checked={days.indexOf(name) > -1} />
+                        <ListItemText primary={name} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
 
             <Button
@@ -165,3 +216,28 @@ const EditAdvertAds = ({ defaultValues }: any) => {
 };
 
 export default EditAdvertAds;
+
+const ITEM_HEIGHT = 64;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  //   border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const daysList = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
