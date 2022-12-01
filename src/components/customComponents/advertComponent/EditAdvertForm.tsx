@@ -24,6 +24,7 @@ import Loading from '../../../pages/customPages/shared/Loading';
 import { useExtenalPriceConfigsQuery } from 'src/services/ExternalProgramApi';
 import { TableRow } from '@mui/material';
 import EditAdvertAds from './EditAdvertAds';
+import EditAdvertPrice from './EditAdvertPrice';
 
 const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   let campaignsData: any = [];
@@ -58,10 +59,9 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   campaignsData = campaignData;
   adsData = adData;
   priceConfigsData = priceConfigData;
-   priceConfigsData = priceConfigsData?.data?.filter((priceConfig: any) => {
+  priceConfigsData = priceConfigsData?.data?.filter((priceConfig: any) => {
     return priceConfig.priceCategory.program.id === defaultValues.programId;
   });
-
 
   console.log(priceConfigsData);
   console.log(defaultValues.programId);
@@ -221,6 +221,17 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
           </Grid>
         </Card>
       </form>
+
+      <Card sx={{ p: 3, mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Typography variant="h3">Edit Advert Prices</Typography>
+          </Grid>
+
+          <EditAdvertPrice />
+        </Grid>
+      </Card>
+
       <Card sx={{ p: 3, mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
