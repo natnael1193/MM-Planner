@@ -94,6 +94,11 @@ export default function Router() {
               path: '/dashboard/advert/advert-by-station-days-detail/:stationId',
               element: <AdvertByStationAndDaysDetail />,
             },
+            {
+              path: '/dashboard/advert/advert-by-station/:stationId',
+              element: <AdvertByStations />,
+            },
+            // AdvertByStations
           ],
         },
         {
@@ -215,6 +220,9 @@ const AdvertByStationAndDaysDetail = Loadable(
 const AdvertBySpotAndCampaign = Loadable(
   lazy(() => import('../pages/customPages/advert/AdvertBySpotAndCampaign'))
 );
+const AdvertByStations = Loadable(
+  lazy(() => import('../pages/customPages/advert/AdvertByStations'))
+);
 
 //Advert Plan
 const AddAdvertPlan = Loadable(lazy(() => import('../pages/customPages/advertPlan/AddAdvertPlan')));
@@ -251,3 +259,4 @@ const Pagination = Loadable(lazy(() => import('../pages/customPages/test/paginat
 const CollapsibleTable = Loadable(lazy(() => import('../pages/customPages/test/CollapsibleTable')));
 // FieldArray
 const FieldArray = Loadable(lazy(() => import('../pages/customPages/test/FieldArray')));
+

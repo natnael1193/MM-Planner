@@ -10,7 +10,7 @@ const StationsList = ({ stationsData, stationsLoading, stationsError }: any) => 
   return stationsData?.data?.map((stations: any) => {
     return (
       <Grid item lg={3} md={4} sm={12} xs={12} key={stations.id}>
-        <Link to="" style={{ textDecoration: 'none' }}>
+        <Link to="/dashboard/advert/advert-by-station/1" style={{ textDecoration: 'none' }}>
           <Card sx={{ p: 5 }}>
             <Typography variant="h5">{stations.name}</Typography>
           </Card>
