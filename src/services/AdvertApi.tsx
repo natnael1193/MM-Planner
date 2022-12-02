@@ -109,6 +109,7 @@ export const {
   useAdvertsQuery,
   useAdvertQuery,
   useAdvertPricesQuery,
+  useAdvertByStationQuery,
   useAddAdvertMutation,
   useAddMultipleAdvertMutation,
   useUpdateAdvertMutation,

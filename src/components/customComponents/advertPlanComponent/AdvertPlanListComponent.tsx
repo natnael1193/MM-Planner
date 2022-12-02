@@ -1,18 +1,20 @@
-import { Button, Typography } from '@mui/material';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { DataGrid, GridColumns, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import PreviewIcon from '@mui/icons-material/Preview';
 import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment';
-
-import { useDeleteAdvertPlanMutation } from 'src/services/AdvertPlanApi';
-
 import { useDeleteAdvertMutation } from '../../../services/AdvertApi';
-import { AnyAction } from '@reduxjs/toolkit';
 
-const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any) => {
+const AdvertPlanListComponent = ({
+  advertPlanData,
+  dataGridTitle,
+  refetch,
+  campaignData,
+  setCampaignId,
+  campaignId,
+}: any) => {
   let advertPlansData: any = [];
   const totalPriceInitialValue = 0;
   //Delete Spot
@@ -29,7 +31,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
     return accumulator + a;
   }
 
-  console.log(advertPlansData);
+  console.log(campaignData);
 
   //Data Grid Header
   const columns: GridColumns = [
@@ -198,10 +200,36 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
   console.log('result', advertPlansData);
 
   return (
-    <div>
-      <Typography variant="h3" sx={{ mb: 1 }}>
-        {dataGridTitle}
-      </Typography>
+    <Grid container>
+      <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 3 }}>
+        <Typography variant="h3" sx={{ mb: 1 }}>
+          {dataGridTitle}
+        </Typography>
+      </Grid>
+      {window.location.pathname ===
+      '/dashboard/advert/advert-by-station/ce394acd-b6e8-4c3f-9624-4e9d8c61d5e6' ? (
+        <Grid item lg={6} md={6} sm={12} xs={12}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Campaigns</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={campaignId}
+              label="Campaigns"
+              onChange={(e: any) => {
+                setCampaignId(e.target.value);
+              }}
+            >
+              {campaignData?.map((campaigns: any) => (
+                <MenuItem value={campaigns.id} key={campaigns.id}>
+                  {campaigns.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      ) : null}
+
       <div style={{ height: '400px', width: '100%' }}>
         <DataGrid
           rows={advertPlansData}
@@ -218,7 +246,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
           style={{ height: '80vh' }}
         />
       </div>
-    </div>
+    </Grid>
   );
 };
 

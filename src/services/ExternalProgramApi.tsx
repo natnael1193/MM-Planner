@@ -89,6 +89,10 @@ export const externalProgramApi = createApi({
       query: () => `/Station`,
       providesTags: ['ExternalStation'],
     }),
+    externalStation: builder.query<ExternalStation, any>({
+      query: (id) => `/Station/${id}`,
+      providesTags: ['ExternalStation'],
+    }),
   }),
 });
 
@@ -99,4 +103,5 @@ export const {
   useExternalPriceCategoriesQuery,
   useExtenalPriceConfigsQuery,
   useExternalStationsQuery,
+  useExternalStationQuery
 } = externalProgramApi;

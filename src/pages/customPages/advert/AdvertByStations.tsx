@@ -1,9 +1,51 @@
-import React from 'react'
+import React from 'react';
+import { useAdvertByStationQuery } from 'src/services/AdvertApi';
+import Error from '../shared/Error';
+import Loading from '../shared/Loading';
+import { useParams } from 'react-router-dom';
+import { Grid, Typography } from '@mui/material';
+import { useCampaignsQuery } from 'src/services/CamapignApi';
+import AdvertPlanListComponent from 'src/components/customComponents/advertPlanComponent/AdvertPlanListComponent';
+import { useExternalStationQuery } from 'src/services/ExternalProgramApi';
 
 const AdvertByStations = () => {
-  return (
-    <div>AdvertByStations</div>
-  )
-}
+  const stationId = useParams();
+  const [campaignId, setCampaignId] = React.useState('ec49a656-e7ae-49f8-a6c8-395575caad88');
 
-export default AdvertByStations
+  const {
+    data: stationData,
+    isLoading: stationLoading,
+    isError: stationError,
+  }: any = useExternalStationQuery(stationId.stationId);
+  const {
+    data: advertData,
+    isLoading: advertLoading,
+    isError: advertError,
+  } = useAdvertByStationQuery({ stationId: stationId.stationId, campaignId: campaignId });
+  const {
+    data: campaignData,
+    isLoading: campaignLoading,
+    isError: campaignError,
+  }: any = useCampaignsQuery();
+
+  if (advertLoading || campaignLoading || stationLoading) return <Loading />;
+  if (advertError || campaignError || stationError) return <Error />;
+
+
+  return (
+    <Grid container>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <AdvertPlanListComponent
+          advertPlanData={advertData.data}
+          dataGridTitle={stationData?.data?.name}
+          campaignData={campaignData.data}
+          campaignId={campaignId}
+          setCampaignId={setCampaignId}
+          // refetch={refetch}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+export default AdvertByStations;
