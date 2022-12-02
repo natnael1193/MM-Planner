@@ -85,7 +85,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       width: 200,
     },
     {
-      field: 'priceConfigRate',
+      field: 'price',
       headerName: 'Price',
       width: 200,
     },
@@ -172,6 +172,7 @@ const AdvertPlanListComponent = ({ advertPlanData, dataGridTitle, refetch }: any
       priceConfig: advertPlans?.priceConfig,
       priceConfigRate: advertPlans?.priceConfigRate,
       priceConfigUnit: advertPlans?.priceConfigUnit,
+      price: advertPlans?.price,
       advertType: advertPlans?.advertType,
       ad: advertPlans?.ad,
       contentLength: advertPlans?.contentLength,
