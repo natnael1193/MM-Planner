@@ -11,6 +11,8 @@ import { useCampaignsQuery } from 'src/services/CamapignApi';
 import { useAdvertsQuery } from 'src/services/AdvertApi';
 import Error from '../shared/Error';
 import BarChart from './BarChart';
+import { useExternalStationsQuery } from 'src/services/ExternalProgramApi';
+import StationsList from 'src/components/customComponents/dashboard/StationsList';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -41,8 +43,17 @@ const Dashboard = () => {
     isLoading: campaignLoading,
   }: any = useCampaignsQuery();
 
-  //Ger All Advert
+  //Get All Advert
   const { data: advertData, error: advertError, isLoading: advertLoading }: any = useAdvertsQuery();
+
+  // Get All Stations
+  const {
+    data: stationsData,
+    error: stationsError,
+    isLoading: stationsLoading,
+  }: any = useExternalStationsQuery();
+
+  //Get All Transactions
 
   if (spotLoading || campaignLoading || advertLoading) return <Loading />;
 
@@ -115,6 +126,17 @@ const Dashboard = () => {
               </Item>
             </Card>
           </Grid>
+        </Grid>
+      </Box>
+
+      <Box sx={{ width: '100%', paddingLeft: 2, paddingRight: 2 }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <StationsList {...{ stationsData, stationsLoading, stationsError }} />
+        </Grid>
+      </Box>
+
+      <Box sx={{ width: '100%', paddingLeft: 2, paddingRight: 2 }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 2 }}>
             <Typography variant="h3">Campaign with Advert Plans</Typography>
             <BarChart
