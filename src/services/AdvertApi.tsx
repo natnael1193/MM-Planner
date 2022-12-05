@@ -31,7 +31,7 @@ export const advertApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Advert', 'Campaign', 'AdvertAds', 'AdvertPrices'],
+  tagTypes: ['Advert', 'Campaign', 'AdvertAds', 'AdvertPrices', 'AdvertAds'],
   endpoints: (builder) => ({
     adverts: builder.query<ListResponse<Advert>, number | void>({
       query: () => `/ModifiedAdvertPlan`,
@@ -46,7 +46,8 @@ export const advertApi = createApi({
       providesTags: ['Advert'],
     }),
     advertByStation: builder.query({
-      query: ({ stationId, campaignId }) => `/ModifiedAdvertPlan/${stationId}/Campain/${campaignId}`,
+      query: ({ stationId, campaignId }) =>
+        `/ModifiedAdvertPlan/${stationId}/Campain/${campaignId}`,
     }),
     addAdvert: builder.mutation<void, Advert>({
       query: (advert) => ({
@@ -75,6 +76,14 @@ export const advertApi = createApi({
     updateAdvertAds: builder.mutation<void, Advert>({
       query: ({ ...rest }) => ({
         url: `/ModifiedAdvertPlan/advert/${rest.id}`,
+        method: 'PUT',
+        body: rest,
+      }),
+      invalidatesTags: ['AdvertAds', 'Advert', 'Campaign'],
+    }),
+    updateMultipleAdvertAds: builder.mutation<void, AdvertAds>({
+      query: ({ ...rest }) => ({
+        url: `/ModifiedAdvertPlan/program/${rest.id}`,
         method: 'PUT',
         body: rest,
       }),
@@ -114,6 +123,7 @@ export const {
   useAddMultipleAdvertMutation,
   useUpdateAdvertMutation,
   useUpdateAdvertAdsMutation,
+  useUpdateMultipleAdvertAdsMutation,
   useUpdateAdvertPricesMutation,
   useDeleteAdvertAdsMutation,
   useDeleteAdvertMutation,

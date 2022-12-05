@@ -66,6 +66,14 @@ export const externalProgramApi = createApi({
       },
       providesTags: ['ExternalProgramInterface'],
     }),
+    externalUpdateStation: builder.mutation<void, ExternalStation>({
+      query: ({ ...rest }) => ({
+        url: `/Station/${rest.id}`,
+        method: 'PUT',
+        body: rest,
+      }),
+      invalidatesTags: ['ExternalStation'],
+    }),
     // externalProgramsByDays: builder.query<any, { day: string; page: number }>({
     //   query: (arg) => {
     //     const { day, page = 1 } = arg;
@@ -103,5 +111,6 @@ export const {
   useExternalPriceCategoriesQuery,
   useExtenalPriceConfigsQuery,
   useExternalStationsQuery,
-  useExternalStationQuery
+  useExternalStationQuery,
+  useExternalUpdateStationMutation
 } = externalProgramApi;

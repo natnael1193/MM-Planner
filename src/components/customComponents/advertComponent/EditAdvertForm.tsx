@@ -26,12 +26,15 @@ import { TableRow } from '@mui/material';
 import EditAdvertAds from './EditAdvertAds';
 import EditAdvertPrice from './EditAdvertPrice';
 import AddAdvertsAds from './AddAdvertsAds';
+import { useAdvertPricesQuery } from 'src/services/AdvertApi';
+import { GridSelectionModel } from '@mui/x-data-grid';
 
 const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   let campaignsData: any = [];
   let adsData: any = [];
   let priceConfigsData: any = [];
   const [openAddAds, setOpenAddAds] = React.useState(false);
+
   const {
     register,
     handleSubmit,
@@ -39,6 +42,14 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
   } = useForm({
     defaultValues,
   });
+
+  const programId: any = defaultValues?.programId;
+  const {
+    data: priceData,
+    isLoading: priceLoading,
+    isFetching: priceFetching,
+    isError: priceError,
+  }: any = useAdvertPricesQuery(programId);
 
   const {
     data: campaignData,
@@ -180,10 +191,21 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
 
       <Card sx={{ p: 3, mt: 2 }}>
         <Grid container spacing={2}>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 3 }}>
             <Typography variant="h3">Edit Advert Prices</Typography>
           </Grid>
-          <EditAdvertPrice {...{ defaultValues, priceConfigsData }} />
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <EditAdvertPrice
+              {...{
+                defaultValues,
+                priceConfigsData,
+                priceData,
+                priceLoading,
+                priceFetching,
+                priceError,
+              }}
+            />
+          </Grid>
         </Grid>
       </Card>
 
@@ -193,9 +215,14 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
             <Typography variant="h3">Ads</Typography>
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 2 }}>
-            <Button variant="contained" onClick={() => {
-              setOpenAddAds(true)
-            }}>Add Ads</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setOpenAddAds(true);
+              }}
+            >
+              Add Ads
+            </Button>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mb: 2 }}>
             <TableContainer>
@@ -207,19 +234,23 @@ const EditAdvertForm = ({ defaultValues, onFormSubmit }: any) => {
                 <TableHead>
                   <TableRow>
                     <TableCell></TableCell>
-                    <TableCell>Ads Name</TableCell>
-                    <TableCell>Quantity</TableCell>
-                    <TableCell>Actions</TableCell>
+                    <TableCell>Day</TableCell>
+                    <TableCell>Time</TableCell>
+                    <TableCell>Ads</TableCell>
+                    {/* <TableCell>Quantity</TableCell>
+                    <TableCell>Actions</TableCell> */}
                   </TableRow>
                 </TableHead>
-                <EditAdvertAds defaultValues={defaultValues} />
+                <EditAdvertAds
+                  {...{ defaultValues, priceData, priceLoading, priceFetching, priceError }}
+                />
               </Table>
             </TableContainer>
           </Grid>
         </Grid>
       </Card>
 
-      <AddAdvertsAds {...{openAddAds, setOpenAddAds, defaultValues}}/>
+      <AddAdvertsAds {...{ openAddAds, setOpenAddAds, defaultValues }} />
     </div>
   );
 };

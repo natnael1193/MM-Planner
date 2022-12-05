@@ -31,7 +31,6 @@ const AdvertByStations = () => {
   if (advertLoading || campaignLoading || stationLoading) return <Loading />;
   if (advertError || campaignError || stationError) return <Error />;
 
-
   return (
     <Grid container>
       <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -41,6 +40,9 @@ const AdvertByStations = () => {
           campaignData={campaignData.data}
           campaignId={campaignId}
           setCampaignId={setCampaignId}
+          stationId={stationData?.data?.id}
+          stationData={stationData?.data}
+          // {...{}}
           // refetch={refetch}
         />
       </Grid>

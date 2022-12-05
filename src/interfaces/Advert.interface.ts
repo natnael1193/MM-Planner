@@ -18,6 +18,7 @@ export interface AdvertAds {
   id: string;
   modifiedAdvertPlanId: string;
   qut: string;
+  adverts: any;
 }
 
 export interface AdvertPrices {

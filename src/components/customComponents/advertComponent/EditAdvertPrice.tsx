@@ -16,9 +16,14 @@ import Error from 'src/pages/customPages/shared/Error';
 import Loading from 'src/pages/customPages/shared/Loading';
 import { useAdvertPricesQuery, useUpdateAdvertPricesMutation } from 'src/services/AdvertApi';
 
-const EditAdvertPrice = ({ defaultValues, priceConfigsData }: any) => {
-  const programId: any = defaultValues?.programId;
-  const { data, isLoading, isFetching, isError }: any = useAdvertPricesQuery(programId);
+const EditAdvertPrice = ({
+  defaultValues,
+  priceConfigsData,
+  priceData,
+  priceLoading,
+  priceFetching,
+  priceError,
+}: any) => {
   const [updateAdvertPrices, result] = useUpdateAdvertPricesMutation();
   const response: any = result;
   const {
@@ -31,16 +36,16 @@ const EditAdvertPrice = ({ defaultValues, priceConfigsData }: any) => {
 
   React.useEffect(() => {
     if (response.isSuccess) {
-      toast.success("Updated Successfully");
-      reset()
+      toast.success('Updated Successfully');
+      reset();
     }
     if (response.isError) {
       toast.error('Error ' + response.error.data.error);
     }
   }, [response]);
 
-  if (isLoading || isFetching) return <Loading />;
-  if (isError) return <Error />;
+  if (priceLoading || priceFetching) return <Loading />;
+  if (priceError) return <Error />;
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -53,12 +58,12 @@ const EditAdvertPrice = ({ defaultValues, priceConfigsData }: any) => {
     updateAdvertPrices(newData);
   };
 
-  console.log(result);
+  console.log(priceData);
   //   console.log(data);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2} sx={{ mt: 2, ml: 3 }}>
-        {data?.data?.map((adverts: any, index: any) => {
+        {priceData?.data?.map((adverts: any, index: any) => {
           return (
             <Grid container sx={{ p: 3 }} key={adverts.id}>
               <Input

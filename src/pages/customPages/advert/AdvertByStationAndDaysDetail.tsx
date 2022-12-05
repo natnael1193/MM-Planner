@@ -45,7 +45,7 @@ const AdvertByStationAndDaysDetail = () => {
   if (stationError) return <Error />;
   if (result.isSuccess) {
     toast.success('Advert Plan Generated Successfully');
-    // navigate(`/dashboard/advert/list`);
+    navigate(`/dashboard/advert/advert-by-station/${stationId.stationId}`);
   }
   if (result.isError) {
     toast.error('Please check all fields are filled');
