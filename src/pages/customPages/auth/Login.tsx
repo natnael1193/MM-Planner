@@ -20,6 +20,8 @@ const Login = () => {
   useEffect(() => {
     if (response.isSuccess) {
       localStorage.setItem('login_token', JSON.stringify(response.data.data.jwToken));
+      localStorage.setItem('name', JSON.stringify(response.data.data.userName));
+      localStorage.setItem('email', JSON.stringify(response.data.data.email));
       navigate('/dashboard');
       window.location.reload();
     }
