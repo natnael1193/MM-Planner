@@ -37,6 +37,7 @@ const EditAdvertPrice = ({
   React.useEffect(() => {
     if (response.isSuccess) {
       toast.success('Updated Successfully');
+      window.location.reload();
       reset();
     }
     if (response.isError) {

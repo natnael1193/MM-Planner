@@ -79,7 +79,7 @@ const navConfig = [
         path: '/dashboard/advert',
         icon: <AirplayIcon />,
         children: [
-          { title: 'Advert List', path: '/dashboard/advert/list' },
+          // { title: 'Advert List', path: '/dashboard/advert/list' },
           // { title: 'Add Advert', path: '/dashboard/advert/advert-by-spot-campaign' },
           { title: 'Add Advert By Program', path: '/dashboard/advert/add' },
           // { title: 'Add Advert By Days', path: '/dashboard/advert/advert-by-date' },

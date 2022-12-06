@@ -21,6 +21,7 @@ const AdvertByStations = () => {
     data: advertData,
     isLoading: advertLoading,
     isError: advertError,
+    refetch
   } = useAdvertByStationQuery({ stationId: stationId.stationId, campaignId: campaignId });
   const {
     data: campaignData,
@@ -42,6 +43,7 @@ const AdvertByStations = () => {
           setCampaignId={setCampaignId}
           stationId={stationData?.data?.id}
           stationData={stationData?.data}
+          refetch={refetch}
           // {...{}}
           // refetch={refetch}
         />

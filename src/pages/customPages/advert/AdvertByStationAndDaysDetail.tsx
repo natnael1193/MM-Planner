@@ -35,6 +35,7 @@ const AdvertByStationAndDaysDetail = () => {
     data: stationData,
     isLoading: stationLoading,
     error: stationError,
+    refetch
   } = useExternalProgramsByStationAndDaysQuery({
     stationId: stationId.stationId,
     day: activeDate,
@@ -116,7 +117,7 @@ const AdvertByStationAndDaysDetail = () => {
                 programs={programs}
                 index={index}
                 stationId={stationId.stationId}
-                {...{ register, errors, setValue }}
+                {...{ register, errors, setValue, refetch }}
               />
             );
           })}

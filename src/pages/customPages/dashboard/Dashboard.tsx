@@ -44,7 +44,7 @@ const Dashboard = () => {
   }: any = useCampaignsQuery();
 
   //Get All Advert
-  const { data: advertData, error: advertError, isLoading: advertLoading }: any = useAdvertsQuery();
+  // const { data: advertData, error: advertError, isLoading: advertLoading }: any = useAdvertsQuery();
 
   // Get All Stations
   const {
@@ -55,9 +55,9 @@ const Dashboard = () => {
 
   //Get All Transactions
 
-  if (spotLoading || campaignLoading || advertLoading) return <Loading />;
+  if (spotLoading || campaignLoading) return <Loading />;
 
-  if (spotError || campaignError || advertError) return <Error />;
+  if (spotError || campaignError) return <Error />;
 
   //  Returns campaign name only
   campaignChartData = campaignData.data.map(function (campaigns: any) {
@@ -90,7 +90,7 @@ const Dashboard = () => {
               </Item>
             </Card>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
+          {/* <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
             <Card sx={{ boxShadow: 5 }}>
               <Item>
                 <Typography variant="h6">
@@ -99,14 +99,14 @@ const Dashboard = () => {
               </Item>
               <Item>
                 <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
+               
                 </Typography>
               </Item>
               <Item>
                 <Typography variant="h4">{advertData.data.length}</Typography>
               </Item>
             </Card>
-          </Grid>
+          </Grid> */}
 
           <Divider />
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>

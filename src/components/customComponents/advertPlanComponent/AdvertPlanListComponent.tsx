@@ -46,6 +46,11 @@ const AdvertPlanListComponent = ({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  let discount: any = 0;
+  let beforeVat: any = 0;
+  let discountPrice: any = 0;
+  let priceAfterDiscount: any = 0;
+  let totalPrice = 0;
   // const [campaignId, setCampaignId] = React.useState(campaignData[0]?.id);
 
   //Delete Spot
@@ -62,10 +67,19 @@ const AdvertPlanListComponent = ({
 
   const removeAdvert = (id: any) => {
     deleteAdvert(id);
-    setTimeout(() => {
-      refetch();
-    });
   };
+
+  //Check the status
+  const deleteResponse: any = result;
+  React.useEffect(() => {
+    if (deleteResponse.isSuccess) {
+      toast.success('Deleted successfully');
+      refetch();
+    }
+    if (deleteResponse.isError) {
+      toast.error(deleteResponse.error.data.error);
+    }
+  }, [deleteResponse]);
 
   //Check the status
   const response: any = discountPriceResult;
@@ -118,6 +132,11 @@ const AdvertPlanListComponent = ({
     {
       field: 'advertType',
       headerName: 'AdvertType',
+      width: 200,
+    },
+    {
+      field: 'advertLengthName',
+      headerName: 'Advert Length Name',
       width: 200,
     },
     {
@@ -188,6 +207,7 @@ const AdvertPlanListComponent = ({
       priceConfigRate: advertPlans?.schedule?.priceConfig.rate,
       priceConfigUnit: advertPlans?.schedule?.priceConfig.unit,
       // advertType: advertPlans?.advertType,
+      advertLengthName: advertPlans?.priceConfig?.name,
       priceType: advertPlans?.priceType,
       price: advertPlans?.price,
       ad: advertPlans?.ads?.name,
@@ -225,6 +245,7 @@ const AdvertPlanListComponent = ({
       priceConfigUnit: advertPlans?.priceConfigUnit,
       price: advertPlans?.price,
       advertType: advertPlans?.advertType,
+      advertLengthName: advertPlans?.advertLengthName,
       ad: advertPlans?.ad,
       contentLength: advertPlans?.contentLength.reduce(add, 0),
       quantity: advertPlans?.quantity.reduce(add, 0),
@@ -266,7 +287,28 @@ const AdvertPlanListComponent = ({
   };
 
   // console.log(campaignData[0]?.id);
+  discountPrice =
+    window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
+      ? (total / ((stationData.discountPrice + 100) / 100)) * 1.15
+      : null;
 
+  discount =
+    window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
+      ? total * (stationData.discountPrice / 100)
+      : null;
+
+  priceAfterDiscount =
+    window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
+      ? total - total * (stationData.discountPrice / 100)
+      : null;
+
+  beforeVat =
+    window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
+      ? priceAfterDiscount * (15 / 100)
+      : null;
+
+  totalPrice = priceAfterDiscount + beforeVat;
+  // discount = (total / ((stationData.discountPrice + 100) / 100)) * 1.15
   return (
     <Grid container spacing={2}>
       <Grid item lg={9} md={9} sm={12} xs={12} sx={{ mb: 3 }}>
@@ -337,36 +379,98 @@ const AdvertPlanListComponent = ({
             },
             // footer: { total },
           }}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           onSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}
           selectionModel={selectionModel}
-          // onStateChange={(state) => {
-          //   const visibleRows = state.filter.visibleRowsLookup;
-          //   let visibleItems: any = [];
-          //   for (const [id, value] of Object.entries(visibleRows)) {
-          //     if (value === true) {
-          //       visibleItems.push(id);
-          //     }
-          //   }
-          //   console.log(visibleItems);
-          //   const res = advertPlansData.filter((item: any) => visibleItems.includes(item.id));
-          //   const total =
-          //     res.length !== 0
-          //       ? res
-          //       : advertPlansData
-          //           ?.map(function (advertPlans: any) {
-          //             return advertPlans.prices;
-          //           })
-          //           .reduce(add, 0)
-          //           .toLocaleString(undefined, { maximumFractionDigits: 2 });
-          //   console.log(res);
-          //   setTotal(total);
-          // }}
+          onStateChange={(state) => {
+            console.log(state);
+            const visibleRows = state.filter.visibleRowsLookup;
+            console.log(visibleRows);
+            let visibleItems: any = [];
+            for (const [id, value] of Object.entries(visibleRows)) {
+              if (value === true) {
+                visibleItems?.push(id);
+              }
+            }
+            console.log(visibleItems);
+            const res = advertPlansData.filter((item: any) => visibleItems?.includes(item?.id));
+            // const total =
+            //   res.length> 0
+            //     ? res
+            //     : advertPlansData
+            //         ?.map(function (advertPlans: any) {
+            //           return advertPlans.prices;
+            //         })
+            //         .reduce(add, 0)
+            //         ;
+            const total = advertPlansData
+              ?.map(function (advertPlans: any) {
+                return advertPlans.prices;
+              })
+              .reduce(add, 0);
+            console.log(res);
+            setTotal(total);
+          }}
           style={{ height: '80vh' }}
         />
+
+        <Grid container>
+          <Grid item lg={3} md={3} sm={6}>
+            <Typography variant="inherit">Total Price Before Discount:</Typography>
+          </Grid>
+          <Grid item lg={1} md={3} sm={6}>
+            <Typography variant="inherit" align="right">
+              {total.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item lg={3} md={3} sm={6}>
+            <Typography variant="inherit">Price After Discount:</Typography>
+          </Grid>
+          <Grid item lg={1} md={3} sm={6}>
+            <Typography variant="inherit" align="right">
+              {discount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item lg={3} md={3} sm={6}>
+            <Typography variant="inherit">Discount:</Typography>
+          </Grid>
+          <Grid item lg={1} md={3} sm={6}>
+            <Typography variant="inherit" align="right">
+              {priceAfterDiscount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item lg={3} md={3} sm={6}>
+            <Typography variant="inherit">Vat:</Typography>
+          </Grid>
+          <Grid item lg={1} md={3} sm={6}>
+            <Typography variant="inherit" align="right">
+              {beforeVat?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item lg={3} md={3} sm={6}>
+            <Typography variant="h5">Total Price:</Typography>
+          </Grid>
+          <Grid item lg={1} md={3} sm={6}>
+            <Typography variant="h5" align="right">
+              {totalPrice?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </Typography>
+          </Grid>
+        </Grid>
       </div>
 
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
