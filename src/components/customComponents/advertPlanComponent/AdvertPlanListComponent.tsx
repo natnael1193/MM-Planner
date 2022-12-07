@@ -417,55 +417,55 @@ const AdvertPlanListComponent = ({
           style={{ height: '80vh' }}
         />
 
-        <Grid container>
-          <Grid item lg={3} md={3} sm={6}>
+        <Grid container sx={{ ml: 3 }}>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
             <Typography variant="inherit">Total Price Before Discount:</Typography>
           </Grid>
-          <Grid item lg={1} md={3} sm={6}>
+          <Grid item lg={1} md={3} sm={6} xs={6}>
             <Typography variant="inherit" align="right">
               {total.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container>
-          <Grid item lg={3} md={3} sm={6}>
-            <Typography variant="inherit">Price After Discount:</Typography>
+        <Grid container sx={{ ml: 3 }}>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Typography variant="inherit">{stationData.discountPrice}% Discount:</Typography>
           </Grid>
-          <Grid item lg={1} md={3} sm={6}>
+          <Grid item lg={1} md={3} sm={6} xs={6}>
             <Typography variant="inherit" align="right">
               {discount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container>
-          <Grid item lg={3} md={3} sm={6}>
-            <Typography variant="inherit">Discount:</Typography>
+        <Grid container sx={{ ml: 3 }}>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Typography variant="inherit">Price After Discount:</Typography>
           </Grid>
-          <Grid item lg={1} md={3} sm={6}>
+          <Grid item lg={1} md={3} sm={6} xs={6}>
             <Typography variant="inherit" align="right">
               {priceAfterDiscount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container>
-          <Grid item lg={3} md={3} sm={6}>
+        <Grid container sx={{ ml: 3 }}>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
             <Typography variant="inherit">Vat:</Typography>
           </Grid>
-          <Grid item lg={1} md={3} sm={6}>
+          <Grid item lg={1} md={3} sm={6} xs={6}>
             <Typography variant="inherit" align="right">
               {beforeVat?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container>
-          <Grid item lg={3} md={3} sm={6}>
+        <Grid container sx={{ ml: 3 }}>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
             <Typography variant="h5">Total Price:</Typography>
           </Grid>
-          <Grid item lg={1} md={3} sm={6}>
+          <Grid item lg={1} md={3} sm={6} xs={6}>
             <Typography variant="h5" align="right">
               {totalPrice?.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Typography>
