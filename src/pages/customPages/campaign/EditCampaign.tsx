@@ -57,6 +57,7 @@ const EditCampaign = () => {
       key: data.key,
       startDate: data.startDate + 'Z',
       endDate: data.endDate + 'Z',
+      description: data.description,
     };
     updateCampaing(newData);
   };
