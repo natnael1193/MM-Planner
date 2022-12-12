@@ -21,17 +21,28 @@ const AdvertByStations = () => {
     data: advertData,
     isLoading: advertLoading,
     isError: advertError,
-    refetch
+
+    refetch,
   } = useAdvertByStationQuery({ stationId: stationId.stationId, campaignId: campaignId });
   const {
     data: campaignData,
     isLoading: campaignLoading,
     isError: campaignError,
+    isSuccess: campaignSuccess,
   }: any = useCampaignsQuery();
+
+  React.useEffect(() => {
+    if (campaignSuccess) {
+      let defaultCampaignId = campaignData.data[campaignData.data.length-1]?.id;
+      console.log(defaultCampaignId);
+      setCampaignId(defaultCampaignId);
+    }
+  }, []);
 
   if (advertLoading || campaignLoading || stationLoading) return <Loading />;
   if (advertError || campaignError || stationError) return <Error />;
 
+  console.log(campaignData);
   return (
     <Grid container>
       <Grid item lg={12} md={12} sm={12} xs={12}>

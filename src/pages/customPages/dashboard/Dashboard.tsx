@@ -13,6 +13,7 @@ import Error from '../shared/Error';
 import BarChart from './BarChart';
 import { useExternalStationsQuery } from 'src/services/ExternalProgramApi';
 import StationsList from 'src/components/customComponents/dashboard/StationsList';
+import { Link } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -74,21 +75,23 @@ const Dashboard = () => {
       <Box sx={{ width: '100%', paddingLeft: 2, paddingRight: 2 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
-            <Card sx={{ boxShadow: 5 }}>
-              <Item>
-                <Typography variant="h6">
-                  Total Campaign <CampaignIcon color="success" />
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="h4">{campaignData.data.length}</Typography>
-              </Item>
-            </Card>
+            <Link to="/dashboard/campaign/list" style={{ textDecoration: 'none' }}>
+              <Card sx={{ boxShadow: 5 }}>
+                <Item>
+                  <Typography variant="h6">
+                    Total Campaign <CampaignIcon color="success" />
+                  </Typography>
+                </Item>
+                <Item>
+                  <Typography variant="inherit">
+                    {/* +2.6% <MovingIcon color="success" />{' '} */}
+                  </Typography>
+                </Item>
+                <Item>
+                  <Typography variant="h4">{campaignData.data.length}</Typography>
+                </Item>
+              </Card>
+            </Link>
           </Grid>
           {/* <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
             <Card sx={{ boxShadow: 5 }}>
@@ -110,21 +113,23 @@ const Dashboard = () => {
 
           <Divider />
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ mb: 4 }}>
-            <Card sx={{ boxShadow: 5 }}>
-              <Item>
-                <Typography variant="h6">
-                  Total Spot <DetailsIcon color="error" />
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="inherit">
-                  {/* +2.6% <MovingIcon color="success" />{' '} */}
-                </Typography>
-              </Item>
-              <Item>
-                <Typography variant="h4">{spotData.data.length}</Typography>
-              </Item>
-            </Card>
+            <Link to="/dashboard/spot/list" style={{ textDecoration: 'none' }}>
+              <Card sx={{ boxShadow: 5 }}>
+                <Item>
+                  <Typography variant="h6">
+                    Total Ads <DetailsIcon color="error" />
+                  </Typography>
+                </Item>
+                <Item>
+                  <Typography variant="inherit">
+                    {/* +2.6% <MovingIcon color="success" />{' '} */}
+                  </Typography>
+                </Item>
+                <Item>
+                  <Typography variant="h4">{spotData.data.length}</Typography>
+                </Item>
+              </Card>
+            </Link>
           </Grid>
         </Grid>
       </Box>
