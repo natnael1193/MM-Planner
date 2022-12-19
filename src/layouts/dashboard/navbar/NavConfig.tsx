@@ -37,16 +37,16 @@ const navConfig = [
   {
     subheader: 'management',
     items: [
-      // {
-      //   title: 'user',
-      //   path: '/dashboard/user',
-      //   icon: ICONS.user,
-      //   children: [
-      //     { title: 'Four', path: '/dashboard/user/four' },
-      //     { title: 'Five', path: '/dashboard/user/five' },
-      //     { title: 'Six', path: '/dashboard/user/six' },
-      //   ],
-      // },
+      {
+        title: 'user',
+        path: '/dashboard/account/register',
+        icon: ICONS.user,
+        children: [
+          { title: 'All Users', path: '/dashboard/account/alluser' },
+          { title: 'Register', path: '/dashboard/account/register' },
+          // { title: 'Six', path: '/dashboard/user/six' },
+        ],
+      },
       {
         title: 'Campaign',
         path: '/dashboard/campaign',

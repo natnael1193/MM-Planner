@@ -143,6 +143,15 @@ export default function Router() {
           ],
         },
         {
+          path: '/dashboard/account',
+          children: [
+            { element: <Navigate to="/dashboard/account/register" replace />, index: true },
+            { path: '/dashboard/account/register', element: <Register /> },
+            { path: '/dashboard/account/alluser', element: <AllUser /> },
+            { path: '/dashboard/account/edit/:userId', element: <EditUser /> },
+          ],
+        },
+        {
           path: '/dashboard/test',
           children: [
             { element: <Navigate to="/dashboard/test/pagination" replace />, index: true },
@@ -175,6 +184,11 @@ const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
 const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
 const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+
+// Accounts
+const Register = Loadable(lazy(() => import('../pages/customPages/auth/Register')));
+const AllUser = Loadable(lazy(() => import('../pages/customPages/user/AllUser')));
+const EditUser = Loadable(lazy(() => import('../pages/customPages/user/EditUser')));
 
 //Spot Content
 const SpotContentList = Loadable(
@@ -259,4 +273,3 @@ const Pagination = Loadable(lazy(() => import('../pages/customPages/test/paginat
 const CollapsibleTable = Loadable(lazy(() => import('../pages/customPages/test/CollapsibleTable')));
 // FieldArray
 const FieldArray = Loadable(lazy(() => import('../pages/customPages/test/FieldArray')));
-

@@ -10,10 +10,14 @@ import { advertPlanApi } from '../services/AdvertPlanApi';
 import { paginationApi } from 'src/services/Test';
 import { advertScheduleApi } from '../services/AdvertSchduleApi';
 import { externalScheduleApi } from '../services/ExternalScheduleApi';
+import { registerApi } from '../services/RegisterApi';
+import { userApi } from '../services/UserApi';
 
 export const store = configureStore({
   reducer: {
+    [userApi.reducerPath]: userApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
+    [registerApi.reducerPath]: registerApi.reducer,
     [spotContentApi.reducerPath]: spotContentApi.reducer,
     [spotApi.reducerPath]: spotApi.reducer,
     [advertDetailApi.reducerPath]: advertDetailApi.reducer,
@@ -27,7 +31,9 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
+      userApi.middleware,
       loginApi.middleware,
+      registerApi.middleware,
       spotContentApi.middleware,
       spotApi.middleware,
       advertDetailApi.middleware,
