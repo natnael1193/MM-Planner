@@ -51,6 +51,7 @@ const AdvertPlanListComponent = ({
   let discountPrice: any = 0;
   let priceAfterDiscount: any = 0;
   let totalPrice = 0;
+  let repetationSum: any = 0;
   // const [campaignId, setCampaignId] = React.useState(campaignData[0]?.id);
 
   //Delete Spot
@@ -149,6 +150,11 @@ const AdvertPlanListComponent = ({
       headerName: 'Quantity',
       width: 200,
     },
+    {
+      field: 'reptation',
+      headerName: 'Ads Repetation',
+      width: 200,
+    },
 
     {
       field: 'totalContentLength',
@@ -217,6 +223,7 @@ const AdvertPlanListComponent = ({
       quantity: advertPlans?.adverts?.map(function (advert: any) {
         return advert.qut;
       }),
+      reptation: advertPlans?.priceConfig?.reptation,
       sponsoredLength: advertPlans?.sponsoredLength,
       sponsorshipPrice: advertPlans?.sponsorshipPrice,
       totalPrice: advertPlans?.adverts?.map(function (advert: any) {
@@ -249,6 +256,7 @@ const AdvertPlanListComponent = ({
       ad: advertPlans?.ad,
       contentLength: advertPlans?.contentLength.reduce(add, 0),
       quantity: advertPlans?.quantity.reduce(add, 0),
+      reptation: advertPlans?.reptation,
       totalContentLength:
         advertPlans?.advertType === 'Spot'
           ? advertPlans?.contentLength.reduce(add, 0)
@@ -272,6 +280,10 @@ const AdvertPlanListComponent = ({
   advertPlansData = advertPlansData.sort(
     (firstItem: any, secondItem: any) => firstItem.dates - secondItem.dates
   );
+  repetationSum = advertPlansData?.map(function (advertPlans: any) {
+    return advertPlans?.reptation;
+  });
+  repetationSum = repetationSum.reduce(add, 0);
 
   const addDiscountPrice = (data: any) => {
     console.log(data);
@@ -286,7 +298,7 @@ const AdvertPlanListComponent = ({
     discountPriceUpdate(newData);
   };
 
-  // console.log(campaignData[0]?.id);
+  console.log('repetationSum', repetationSum);
   discountPrice =
     window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
       ? (total / ((stationData.discountPrice + 100) / 100)) * 1.15
@@ -312,13 +324,16 @@ const AdvertPlanListComponent = ({
   return (
     <Grid container spacing={2}>
       <Grid item lg={9} md={9} sm={12} xs={12} sx={{ mb: 3 }}>
-        <Typography variant="h3" sx={{ mb: 1 }}>
-          {dataGridTitle}
-        </Typography>
         <Typography variant="h5" sx={{ mb: 1 }}>
           {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
             ? 'Discount Price:-' + stationData.discountPrice
             : ''}
+        </Typography>
+        <Typography variant="h5" sx={{ mb: 1 }}>
+          Repetation:- {repetationSum}
+        </Typography>
+        <Typography variant="h3" sx={{ mb: 1 }}>
+          {dataGridTitle}
         </Typography>
       </Grid>
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
