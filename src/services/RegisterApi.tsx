@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Register } from 'src/interfaces/Register.interface';
 
-const baseURL = `http://localhost:8000/api/`;
+// const baseURL = `http://localhost:8000/api/`;
+const baseURL = `${process.env.REACT_APP_AUTH_API_SERVER}`;
 const token: any = localStorage.getItem('login_token');
 const baseToken = JSON.parse(token);
 
