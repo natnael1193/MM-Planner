@@ -37,7 +37,7 @@ export default function App() {
       localStorage.clear();
       navigate('/signin');
       window.location.reload();
-    }, 3600000);
+    }, 21600000);
   }, []);
 
   // useEffect(() => {
@@ -45,7 +45,7 @@ export default function App() {
   //     localStorage.clear();
   //     navigate("/signin");
   //     window.location.reload();
-  //   }, 10000);
+  //   }, 21600000);
   // }, []);
 
   return (
