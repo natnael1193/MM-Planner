@@ -20,6 +20,9 @@ export const AdvertPlanPriceComponent = ({ totalAdsPrice, stationWithAds }: any)
       advertPriceTotal: station.advertPriceTotal?.toLocaleString(undefined, {
         maximumFractionDigits: 2,
       }),
+      advertPriceAfterDiscountVat: station.advertPriceAfterDiscountVat?.toLocaleString(undefined, {
+        maximumFractionDigits: 2,
+      }),
     };
   });
 

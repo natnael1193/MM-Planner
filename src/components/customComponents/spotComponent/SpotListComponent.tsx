@@ -44,11 +44,11 @@ const SpotListComponent = ({ spotData, dataGridTitle }: any) => {
       width: 250,
       renderCell: (cellValues: any) => (
         <>
-          <Link to={`/dashboard/spot/detail/${cellValues.id}`} style={{ textDecoration: 'none' }}>
+          {/* <Link to={`/dashboard/spot/detail/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <PreviewIcon />
             </Button>
-          </Link>
+          </Link> */}
           <Link to={`/dashboard/spot/edit/${cellValues.id}`} style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }}>
               <EditIcon />

@@ -23,11 +23,11 @@ const SpotList = () => {
     <div>
       <BreadCrumb
         main={'Dashboard'}
-        parent={'Spot'}
+        parent={'Ads'}
         child={'List'}
         parentLink={'/dashboard/spot/list'}
       />
-      <SpotListComponent spotData={spotData.data} dataGridTitle={'Spot List'} />
+      <SpotListComponent spotData={spotData.data} dataGridTitle={'Ads List'} />
     </div>
   );
 };
