@@ -31,7 +31,7 @@ const CampaignDetail = () => {
     isSuccess,
     isFetching,
     refetch,
-  }: any = useCampaignQuery(paramsId, { refetchOnMountOrArgChange: true });
+  }: any = useCampaignQuery(paramsId);
 
   //Loading State
   if (isLoading || isFetching || stationsLoading) return <Loading />;

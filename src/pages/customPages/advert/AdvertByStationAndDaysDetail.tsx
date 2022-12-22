@@ -28,6 +28,7 @@ const AdvertByStationAndDaysDetail = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -35,23 +36,29 @@ const AdvertByStationAndDaysDetail = () => {
     data: stationData,
     isLoading: stationLoading,
     error: stationError,
-    refetch
+    refetch,
   } = useExternalProgramsByStationAndDaysQuery({
     stationId: stationId.stationId,
     day: activeDate,
     page: currentPage,
   });
 
+  //Check the stauts
+  const response: any = result;
+  React.useEffect(() => {
+    if (response.isSuccess) {
+      toast.success('Advert Plan Generated Successfully');
+      // navigate(`/dashboard/advert/advert-by-station/${stationId.stationId}`)
+      reset();
+      setActiveDate('Monday');
+    }
+    if (response.isError) {
+      toast.error('Error, Something went wrong!');
+    }
+  }, [response]);
+
   if (stationLoading) return <Loading />;
   if (stationError) return <Error />;
-  if (result.isSuccess) {
-    toast.success('Advert Plan Generated Successfully');
-    navigate(`/dashboard/advert/advert-by-station/${stationId.stationId}`);
-  }
-  if (result.isError) {
-    toast.error('Please check all fields are filled');
-    // navigate(`/dashboard/advert/list`);
-  }
 
   orderedProgramsData = stationData?.data?.map((programs: any) => {
     return {
@@ -138,7 +145,7 @@ const AdvertByStationAndDaysDetail = () => {
         </Grid>
         <Grid sx={{ ml: 4, mt: 2, mb: 2 }}>
           <Button type="submit" variant="contained">
-            Submit
+            {result.isLoading ? 'Loading...' : 'Submit'}
           </Button>
         </Grid>
       </form>

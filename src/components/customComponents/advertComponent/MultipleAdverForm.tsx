@@ -71,6 +71,7 @@ const MultipleAdverForm = () => {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -98,7 +99,8 @@ const MultipleAdverForm = () => {
     if (response.isSuccess) {
       // console.log(response);
       toast.success('Success!');
-      navigate('/dashboard/advert/list');
+      reset();
+      // navigate('/dashboard/advert/list');
     }
     if (response.isError) {
       toast.error(response?.error?.data?.Message);
@@ -132,7 +134,6 @@ const MultipleAdverForm = () => {
   }: any =
     //   useProgramByStationQuery(stationId);
     useExternalProgramsQuery();
-
 
   const {
     data: adsData,
@@ -465,7 +466,7 @@ const MultipleAdverForm = () => {
                 Add Another
               </Button>
               <Button type="submit" variant="contained" sx={{ m: 2, color: 'white' }}>
-                Submit
+                {response.isLoading ? 'Loading...' : 'Submit'}
               </Button>
             </Grid>
           </Grid>
