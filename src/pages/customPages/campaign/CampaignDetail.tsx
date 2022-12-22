@@ -9,11 +9,19 @@ import toast from 'react-hot-toast';
 import { Grid, Typography } from '@mui/material';
 import AdvertPlanListComponent from 'src/components/customComponents/advertPlanComponent/AdvertPlanListComponent';
 import BreadCrumb from '../breadCrumb/BreadCrumb';
+import { useExternalStationsQuery } from 'src/services/ExternalProgramApi';
 
 const CampaignDetail = () => {
   const params = useParams();
   const paramsId: any = params.campaignId;
   var defaultValues: any = {};
+
+    // Get All Stations
+    const {
+      data: stationsData,
+      error: stationsError,
+      isLoading: stationsLoading,
+    }: any = useExternalStationsQuery();
 
   //Get Campaign By Id
   const {
@@ -26,10 +34,10 @@ const CampaignDetail = () => {
   }: any = useCampaignQuery(paramsId, { refetchOnMountOrArgChange: true });
 
   //Loading State
-  if (isLoading || isFetching) return <Loading />;
+  if (isLoading || isFetching || stationsLoading) return <Loading />;
 
   // Return an error if there is an error
-  if (error) return <Error />;
+  if (error || stationsError) return <Error />;
 
   if (isSuccess) {
     defaultValues = campaignData.data;
@@ -46,7 +54,7 @@ const CampaignDetail = () => {
     // };
   }
 
-  console.log(defaultValues);
+  console.log('defaultValues.......', defaultValues);
 
   return (
     <div>
@@ -63,12 +71,14 @@ const CampaignDetail = () => {
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 1 }}>
           <Typography variant="h5">
             {' '}
-            {moment.utc(defaultValues.startDate).format('MMMM DD, YYYY')} - {moment.utc(defaultValues.endDate).format('MMMM DD, YYYY')}{' '}
+            {moment.utc(defaultValues.startDate).format('MMMM DD, YYYY')} -{' '}
+            {moment.utc(defaultValues.endDate).format('MMMM DD, YYYY')}{' '}
           </Typography>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 3 }}>
           <AdvertPlanListComponent
             advertPlanData={defaultValues.advertPlans}
+            stationData={stationsData.data}
             dataGridTitle={'Advert Plans'}
             refetch={refetch}
           />

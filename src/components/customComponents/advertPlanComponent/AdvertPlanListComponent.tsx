@@ -28,6 +28,7 @@ import { useForm } from 'react-hook-form';
 import { useExternalUpdateStationMutation } from 'src/services/ExternalProgramApi';
 import { toast } from 'react-hot-toast';
 import { TotalSum } from '../advertComponent/TotalSum';
+import { AdvertPlanPriceComponent } from './AdvertPlanPriceComponent';
 
 const AdvertPlanListComponent = ({
   advertPlanData,
@@ -52,6 +53,9 @@ const AdvertPlanListComponent = ({
   let priceAfterDiscount: any = 0;
   let totalPrice = 0;
   let repetationSum: any = 0;
+  let stationWithAds: any = [];
+  let AdsPrice: any = [];
+  let totalAdsPrice: any = 0;
   // const [campaignId, setCampaignId] = React.useState(campaignData[0]?.id);
 
   //Delete Spot
@@ -196,9 +200,11 @@ const AdvertPlanListComponent = ({
     },
   ];
 
+  // console.log('advertPlansData', advertPlanData);
   advertPlansData = advertPlanData?.map(function (advertPlans: any) {
     return {
       id: advertPlans?.id,
+      stationId: advertPlans?.schedule?.program?.stationId,
       month: moment.utc(advertPlans?.startTime).format('MMMM'),
       date: moment.utc(advertPlans?.startTime).format('DD'),
       day: moment.utc(advertPlans?.startTime).format('dddd'),
@@ -239,6 +245,7 @@ const AdvertPlanListComponent = ({
   advertPlansData = advertPlansData?.map(function (advertPlans: any) {
     return {
       id: advertPlans?.id,
+      stationId: advertPlans?.stationId,
       month: advertPlans?.month,
       day: advertPlans?.day,
       date: advertPlans?.date,
@@ -277,6 +284,111 @@ const AdvertPlanListComponent = ({
     };
   });
 
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (stationWithAds = stationData?.map(function (station: any) {
+          return {
+            id: station.id,
+            name: station.name,
+            discountPrice: station.discountPrice,
+            adverts: advertPlansData?.filter((advert: any) => {
+              return advert.stationId === station.id;
+            }),
+          };
+        }))
+      : null;
+  }
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (stationWithAds = stationWithAds?.map(function (station: any) {
+          return {
+            id: station.id,
+            discountPrice: station.discountPrice,
+            name: station.name,
+            adverts: station?.adverts,
+            advertPrices: station?.adverts
+              .map((price: any) => {
+                return price.prices;
+              })
+              .reduce(add, 0),
+            advertPriceDiscount:
+              station?.adverts
+                .map((price: any) => {
+                  return price.prices;
+                })
+                .reduce(add, 0) /
+                station.discountPrice +
+              station?.adverts
+                .map((price: any) => {
+                  return price.prices;
+                })
+                .reduce(add, 0) /
+                station.discountPrice,
+          };
+        }))
+      : null;
+  }
+
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (stationWithAds = stationWithAds?.map(function (station: any) {
+          return {
+            id: station.id,
+            name: station.name,
+            discountPrice: station.discountPrice,
+            adverts: station?.adverts,
+            advertPrices: station?.advertPrices,
+            advertPriceDiscount: station?.advertPrices * (station.discountPrice / 100),
+            // advertSum : station?.adverts,
+          };
+        }))
+      : null;
+  }
+
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (stationWithAds = stationWithAds?.map(function (station: any) {
+          return {
+            id: station.id,
+            name: station.name,
+            discountPrice: station.discountPrice,
+            adverts: station?.adverts,
+            advertPrices: station?.advertPrices,
+            advertPriceDiscount: station?.advertPriceDiscount,
+            advertPriceAfterDiscount: station?.advertPrices - station?.advertPriceDiscount,
+            advertPriceAfterDiscountVat:
+              (station?.advertPrices - station?.advertPriceDiscount) * 0.15,
+            advertPriceTotal:
+              station?.advertPrices -
+              station?.advertPriceDiscount +
+              (station?.advertPrices - station?.advertPriceDiscount) * 0.15,
+            // advertSum : station?.adverts,
+          };
+        }))
+      : null;
+  }
+
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (stationWithAds = stationWithAds?.filter(function (station: any) {
+          return station.adverts.length > 0;
+        }))
+      : null;
+  }
+
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (AdsPrice = stationWithAds?.map(function (station: any) {
+          return station?.advertPriceTotal;
+        }))
+      : null;
+  }
+  {
+    window.location.pathname !== `/dashboard/advert/advert-by-station/${stationId}`
+      ? (totalAdsPrice = AdsPrice?.reduce(add, 0))
+      : null;
+  }
+
   advertPlansData = advertPlansData.sort(
     (firstItem: any, secondItem: any) => firstItem.dates - secondItem.dates
   );
@@ -286,7 +398,6 @@ const AdvertPlanListComponent = ({
   repetationSum = repetationSum.reduce(add, 0);
 
   const addDiscountPrice = (data: any) => {
-    console.log(data);
     const newData: any = {
       id: stationData.id,
       key: stationData.key,
@@ -298,7 +409,6 @@ const AdvertPlanListComponent = ({
     discountPriceUpdate(newData);
   };
 
-  console.log('repetationSum', repetationSum);
   discountPrice =
     window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
       ? (total / ((stationData.discountPrice + 100) / 100)) * 1.15
@@ -321,6 +431,9 @@ const AdvertPlanListComponent = ({
 
   totalPrice = priceAfterDiscount + beforeVat;
   // discount = (total / ((stationData.discountPrice + 100) / 100)) * 1.15
+
+  console.log('stationWithAds', stationWithAds);
+  console.log('totalAdsPrice', totalAdsPrice);
   return (
     <Grid container spacing={2}>
       <Grid item lg={9} md={9} sm={12} xs={12} sx={{ mb: 3 }}>
@@ -332,7 +445,7 @@ const AdvertPlanListComponent = ({
         <Typography variant="h5" sx={{ mb: 1 }}>
           Repetation:- {repetationSum}
         </Typography>
-        <Typography variant="h3" sx={{ mb: 1 }}>
+        <Typography variant="h3" >
           {dataGridTitle}
         </Typography>
       </Grid>
@@ -401,16 +514,15 @@ const AdvertPlanListComponent = ({
           }}
           selectionModel={selectionModel}
           onStateChange={(state) => {
-            console.log(state);
             const visibleRows = state.filter.visibleRowsLookup;
-            console.log(visibleRows);
+
             let visibleItems: any = [];
             for (const [id, value] of Object.entries(visibleRows)) {
               if (value === true) {
                 visibleItems?.push(id);
               }
             }
-            console.log(visibleItems);
+
             const res = advertPlansData.filter((item: any) => visibleItems?.includes(item?.id));
             // const total =
             //   res.length> 0
@@ -426,7 +538,7 @@ const AdvertPlanListComponent = ({
                 return advertPlans.prices;
               })
               .reduce(add, 0);
-            console.log(res);
+
             setTotal(total);
           }}
           style={{ height: '80vh' }}
@@ -489,7 +601,11 @@ const AdvertPlanListComponent = ({
               </Grid>
             </Grid>
           </>
-        ) : null}
+        ) : (
+          <>
+            <AdvertPlanPriceComponent {...{ totalAdsPrice, stationWithAds }} />
+          </>
+        )}
       </div>
 
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
