@@ -50,7 +50,7 @@ const AdvertByStationAndDaysDetail = () => {
       toast.success('Advert Plan Generated Successfully');
       // navigate(`/dashboard/advert/advert-by-station/${stationId.stationId}`)
       reset();
-      setActiveDate('Monday');
+      // setActiveDate('Monday');
     }
     if (response.isError) {
       toast.error('Error, Something went wrong!');
