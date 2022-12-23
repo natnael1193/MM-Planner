@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { Advert, Adverts, AdvertAds, AdvertPrices } from '../interfaces/Advert.interface';
+import { Campaign } from '../interfaces/Campaign.interface';
 
 // const baseURL = `http://localhost:4000`;
 
@@ -31,23 +32,24 @@ export const advertApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Advert', 'Campaign', 'AdvertAds', 'AdvertPrices', 'AdvertAds'],
+  tagTypes: ['Advert', 'Campaign', 'AdvertAds', 'AdvertPrices', 'AdvertAds', 'Adverts'],
   endpoints: (builder) => ({
-    adverts: builder.query<ListResponse<Advert>, number | void>({
+    adverts: builder.query<Advert[], void>({
       query: () => `/ModifiedAdvertPlan`,
       providesTags: ['Advert', 'Campaign'],
     }),
     advert: builder.query<Advert, string>({
       query: (id) => `/ModifiedAdvertPlan/${id}`,
-      providesTags: ['Advert'],
+      providesTags: ['Advert', 'Campaign'],
     }),
     advertPrices: builder.query<Advert, string>({
       query: (id) => `/ModifiedAdvertPlan/${id}/adverts`,
-      providesTags: ['Advert'],
+      providesTags: ['Advert', 'Campaign'],
     }),
     advertByStation: builder.query({
       query: ({ stationId, campaignId }) =>
         `/ModifiedAdvertPlan/${stationId}/Campain/${campaignId}`,
+      providesTags: ['Advert', 'Campaign'],
     }),
     addAdvert: builder.mutation<void, Advert>({
       query: (advert) => ({
@@ -55,15 +57,17 @@ export const advertApi = createApi({
         method: 'POST',
         body: advert,
       }),
-      invalidatesTags: ['Advert'],
+      invalidatesTags: ['Advert', 'Campaign'],
+      // invalidatesTags: [{ type: 'Advert', id: 'LIST' }],
     }),
-    addMultipleAdvert: builder.mutation<void, Adverts>({
+    addMultipleAdvert: builder.mutation<void, Omit<[Adverts, Campaign], 'id'>>({
       query: (advert) => ({
         url: '/ModifiedAdvertPlan/multiple',
         method: 'POST',
         body: advert,
       }),
-      invalidatesTags: ['Advert'],
+
+      invalidatesTags: ['Advert', 'Adverts', 'Campaign'],
     }),
     updateAdvert: builder.mutation<void, Advert>({
       query: ({ ...rest }) => ({
@@ -71,7 +75,7 @@ export const advertApi = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: ['Advert'],
+      invalidatesTags: ['Advert', 'Campaign'],
     }),
     updateAdvertAds: builder.mutation<void, Advert>({
       query: ({ ...rest }) => ({

@@ -226,7 +226,10 @@ const MultipleAdverForm = () => {
     });
     newData = newData.flat();
     if (newData.length === 0) return toast.error('Error, Something went wrong!');
-    addAdvert({ ads: newData });
+    let ads: any = { ads: newData };
+    addAdvert(ads);
+    
+    // addAdvert({ ads: newData });
     console.log(newData);
   };
 

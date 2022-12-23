@@ -6,7 +6,6 @@ import { useExternalProgramsByStationAndDaysQuery } from 'src/services/ExternalP
 import AdvertByStationAndDaysDetailComponent from '../../../components/customComponents/advertComponent/AdvertByStationAndDaysDetailComponent';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loading from '../shared/Loading';
-import Pagination from 'src/components/customComponents/pagination/Pagination';
 import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Error from '../shared/Error';
@@ -100,8 +99,8 @@ const AdvertByStationAndDaysDetail = () => {
         // ads: filtered?.ads
       };
     });
-    console.log('filteredData', filteredData);
-    addAdvert({ ads: filteredData });
+    let ads: any = { ads: filteredData };
+    addAdvert(ads);
   };
 
   console.log('stationData', orderedProgramsData);

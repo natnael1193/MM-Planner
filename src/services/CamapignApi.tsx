@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Campaign } from '../interfaces/Campaign.interface';
-
+import { Advert, Adverts, AdvertAds, AdvertPrices } from '../interfaces/Advert.interface';
 
 // const baseURL = `http://localhost:4000`;
 
@@ -20,16 +20,16 @@ export const campaignApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Campaign', 'Advert'],
+  tagTypes: ['Campaign', 'Advert', 'Adverts'],
   endpoints: (builder) => ({
     campaigns: builder.query<Campaign[], void>({
       // query: () => 'Campaign',
       query: () => 'ModifiedCampain',
-      providesTags: ['Campaign', 'Advert'],
+      providesTags: ['Campaign', 'Advert', 'Adverts'],
     }),
-    campaign: builder.query<Campaign, string>({
+    campaign: builder.query<[Campaign, Adverts], string>({
       query: (id) => `ModifiedCampain/${id}`,
-      providesTags: ['Campaign', 'Advert'],
+      providesTags: ['Campaign', 'Advert', 'Adverts'],
     }),
     addCampaign: builder.mutation<void, Campaign>({
       query: (campaign) => ({
@@ -37,7 +37,7 @@ export const campaignApi = createApi({
         method: 'POST',
         body: campaign,
       }),
-      invalidatesTags: ['Campaign'],
+      invalidatesTags: ['Campaign', 'Advert', 'Adverts'],
     }),
     updateCampaign: builder.mutation<void, Campaign>({
       query: ({ ...rest }) => ({
@@ -45,7 +45,7 @@ export const campaignApi = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: ['Campaign'],
+      invalidatesTags: ['Campaign', 'Advert', 'Adverts'],
     }),
 
     deleteCampaign: builder.mutation<void, string>({

@@ -231,7 +231,9 @@ const AdvertByDays = () => {
       };
     });
 
-    addAdvert({ ads: filteredData });
+    let ads: any = { ads: filteredData };
+    addAdvert(ads);
+    // addAdvert({ ads: filteredData });
     console.log(filteredData);
   };
 

@@ -16,12 +16,12 @@ const CampaignDetail = () => {
   const paramsId: any = params.campaignId;
   var defaultValues: any = {};
 
-    // Get All Stations
-    const {
-      data: stationsData,
-      error: stationsError,
-      isLoading: stationsLoading,
-    }: any = useExternalStationsQuery();
+  // Get All Stations
+  const {
+    data: stationsData,
+    error: stationsError,
+    isLoading: stationsLoading,
+  }: any = useExternalStationsQuery();
 
   //Get Campaign By Id
   const {
@@ -33,8 +33,14 @@ const CampaignDetail = () => {
     refetch,
   }: any = useCampaignQuery(paramsId);
 
+  useEffect(() => {
+    if (isSuccess) {
+      refetch();
+    }
+  }, [refetch]);
+
   //Loading State
-  if (isLoading || isFetching || stationsLoading) return <Loading />;
+  if (isLoading || stationsLoading) return <Loading />;
 
   // Return an error if there is an error
   if (error || stationsError) return <Error />;
