@@ -152,6 +152,15 @@ export default function Router() {
           ],
         },
         {
+          path: '/dashboard/holiday-price',
+          children: [
+            { element: <Navigate to="/dashboard/holiday-price/list" replace />, index: true },
+            { path: '/dashboard/holiday-price/list', element: <HolidayPriceList /> },
+            { path: '/dashboard/holiday-price/add', element: <AddHolidayPrice /> },
+            { path: '/dashboard/holiday-price/edit/:priceId', element: <EditHolidayPrice /> },
+          ],
+        },
+        {
           path: '/dashboard/test',
           children: [
             { element: <Navigate to="/dashboard/test/pagination" replace />, index: true },
@@ -265,6 +274,17 @@ const AddAdvertSchedule = Loadable(
 );
 const EditAdvertSchedule = Loadable(
   lazy(() => import('../pages/customPages/advertSchedule/EditAdvertSchedule'))
+);
+
+// Holiday Price
+const HolidayPriceList = Loadable(
+  lazy(() => import('../pages/customPages/holidayPrice/HolidayPriceList'))
+);
+const AddHolidayPrice = Loadable(
+  lazy(() => import('../pages/customPages/holidayPrice/AddHolidayPrice'))
+);
+const EditHolidayPrice = Loadable(
+  lazy(() => import('../pages/customPages/holidayPrice/EditHolidayPrice'))
 );
 
 // Test

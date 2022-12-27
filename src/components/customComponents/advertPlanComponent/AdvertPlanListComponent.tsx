@@ -436,18 +436,23 @@ const AdvertPlanListComponent = ({
   console.log('totalAdsPrice', totalAdsPrice);
   return (
     <Grid container spacing={2}>
-      <Grid item lg={9} md={9} sm={12} xs={12} sx={{ mb: 3 }}>
+      <Grid item lg={9} md={9} sm={12} xs={12}>
         <Typography variant="h5" sx={{ mb: 1 }}>
           {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}`
             ? 'Discount Price:-' + stationData.discountPrice
             : ''}
         </Typography>
-        <Typography variant="h5" sx={{ mb: 1 }}>
-          Repetation:- {repetationSum}
-        </Typography>
-        <Typography variant="h3" >
-          {dataGridTitle}
-        </Typography>
+      </Grid>
+      <Grid container spacing={2} sx={{ pl: 3 }}>
+        <Grid item lg={9} md={9} sm={12} xs={12} sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ mb: 1 }}>
+            Repetation:- {repetationSum}
+          </Typography>
+          <Typography variant="h3">{dataGridTitle}</Typography>
+        </Grid>
+        <Grid item lg={3} md={3} sm={12} xs={12}>
+          <Button variant="contained">Click For Recorder</Button>
+        </Grid>
       </Grid>
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
         <Grid container spacing={2} sx={{ ml: 1 }}>

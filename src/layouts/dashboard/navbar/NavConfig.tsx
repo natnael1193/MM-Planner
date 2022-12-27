@@ -106,6 +106,15 @@ const navConfig = [
           { title: 'Add Ads', path: '/dashboard/spot/add' },
         ],
       },
+      {
+        title: 'Holiday Price',
+        path: '/dashboard/holiday-price',
+        icon: <RoomIcon />,
+        children: [
+          { title: 'Holiday Price List', path: '/dashboard/holiday-price/list' },
+          { title: 'Add Holiday Price', path: '/dashboard/holiday-price/add' },
+        ],
+      },
       // {
       //   title: 'spotContent',
       //   path: '/dashboard/spot-content',
