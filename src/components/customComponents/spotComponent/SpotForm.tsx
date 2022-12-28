@@ -112,7 +112,7 @@ const SpotForm = ({ formTitle, onFormSubmit, defaultValues }: any) => {
                 <TextField
                   fullWidth
                   label="Content Url"
-                  {...register('contentUrl')}
+                  {...register('contentUrl', { required: true })}
                   sx={{ mt: 1 }}
                 />
                 <Typography color="red">{errors.contentUrl && 'This is required'}</Typography>
