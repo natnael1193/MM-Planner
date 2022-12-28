@@ -1,9 +1,23 @@
-import React from 'react'
+import React from 'react';
+import HolidayPriceForm from '../../../components/customComponents/holidayPriceComponent/HolidayPriceForm';
 
 const AddHolidayPrice = () => {
-  return (
-    <div>AddHolidayPrice</div>
-  )
-}
+  const initialValue = {
+    campaignId: '',
+    stationId: '',
+    startDate: '',
+    endDate: '',
+  };
 
-export default AddHolidayPrice
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+  return (
+    <div>
+      <HolidayPriceForm {...{ defaultValue: initialValue, onFormSubmit: onSubmit }} />
+    </div>
+  );
+};
+
+export default AddHolidayPrice;

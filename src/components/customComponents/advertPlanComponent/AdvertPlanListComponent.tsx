@@ -495,7 +495,7 @@ const AdvertPlanListComponent = ({
         )}
       </Grid>
 
-      <div style={{ height: '400px', width: '100%' }}>
+      <Grid sx={{ height: '400px', width: '100%', ml: 2 }}>
         <DataGrid
           rows={advertPlansData}
           columns={columns}
@@ -607,11 +607,11 @@ const AdvertPlanListComponent = ({
             </Grid>
           </>
         ) : (
-          <>
+          <Grid>
             <AdvertPlanPriceComponent {...{ totalAdsPrice, stationWithAds }} />
-          </>
+          </Grid>
         )}
-      </div>
+      </Grid>
 
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
         <Modal

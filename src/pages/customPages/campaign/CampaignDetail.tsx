@@ -81,7 +81,7 @@ const CampaignDetail = () => {
             {moment.utc(defaultValues.endDate).format('MMMM DD, YYYY')}{' '}
           </Typography>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 3 }}>
+        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ mt: 3}}>
           <AdvertPlanListComponent
             advertPlanData={defaultValues.advertPlans}
             stationData={stationsData.data}
