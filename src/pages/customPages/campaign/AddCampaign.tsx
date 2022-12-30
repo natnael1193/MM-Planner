@@ -37,8 +37,11 @@ const AddCampaign = () => {
       key: data.key,
       description: data.description,
       startDate: data.startDate + 'Z',
-      endDate:  data.endDate + 'Z',
+      endDate: data.endDate + 'Z',
+      campainId: data.campaignId,
+      usePrevSetting: data.usePrevSetting
     };
+    console.log(newData);
     addCampaign(newData);
   };
   return (
@@ -49,7 +52,12 @@ const AddCampaign = () => {
         child={'Add'}
         parentLink={'/dashboard/campaign/list'}
       />
-      <CampaignForm formTitle={'Add Campaign'} defaultValues={initialValues} onFormSubmit={onSubmit} />
+      <CampaignForm
+        formTitle={'Add Campaign'}
+        defaultValues={initialValues}
+        onFormSubmit={onSubmit}
+        response={response}
+      />
     </div>
   );
 };

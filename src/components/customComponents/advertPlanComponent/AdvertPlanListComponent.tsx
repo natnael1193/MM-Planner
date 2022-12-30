@@ -215,9 +215,9 @@ const AdvertPlanListComponent = ({
       endTime: moment.utc(advertPlans?.schedule?.endTime).format('hh:mm A'),
       program: advertPlans?.schedule.program.name,
       advertType: advertPlans?.priceType,
-      priceConfig: advertPlans?.schedule?.priceConfig.name,
-      priceConfigRate: advertPlans?.schedule?.priceConfig.rate,
-      priceConfigUnit: advertPlans?.schedule?.priceConfig.unit,
+      priceConfig: advertPlans?.priceConfig.name,
+      priceConfigRate: advertPlans?.priceConfig.rate,
+      priceConfigUnit: advertPlans?.priceConfig.unit,
       // advertType: advertPlans?.advertType,
       advertLengthName: advertPlans?.priceConfig?.name,
       priceType: advertPlans?.priceType,
@@ -236,7 +236,7 @@ const AdvertPlanListComponent = ({
         return (
           advert.qut *
           advert?.ads.contentLength *
-          (advertPlans?.schedule?.priceConfig.rate / advertPlans?.schedule?.priceConfig.unit)
+          (advertPlans?.priceConfig.rate / advertPlans?.priceConfig.unit)
         );
       }),
     };
