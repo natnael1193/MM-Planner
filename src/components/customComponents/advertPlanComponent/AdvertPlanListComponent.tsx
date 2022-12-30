@@ -451,7 +451,7 @@ const AdvertPlanListComponent = ({
           <Typography variant="h3">{dataGridTitle}</Typography>
         </Grid>
         <Grid item lg={3} md={3} sm={12} xs={12}>
-          <Button variant="contained">Click For Recorder</Button>
+          <Button variant="contained">Start Recording</Button>
         </Grid>
       </Grid>
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (

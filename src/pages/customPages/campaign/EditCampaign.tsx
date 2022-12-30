@@ -74,6 +74,7 @@ const EditCampaign = () => {
         formTitle={'Edit Campaign '}
         defaultValues={defaultValues}
         onFormSubmit={onSubmit}
+        response={response}
       />
     </div>
   );

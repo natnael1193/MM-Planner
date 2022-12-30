@@ -118,7 +118,6 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues, response }: any)
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Typography color="red">{errors.endDate && 'This is required'}</Typography>
                 </Grid>
               ) : null}
 
@@ -129,7 +128,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues, response }: any)
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      {...register('campaignId')}
+                      {...register('campaignId', { required: true })}
                       value={campaignId}
                       label="Campaign"
                       fullWidth
@@ -142,6 +141,7 @@ const CampaignForm = ({ formTitle, onFormSubmit, defaultValues, response }: any)
                       ))}
                     </Select>
                   </FormControl>
+                  <Typography color="red">{errors.campaignId && 'This is required'}</Typography>
                 </Grid>
               ) : null}
             </Grid>
