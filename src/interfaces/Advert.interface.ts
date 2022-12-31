@@ -27,3 +27,8 @@ export interface AdvertPrices {
   priceConfigs: any;
   modifiedCampainId: any;
 }
+
+
+export interface Recorder{
+  id: any;
+}

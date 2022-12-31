@@ -33,6 +33,8 @@ const CampaignDetail = () => {
     refetch,
   }: any = useCampaignQuery(paramsId);
 
+
+
   useEffect(() => {
     if (isSuccess) {
       refetch();
@@ -86,6 +88,7 @@ const CampaignDetail = () => {
             advertPlanData={defaultValues.advertPlans}
             stationData={stationsData.data}
             dataGridTitle={'Advert Plans'}
+            defaultValueCampaignId={defaultValues.id}
             refetch={refetch}
           />
         </Grid>

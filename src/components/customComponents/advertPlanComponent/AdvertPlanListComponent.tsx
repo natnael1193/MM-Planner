@@ -9,6 +9,8 @@ import {
   Select,
   TextField,
   Typography,
+  Input,
+  Alert,
 } from '@mui/material';
 import {
   DataGrid,
@@ -22,7 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment';
-import { useDeleteAdvertMutation } from '../../../services/AdvertApi';
+import { useDeleteAdvertMutation, useRecordAdvertsMutation } from '../../../services/AdvertApi';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useExternalUpdateStationMutation } from 'src/services/ExternalProgramApi';
@@ -37,6 +39,7 @@ const AdvertPlanListComponent = ({
   campaignData,
   setCampaignId,
   campaignId,
+  defaultValueCampaignId,
   stationId,
   stationData,
 }: any) => {
@@ -63,10 +66,12 @@ const AdvertPlanListComponent = ({
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
 
   const [discountPriceUpdate, discountPriceResult] = useExternalUpdateStationMutation();
+  const [startRecording, recordingResult] = useRecordAdvertsMutation();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -76,13 +81,24 @@ const AdvertPlanListComponent = ({
 
   //Check the status
   const deleteResponse: any = result;
+  const recordResponse: any = recordingResult;
   React.useEffect(() => {
     if (deleteResponse.isSuccess) {
-      toast.success('Deleted successfully');
+      toast.success('Deleted Successfully');
       refetch();
+    }
+    if (recordResponse.isSuccess) {
+      toast.success('Recorded Successfully');
+    }
+    if (recordResponse.isLoading) {
+      // <Alert severity="info">Recorder Started, Please wait a moment</Alert>
+      toast.success('Recorder Started, Please wait a moment');
     }
     if (deleteResponse.isError) {
       toast.error(deleteResponse.error.data.error);
+    }
+    if (recordResponse.isError) {
+      toast.error('Something went wrong');
     }
   }, [deleteResponse]);
 
@@ -97,6 +113,11 @@ const AdvertPlanListComponent = ({
       toast.error('Something went wrong!');
     }
   }, [response]);
+
+  const recordingForm = (data: any) => {
+    console.log(data);
+    startRecording(data);
+  };
 
   function add(accumulator: any, a: any) {
     return accumulator + a;
@@ -434,6 +455,8 @@ const AdvertPlanListComponent = ({
 
   console.log('stationWithAds', stationWithAds);
   console.log('totalAdsPrice', totalAdsPrice);
+
+  
   return (
     <Grid container spacing={2}>
       <Grid item lg={9} md={9} sm={12} xs={12}>
@@ -450,9 +473,16 @@ const AdvertPlanListComponent = ({
           </Typography>
           <Typography variant="h3">{dataGridTitle}</Typography>
         </Grid>
-        <Grid item lg={3} md={3} sm={12} xs={12}>
-          <Button variant="contained">Start Recording</Button>
-        </Grid>
+        {window.location.pathname === `/dashboard/campaign/detail/${defaultValueCampaignId}` ? (
+          <Grid item lg={3} md={3} sm={12} xs={12}>
+            <form onSubmit={handleSubmit(recordingForm)}>
+              <Input type="hidden" value={setValue(`id`, defaultValueCampaignId)} />
+              <Button variant="contained" type="submit">
+                {recordResponse.isLoading ? 'Loading...' : 'Start Recording'}
+              </Button>
+            </form>
+          </Grid>
+        ) : null}
       </Grid>
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
         <Grid container spacing={2} sx={{ ml: 1 }}>

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Advert, Adverts, AdvertAds, AdvertPrices } from '../interfaces/Advert.interface';
+import { Advert, Adverts, AdvertAds, AdvertPrices, Recorder } from '../interfaces/Advert.interface';
 import { Campaign } from '../interfaces/Campaign.interface';
 
 // const baseURL = `http://localhost:4000`;
@@ -115,6 +115,14 @@ export const advertApi = createApi({
       }),
       invalidatesTags: ['Advert', 'Campaign'],
     }),
+    recordAdverts: builder.mutation<void, Recorder>({
+      query: (record) => ({
+        url: `/ModifiedCampain/Start-Recording`,
+        method: 'POST',
+        body: record,
+      }),
+      invalidatesTags: ['AdvertAds', 'Advert', 'Campaign'],
+    }),
   }),
 });
 
@@ -131,4 +139,5 @@ export const {
   useUpdateAdvertPricesMutation,
   useDeleteAdvertAdsMutation,
   useDeleteAdvertMutation,
+  useRecordAdvertsMutation,
 } = advertApi;
