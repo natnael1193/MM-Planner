@@ -31,6 +31,7 @@ import { useExternalUpdateStationMutation } from 'src/services/ExternalProgramAp
 import { toast } from 'react-hot-toast';
 import { TotalSum } from '../advertComponent/TotalSum';
 import { AdvertPlanPriceComponent } from './AdvertPlanPriceComponent';
+import Loading from 'src/pages/customPages/shared/Loading';
 
 const AdvertPlanListComponent = ({
   advertPlanData,
@@ -87,20 +88,23 @@ const AdvertPlanListComponent = ({
       toast.success('Deleted Successfully');
       refetch();
     }
-    if (recordResponse.isSuccess) {
-      toast.success('Recorded Successfully');
-    }
-    if (recordResponse.isLoading) {
-      // <Alert severity="info">Recorder Started, Please wait a moment</Alert>
-      toast.success('Recorder Started, Please wait a moment');
-    }
     if (deleteResponse.isError) {
       toast.error(deleteResponse.error.data.error);
+    }
+  }, [deleteResponse]);
+
+  React.useEffect(() => {
+    // if (recordResponse.isLoading) {
+    //   toast('Recording, Please Wait');
+    // }
+    if (recordResponse.isSuccess) {
+      toast.success('Recorded Successfully');
+      refetch();
     }
     if (recordResponse.isError) {
       toast.error('Something went wrong');
     }
-  }, [deleteResponse]);
+  }, [recordResponse]);
 
   //Check the status
   const response: any = discountPriceResult;
@@ -180,6 +184,11 @@ const AdvertPlanListComponent = ({
       headerName: 'Ads Repetation',
       width: 200,
     },
+    {
+      field: 'recorded',
+      headerName: 'Recorded',
+      width: 200,
+    },
 
     {
       field: 'totalContentLength',
@@ -244,6 +253,7 @@ const AdvertPlanListComponent = ({
       priceType: advertPlans?.priceType,
       price: advertPlans?.price,
       ad: advertPlans?.ads?.name,
+      recorded: advertPlans?.recorded,
       contentLength: advertPlans?.adverts?.map(function (advert: any) {
         return advert.ads.contentLength;
       }),
@@ -282,6 +292,8 @@ const AdvertPlanListComponent = ({
       advertType: advertPlans?.advertType,
       advertLengthName: advertPlans?.advertLengthName,
       ad: advertPlans?.ad,
+      recorded:
+        advertPlans?.recorded === null ? 'False' : advertPlans?.recorded === 'true' ? 'True' : '',
       contentLength: advertPlans?.contentLength.reduce(add, 0),
       quantity: advertPlans?.quantity.reduce(add, 0),
       reptation: advertPlans?.reptation,
@@ -456,7 +468,6 @@ const AdvertPlanListComponent = ({
   console.log('stationWithAds', stationWithAds);
   console.log('totalAdsPrice', totalAdsPrice);
 
-  
   return (
     <Grid container spacing={2}>
       <Grid item lg={9} md={9} sm={12} xs={12}>
@@ -478,7 +489,7 @@ const AdvertPlanListComponent = ({
             <form onSubmit={handleSubmit(recordingForm)}>
               <Input type="hidden" value={setValue(`id`, defaultValueCampaignId)} />
               <Button variant="contained" type="submit">
-                {recordResponse.isLoading ? 'Loading...' : 'Start Recording'}
+                {recordResponse.isLoading ? 'Recording, Please Wait...' : 'Start Recording'}
               </Button>
             </form>
           </Grid>
