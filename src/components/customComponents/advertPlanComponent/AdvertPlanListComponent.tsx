@@ -32,6 +32,7 @@ import { toast } from 'react-hot-toast';
 import { TotalSum } from '../advertComponent/TotalSum';
 import { AdvertPlanPriceComponent } from './AdvertPlanPriceComponent';
 import Loading from 'src/pages/customPages/shared/Loading';
+import { EthDateTime, limits } from 'ethiopian-calendar-date-converter'
 
 const AdvertPlanListComponent = ({
   advertPlanData,
@@ -129,20 +130,20 @@ const AdvertPlanListComponent = ({
 
   //Data Grid Header
   const columns: GridColumns = [
-    {
-      field: 'month',
-      headerName: 'Month',
-      width: 200,
-    },
-    {
-      field: 'date',
-      headerName: 'Date',
-      width: 200,
-    },
+    // {
+    //   field: 'month',
+    //   headerName: 'Month',
+    //   width: 200,
+    // },
+    // {
+    //   field: 'date',
+    //   headerName: 'Date',
+    //   width: 200,
+    // },
     {
       field: 'day',
       headerName: 'Day',
-      width: 200,
+      width: 300,
     },
     {
       field: 'startTime',
@@ -235,9 +236,10 @@ const AdvertPlanListComponent = ({
     return {
       id: advertPlans?.id,
       stationId: advertPlans?.schedule?.program?.stationId,
-      month: moment.utc(advertPlans?.startTime).format('MMMM'),
-      date: moment.utc(advertPlans?.startTime).format('DD'),
-      day: moment.utc(advertPlans?.startTime).format('dddd'),
+      day: EthDateTime.fromEuropeanDate(new Date(advertPlans?.startTime)).toDateWithDayString(),
+      // month: moment.utc(advertPlans?.startTime).format('MMMM'),
+      // date: moment.utc(advertPlans?.startTime).format('DD'),
+      // day: moment.utc(advertPlans?.startTime).format('dddd'),
       dates: moment.utc(advertPlans.startTime).unix(),
       // date: advertPlans?.startTime,
       // day: advertPlans?.startTime,
