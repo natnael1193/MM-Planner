@@ -32,7 +32,7 @@ import { toast } from 'react-hot-toast';
 import { TotalSum } from '../advertComponent/TotalSum';
 import { AdvertPlanPriceComponent } from './AdvertPlanPriceComponent';
 import Loading from 'src/pages/customPages/shared/Loading';
-import { EthDateTime, limits } from 'ethiopian-calendar-date-converter'
+import { EthDateTime, limits } from 'ethiopian-calendar-date-converter';
 
 const AdvertPlanListComponent = ({
   advertPlanData,
@@ -498,8 +498,8 @@ const AdvertPlanListComponent = ({
         ) : null}
       </Grid>
       {window.location.pathname === `/dashboard/advert/advert-by-station/${stationId}` ? (
-        <Grid container spacing={2} sx={{ ml: 1 }}>
-          <Grid item lg={8} md={8} sm={12} xs={12} sx={{ mb: 2 }}>
+        <Grid container spacing={1} sx={{ ml: 1 }}>
+          <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mb: 2 }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Campaigns</InputLabel>
               <Select
@@ -520,9 +520,14 @@ const AdvertPlanListComponent = ({
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg={3} md={3} sm={12} xs={12}>
+          <Grid item lg={2} md={3} sm={12} xs={12}>
             <Button variant="contained" onClick={handleOpen}>
               Add Discount Price
+            </Button>
+          </Grid>
+          <Grid item lg={2} md={3} sm={12} xs={12}>
+            <Button variant="contained" color="info" >
+              Start Recording
             </Button>
           </Grid>
         </Grid>
